@@ -30,3 +30,18 @@
 *.exe
 *.out
 *.app
+
+# Binaries
+**/bin/
+bin-int/
+
+# Visual Studio files and folders
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+**.csproj
+
+# VSCode files and folders
+.vscode/
