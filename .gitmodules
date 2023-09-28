@@ -1,0 +1,3 @@
+[submodule "RichardEngine/dependencies/spdlog"]
+	path = RichardEngine/dependencies/spdlog
+	url = git@github.com:gabime/spdlog.git
