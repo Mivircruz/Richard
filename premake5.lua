@@ -1,3 +1,5 @@
+-- WARNING! If this file is moved, its path needs to be updated in cli\cmd\gensln.py (const PREMAKE_PATH)
+
 workspace "Richard"
    startproject "RichardEditor"
    architecture "x64"
@@ -7,10 +9,16 @@ workspace "Richard"
       "Release" 
    }
 
+target_dir = "bin/solutions/target/%{cfg.buildcfg}/%{prj.name}"
+obj_dir = "bin/solutions/obj/%{cfg.buildcfg}/%{prj.name}"
+
 project "RichardEditor"
    location "RichardEditor"
    kind "ConsoleApp"
    language "C++"
+
+   targetdir(target_dir)
+   objdir(obj_dir)
 
    files 
    { 
