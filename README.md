@@ -78,7 +78,7 @@ MinGW-64 will provide the necessary tools to compile the code. It can be install
 
 - **Aliases**
 
-Executing the .exe *cli/exe.bat* will open a LINUX terminal. The file bash_aliases needs be edited to set the following aliases:
+Executing the .exe *cli/cli.bat* will open a LINUX terminal. The file bash_aliases needs be edited to set the following aliases:
 
 ```bash
 cli="./cli.sh" #To use *cli* as a command.
@@ -86,7 +86,7 @@ cli="./cli.sh" #To use *cli* as a command.
 
 - **Environment variables**
 
-Executing the .exe *cli/exe.bat* will open a LINUX terminal. The file bash_env needs be edited to set the following environment variables:
+Executing the .exe *cli/cli.bat* will open a LINUX terminal. The file bash_env needs be edited to set the following environment variables:
 
 ```bash
 export VS_PATH="\"/mnt/c/your_path_to_devenv.exe\"" #Here you need to set yout path to devenv.exe inside yout Visual Studio installation
@@ -118,6 +118,8 @@ git clone git@github.com:Mivircruz/RichardEngine.git
 
 ### Command list
 
+Executing the .exe *cli/cli.bat* will open a LINUX terminal where commands can be ran.
+
 To generate Visual Studio solutions, just change the file *premake5.lua* and run:
 
 ```bash
@@ -128,6 +130,12 @@ To check the command list version, just run:
 
 ```bash
 cli version
+```
+
+To string commands, just run *cli* followed by all the commands you want. *cli* command will handle them separately. For example:
+
+```bash
+cli gensln buildsln
 ```
 
 ## License

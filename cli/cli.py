@@ -16,7 +16,7 @@ def RunCommand(cmd):
     else:
         print("Invalid command ", cmd)
 
-# This loop iterates over the command line arguments received and runs them 
+# This loop iterates over the commands received and runs them 
 for i in range(1, len(sys.argv)):
     cmd = sys.argv[1]
     print( "\n-----------------------------------------")
