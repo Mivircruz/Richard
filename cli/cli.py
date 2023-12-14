@@ -11,10 +11,10 @@ def RunCommand(cmd):
     os.chdir("..")
     script_path =  "{}/{}/{}.py".format(os.getcwd(), CMD_DIR, cmd)
     if os.path.exists(script_path):
-        print("Executing command ", cmd)
+        print("Executing command", cmd)
         subprocess.call([PYTHON_VERSION, script_path])
     else:
-        print("Invalid command ", cmd)
+        print("Invalid command", cmd)
 
 # This loop iterates over the commands received and runs them 
 for i in range(1, len(sys.argv)):

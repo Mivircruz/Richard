@@ -51,3 +51,5 @@ logs/
 # Other files
 *.user
 *.DS_STORE
+*.pyc
+*Makefile

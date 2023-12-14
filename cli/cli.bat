@@ -1,3 +1,4 @@
+REM Avoids printing out everything that is currently running
 @echo off
 
 REM Opens up a wsl prompt at this directoy so we can run Richard's commands

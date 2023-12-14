@@ -9,6 +9,7 @@ workspace "Richard"
       "Release" 
    }
 
+-- WARNING! If this path is changed, the .exe path needs to be updated in cli\cmd\run.py
 target_dir = "bin/solutions/target/%{cfg.buildcfg}/%{prj.name}"
 obj_dir = "bin/solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 
