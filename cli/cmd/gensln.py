@@ -1,9 +1,8 @@
 import subprocess
-import os
-
-PREMAKE_PATH = "bin\\premake\\premake5"
-VS_VERSION = "vs2022"
+import sys
+import project_settings
 
 # This proccess generates a Visual Studio solution
 # The specifications of this solution are defined in the Premake file
-subprocess.call(["cmd.exe", "/c", PREMAKE_PATH, VS_VERSION])
+err = subprocess.call(["cmd.exe", "/c", project_settings.PREMAKE_PATH, project_settings.VS_VERSION])
+sys.exit(err)

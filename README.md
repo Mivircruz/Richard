@@ -118,19 +118,41 @@ git clone git@github.com:Mivircruz/RichardEngine.git
 
 ### Command list
 
-Executing the .exe *cli/cli.bat* will open a LINUX terminal where commands can be ran.
+Executing the .exe *cli/cli.bat* will open a LINUX terminal where you can run the commands
 
-To generate Visual Studio solutions, just change the file *premake5.lua* and run:
-
-```bash
-cli gensln
-```
+#### Version
 
 To check the command list version, just run: 
 
 ```bash
 cli version
 ```
+
+#### Generate VS Solutions
+
+To generate a Visual Studio solution, set the details of the Visual Studio version in *cmd/project_settings* and in  *premake5.lua*. Then, run:
+
+```bash
+cli gensln
+```
+
+#### Build VS Solutions
+
+To build a Visual Studio solution, set the details of the solution in *cmd/project_settings* such as the name of the project or the config level. Then, run: 
+
+```bash
+cli buildsln
+```
+
+#### Run VS Solutions
+
+To run a Visual Studio solution, set the name of the project and the config level in *cmd/project_settings*. Then, run:
+
+```bash
+cli run
+```
+
+#### Concatenate commands
 
 To string commands, just run *cli* followed by all the commands you want. *cli* command will handle them separately. For example:
 
