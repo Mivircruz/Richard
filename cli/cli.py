@@ -5,13 +5,15 @@ import subprocess
 PYTHON_VERSION = "python3"
 CMD_DIR = "cli/cmd"
 
+os.chdir("..")
+
 # RunCommand takes a command name, finds its path and executes it
 # If no path is found, it prints a message error
 def RunCommand(cmd):
     err = 0
-    
-    os.chdir("..")
+
     script_path =  "{}/{}/{}.py".format(os.getcwd(), CMD_DIR, cmd)
+    print(script_path)
 
     if os.path.exists(script_path):
         print("Executing command", cmd)
@@ -24,7 +26,7 @@ def RunCommand(cmd):
 
 # This loop iterates over the commands received and runs them 
 for i in range(1, len(sys.argv)):
-    cmd = sys.argv[1]
+    cmd = sys.argv[i]
     print( "\n-----------------------------------------")
 
     if RunCommand(cmd) != 0:
