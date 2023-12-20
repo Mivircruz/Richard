@@ -1,4 +1,4 @@
-import cli.cmd.project_settings as project_settings
+import project_settings
 import os
 import subprocess, sys
 
