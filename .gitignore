@@ -32,8 +32,7 @@
 *.app
 
 # Binaries
-**/bin/
-bin-int/
+bin/
 
 # Visual Studio files and folders
 .vs/
@@ -45,3 +44,12 @@ bin-int/
 
 # VSCode files and folders
 .vscode/
+
+# Logs
+logs/
+
+# Other files
+*.user
+*.DS_STORE
+*.pyc
+*Makefile

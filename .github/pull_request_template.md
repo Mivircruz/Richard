@@ -14,3 +14,7 @@ Please delete options that are not relevant.
 - [ ] Logs or metrics
 - [ ] Non-breaking fix (change which fixes an issue that wansn't breaking the app e.g. a misspelling error)
 - [ ] Other
+
+# Tests
+
+Please include evidence of the new feature/fix working. If there is nothing to test (for example, when the PR is just a documentation update) just remove this section.
