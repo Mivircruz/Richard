@@ -1,5 +1,5 @@
 @echo off
 
-cd bin/solutions/%1/%2/
+cd solutions/bin/%1/%2/
 
 %2
