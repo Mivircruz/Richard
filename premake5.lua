@@ -69,7 +69,6 @@ project "RichardEditor"
       "%{prj.name}/src/**.h",
       "%{prj.name}/src/**.cpp" 
    }
-
    -- This allows you to use headers directly instead of referencing the RichardEngine folder
    -- For example, instead of RichardEngine/public/Richard/engine.h we can directly import Richard/engine.h
    externalincludedirs {
