@@ -13,6 +13,7 @@ Please delete options that are not relevant.
 - [ ] Documentation update
 - [ ] Logs or metrics
 - [ ] Non-breaking fix (change which fixes an issue that wansn't breaking the app e.g. a misspelling error)
+- [ ] Refactor or enhancement
 - [ ] Other
 
 # Tests

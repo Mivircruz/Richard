@@ -133,7 +133,7 @@ cli version
 To generate a Visual Studio solution, set the details of the Visual Studio version in *cmd/project_settings* and in  *premake5.lua*. Then, run:
 
 ```bash
-cli gensln
+cli create
 ```
 
 #### Build VS Solutions
@@ -141,7 +141,7 @@ cli gensln
 To build a Visual Studio solution, set the details of the solution in *cmd/project_settings* such as the name of the project or the config level. Then, run: 
 
 ```bash
-cli buildsln
+cli build
 ```
 
 #### Run VS Solutions
@@ -157,7 +157,7 @@ cli run
 To string commands, just run *cli* followed by all the commands you want. *cli* command will handle them separately. For example:
 
 ```bash
-cli gensln buildsln
+cli create build
 ```
 
 ## License
