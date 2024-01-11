@@ -27,15 +27,15 @@ project "RichardEngine"
    objdir(obj_dir)
 
    files { 
-      "%{prj.name}/public/**.h", -- This folder will contain all header files that will be exposed to other apps
+      "%{prj.name}/include/**.h", -- This folder will contain all header files that will be exposed to other apps
       "%{prj.name}/src/**.h",
       "%{prj.name}/src/**.cpp" 
    }
 
    -- This allows you to use headers directly instead of referencing the RichardEngine folder
-   -- For example, instead of RichardEngine/public/Richard/engine.h we can directly import engine.h
+   -- For example, instead of RichardEngine/include/Richard/engine.h we can directly import engine.h
    externalincludedirs {
-      "%{prj.name}/public/Richard",
+      "%{prj.name}/include/Richard",
       "%{externals.sdl2}/include"
    }
 
@@ -75,9 +75,9 @@ project "RichardEditor"
       "%{prj.name}/src/**.cpp" 
    }
    -- This allows you to use headers directly instead of referencing the RichardEngine folder
-   -- For example, instead of RichardEngine/public/Richard/engine.h we can directly import Richard/engine.h
+   -- For example, instead of RichardEngine/include/Richard/engine.h we can directly import Richard/engine.h
    externalincludedirs {
-      "RichardEngine/public"
+      "RichardEngine/include"
    }
 
    -- Treat fatal warnings as errors
