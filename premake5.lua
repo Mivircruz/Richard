@@ -12,6 +12,10 @@ workspace "Richard"
 target_dir = "solutions/bin/%{cfg.buildcfg}/%{prj.name}"
 obj_dir = "solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 
+-- External dependencies
+externals = {}
+externals["sdl2"] = "external/sdl2"
+
 project "RichardEngine"
    location "RichardEngine"
    kind "StaticLib"
@@ -31,7 +35,8 @@ project "RichardEngine"
    -- This allows you to use headers directly instead of referencing the RichardEngine folder
    -- For example, instead of RichardEngine/public/Richard/engine.h we can directly import engine.h
    externalincludedirs {
-      "%{prj.name}/public/Richard"
+      "%{prj.name}/public/Richard",
+      "%{externals.sdl2}/include"
    }
 
    -- Treat fatal warnings as errors
@@ -79,6 +84,14 @@ project "RichardEditor"
    flags { "FatalWarnings" }
 
    systemversion "latest"
+
+   libdirs {
+      "%{externals.sdl2}/lib/x64"
+   }
+
+   links {
+      "SDL2"
+   }
 
    filter "configurations:Debug"
       defines {
