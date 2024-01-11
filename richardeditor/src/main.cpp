@@ -6,7 +6,9 @@ using namespace std;
 int main(void)
 {
     cout << "Hello World! I'm Richard :)" << endl;
-    int a = Richard::Add(1,7);
-    cout << "Add(1,7) result: " << a << endl;
+    bool a = Richard::Initialize();
+    cout << "Richard initialize result: " << a << endl;
+    Richard::Shutdown();
+    system("pause");
     return 0;
 }
