@@ -5,12 +5,28 @@
 using namespace std;
 
 namespace Richard {
-    int Initialize() {
+    // Public methods
+
+    Engine* Engine::GetInstance() {
+        if (!Instance) {
+            Instance = new Engine();
+        }
+
+        return Instance;
+    }
+
+    // Private methods
+
+    // Initialize pointer that will point to the instance class
+    Engine* Engine::Instance = nullptr;
+
+    int Engine::Initialize() {
         int initSDLResult = SDL_Init(SDL_INIT_EVERYTHING);
 
-        if(initSDLResult < 0) {
+        if (initSDLResult < 0) {
             cout << "Error initializing SDL2: " << SDL_GetError() << endl;
-        } else {
+        }
+        else {
             SDL_version version;
             SDL_VERSION(&version);
             cout << "SDL " << version.major << "." << version.minor << endl;
@@ -21,7 +37,7 @@ namespace Richard {
         return 0;
     }
 
-    void Shutdown() {
+    void Engine::Shutdown() {
         SDL_Quit();
     }
 }
