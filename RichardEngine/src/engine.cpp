@@ -21,15 +21,20 @@ namespace Richard {
             return;
         }
 
-        while (true) {
-            window.HandleEvents();
+        int eventType = 0;
+
+        while (!eventType) {
+            eventType = window.HandleEvents();
         }
 
+        Shutdown();
     }
+
+
 
     // Private methods
 
-    // Initialize pointer that will point to the instance class
+    // Initialize the pointer that will point to the instance class
     Engine* Engine::Instance = nullptr;
 
     int Engine::Initialize() {

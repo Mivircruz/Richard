@@ -32,13 +32,16 @@ namespace Richard {
     private:
         // Member variables
 
-        static Engine* Instance; //  Static pointer which will points to the instance of this class.
-        Richard::Managers::Window window; //  Window that will handle input events
+        /*Static pointer which will points to the instance of this class.*/
+        static Engine* Instance;
+
+        /* Window that will handle input events*/
+        Richard::Managers::Window window;
 
 
         // Methods
 
-        Engine() {}; // Private constructor as an instance of this class can only be accessed by GetInstance() method.
+        inline Engine() {}; // Private constructor as an instance of this class can only be accessed by GetInstance() method.
 
         /*
         * Initialize() initializes the SDL library and creates all the necessary managers.

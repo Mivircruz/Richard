@@ -32,11 +32,18 @@ namespace Richard::Managers {
 		window = nullptr;
 	}
 
-	void Window::HandleEvents() {
+	int Window::HandleEvents() {
 		SDL_Event event;
 
 		while (SDL_PollEvent(&event)) {
-
+			switch (event.type) {
+			case SDL_QUIT:
+				return QUIT;
+			default:
+				break;
+			}
 		}
+
+		return DEFAULT;
 	}
 }
