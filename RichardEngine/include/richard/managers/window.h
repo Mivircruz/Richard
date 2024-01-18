@@ -1,16 +1,6 @@
 #pragma once
 
 /*
-* A WINDOW_EVENT represents the OS events that the method HandleEvents() may receive.
-* It is used to indicate those functions that call HandleEvents() which event
-* was popped out and processed.
-*/
-enum WINDOW_EVENT {
-	DEFAULT = 0,
-	QUIT = 1
-};
-
-/*
 * We forward declare this struct so every file that imports this header,
 * will not have to import anything SDL_Window related.
 * 
@@ -19,15 +9,34 @@ enum WINDOW_EVENT {
 */
 struct SDL_Window;
 
-
 namespace Richard::Managers {
 	class Window {
 	public:
-		// Methods
+		/*Methods*/
+
+		/*
+		* Constructor. It creates the object Window.
+		*/
 		Window();
+
+		/*
+		* Destructor. It cleans up all the subsystems 
+		* initialized by Initialize() and destroys the object.
+		*/
 		~Window();
 
+		/*
+		* Initialize() initializes all the Window member variables.
+		* It returns 0 in case of success or a non-zero value otherwise.
+		* * Error codes:
+        * E_INTIALIZE_FAIL      In case that SDL Window creation fails.
+		*/
 		int Initialize();
+
+		/*
+		* Shutdown() cleans all the Window member variables 
+		* initialized by Initialize().
+		*/
 		void Shutdown();
 
 		/*
@@ -40,6 +49,12 @@ namespace Richard::Managers {
 		int HandleEvents();
 
 	private:
+
+		/*Member variables*/
+
+		/*
+		* Pointer that points to the window that will receive the OS events.
+		*/
 		SDL_Window* window;
 	};
 }

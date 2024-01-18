@@ -1,4 +1,5 @@
 #include "managers/window.h"
+#include "managers/constants.h"
 #include "SDL.h"
 
 #include <iostream>
@@ -6,7 +7,7 @@
 using namespace std;
 
 namespace Richard::Managers {
-	// Public methods
+	/*Public methods*/
 	
 	Window::Window() {
 		window = nullptr;
@@ -22,9 +23,9 @@ namespace Richard::Managers {
 		window = SDL_CreateWindow("RichardGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
 		if (!window) {
 			cout << "Error creating window: " << SDL_GetError() << endl;
-			return -1;
+			return W_INTIALIZE_FAIL;
 		}
-		return 0;
+		return W_INTIALIZE_OK;
 	}
 
 	void Window::Shutdown() {
@@ -38,12 +39,12 @@ namespace Richard::Managers {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT:
-				return QUIT;
+				return EVENT_QUIT;
 			default:
 				break;
 			}
 		}
 
-		return DEFAULT;
+		return EVENT_DEFAULT;
 	}
 }

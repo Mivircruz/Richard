@@ -1,11 +1,12 @@
 #include "engine.h"
-#include <iostream>
+#include "managers/constants.h"
 #include "SDL.h"
+#include <iostream>
 
 using namespace std;
 
 namespace Richard {
-    // Public methods
+    /*Public methods*/
 
     Engine* Engine::GetInstance() {
         if (!Instance) {
@@ -16,33 +17,35 @@ namespace Richard {
     }
 
     void Engine::Run() {
+        // Initialize all the managers.
         if (Initialize() < 0) {
             cout << "Error running game loop" << endl;
             return;
         }
 
-        int eventType = 0;
+        int eventType = EVENT_DEFAULT;
 
+        // Start game loop.
         while (!eventType) {
             eventType = window.HandleEvents();
         }
 
+        // Shutdown all the managers and quit SDL2
         Shutdown();
     }
 
 
 
-    // Private methods
+    /*Private methods*/
 
     // Initialize the pointer that will point to the instance class
     Engine* Engine::Instance = nullptr;
 
     int Engine::Initialize() {
         // SDL Initialization
-        int initSDLResult = SDL_Init(SDL_INIT_EVERYTHING);
-        if (initSDLResult < 0) {
+        if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
             cout << "Error initializing SDL2: " << SDL_GetError() << endl;
-            return initSDLResult;
+            return E_INTIALIZE_SDL_FAIL;
         }
         SDL_version version;
         SDL_VERSION(&version);
@@ -50,12 +53,12 @@ namespace Richard {
 
         // Window Initialization
         if (window.Initialize() < 0) {
-            cout << "Error initializing Window. Shutting down engine..." << endl;
+            cout << "Error initializing Window Manager. Shutting down engine." << endl;
             Shutdown(); // In case of an error, we need to clean up the SDL initialization
-            return -1;
+            return E_INTIALIZE_WINDOW_FAIL;
         }
 
-        return 0;
+        return E_INTIALIZE_OK;
     }
 
     void Engine::Shutdown() {
