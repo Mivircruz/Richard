@@ -1,6 +1,7 @@
 #pragma once
 
 #include "managers/window.h"
+#include "logger.h"
 
 /*
 * A INITIALIZE_RESPONSE represents all the possible Initialize() scenarios.
@@ -54,6 +55,12 @@ namespace Richard {
         * Window that will handle input events
         */
         Richard::Managers::Window window;
+
+
+        /*
+        * Logger that will create the console and log all the messages
+        */
+        Richard::Logger* logger;
 
 
         /*Methods*/
