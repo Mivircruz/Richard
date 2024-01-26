@@ -1,5 +1,5 @@
 ﻿  engine.cpp
-  logger.cpp
   window.cpp
+  logger.cpp
   Generando código...
   RichardEngine.vcxproj -> C:\dev\Richard\solutions\bin\Debug\RichardEngine\RichardEngine.lib

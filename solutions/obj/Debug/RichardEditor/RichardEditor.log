@@ -1,1 +1,2 @@
-﻿  RichardEditor.vcxproj -> C:\dev\Richard\solutions\bin\Debug\RichardEditor\RichardEditor.exe
+﻿  main.cpp
+LINK : fatal error LNK1104: no se puede abrir el archivo '..\solutions\bin\Debug\RichardEditor\RichardEditor.exe'

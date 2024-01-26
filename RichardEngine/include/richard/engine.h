@@ -1,7 +1,7 @@
 #pragma once
 
 #include "managers/window.h"
-#include "logger.h"
+#include "tools/logger.h"
 
 /*
 * A INITIALIZE_RESPONSE represents all the possible Initialize() scenarios.
