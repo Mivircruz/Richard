@@ -1,3 +1,4 @@
+#define _SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS
 #include "engine.h"
 #include "managers/constants.h"
 #include "SDL.h"
@@ -36,13 +37,21 @@ namespace Richard {
 
 
 
-    /*Private methods*/
+    /*Private methods and member variables*/
 
     // Initialize the pointer that will point to the instance class
     Engine* Engine::Instance = nullptr;
 
     int Engine::Initialize() {
-        // SDL Initialization
+        // Logger initialization
+        logger = Logger::GetInstance();
+        logger->Initialize();
+
+        logger->Info("this is an info msg");
+        logger->Warning("this is a warning msg");
+        logger->Critical("this is a critical msg");
+
+        // SDL initialization
         if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
             cout << "Error initializing SDL2: " << SDL_GetError() << endl;
             return E_INTIALIZE_SDL_FAIL;

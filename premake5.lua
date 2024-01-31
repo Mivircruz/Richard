@@ -15,6 +15,7 @@ obj_dir = "solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 -- External dependencies
 externals = {}
 externals["sdl2"] = "external/sdl2"
+externals["spdlog"] = "external/spdlog"
 
 project "RichardEngine"
    location "RichardEngine"
@@ -36,7 +37,8 @@ project "RichardEngine"
    -- For example, instead of RichardEngine/include/Richard/engine.h we can directly import engine.h
    externalincludedirs {
       "%{prj.name}/include/Richard",
-      "%{externals.sdl2}/include"
+      "%{externals.sdl2}/include",
+      "%{externals.spdlog}/include"
    }
 
    -- Treat fatal warnings as errors
