@@ -11,16 +11,8 @@
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 
-namespace Richard {
+namespace Richard::Tools {
 	/*Public methods*/
-
-	Logger* Logger::GetInstance() {
-		if (!Instance) {
-			Instance = new Logger();
-		}
-
-		return Instance;
-	}
 
 	int Logger::Initialize() {
 		spdlog::set_level(spdlog::level::trace);
@@ -60,11 +52,4 @@ namespace Richard {
 	void Logger::Shutdown() {
 		spdlog::shutdown();
 	}
-
-
-
-	/*Private member variables*/
-
-	// Initialize the pointer that will point to the instance class
-	Logger* Logger::Instance = nullptr;
 }

@@ -57,12 +57,6 @@ namespace Richard {
         Richard::Managers::Window window;
 
 
-        /*
-        * Logger that will create the console and log all the messages
-        */
-        Richard::Logger* logger;
-
-
         /*Methods*/
 
         /*
