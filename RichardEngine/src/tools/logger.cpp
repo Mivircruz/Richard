@@ -6,7 +6,7 @@
 */
 #define _SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS
 
-#include "tools/logger.h"
+#include "logger.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 

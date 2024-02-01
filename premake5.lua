@@ -1,4 +1,4 @@
--- WARNING! If this file is moved, its path needs to be updated in cli\cmd\project_settings.py (const PREMAKE_PATH)
+-- WARNING! If this file is moved, its path needs to be updated in cli/cmd/project_settings.py (const PREMAKE_PATH)
 
 workspace "Richard"
    startproject "RichardEditor"
@@ -8,7 +8,7 @@ workspace "Richard"
       "Release" 
    }
 
--- WARNING! If this path is changed, the .exe path needs to be updated in cli\cmd\run.bat
+-- WARNING! If this path is changed, the .exe path needs to be updated in cli/cmd/run.bat
 target_dir = "solutions/bin/%{cfg.buildcfg}/%{prj.name}"
 obj_dir = "solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 
@@ -33,10 +33,10 @@ project "RichardEngine"
       "%{prj.name}/src/**.cpp" 
    }
 
-   -- This allows you to use headers directly instead of referencing the RichardEngine folder
-   -- For example, instead of RichardEngine/include/Richard/engine.h we can directly import engine.h
+   -- This allows you to import just the headers instead of referencing the full path
+   -- For example, instead of importing the path external/sdl2/include/SDL.h we can directly import SDL.h
    externalincludedirs {
-      "%{prj.name}/include/Richard",
+      "%{prj.name}/src", -- This is added to import headers in include/richard.h
       "%{externals.sdl2}/include",
       "%{externals.spdlog}/include"
    }
@@ -79,7 +79,8 @@ project "RichardEditor"
    -- This allows you to use headers directly instead of referencing the RichardEngine folder
    -- For example, instead of RichardEngine/include/Richard/engine.h we can directly import Richard/engine.h
    externalincludedirs {
-      "RichardEngine/include"
+      "RichardEngine/include",
+      "RichardEngine/src"
    }
 
    -- Treat fatal warnings as errors
