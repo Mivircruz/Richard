@@ -1,5 +1,6 @@
 #include "managers/window.h"
 #include "managers/constants.h"
+#include "tools/logger.h"
 #include "SDL.h"
 
 #include <iostream>
@@ -22,7 +23,7 @@ namespace Richard::Managers {
 	int Window::Initialize() {
 		window = SDL_CreateWindow("RichardGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
 		if (!window) {
-			cout << "Error creating window: " << SDL_GetError() << endl;
+			Tools::Logger::Error("Error creating window: " + string(SDL_GetError()));
 			return W_INTIALIZE_FAIL;
 		}
 		return W_INTIALIZE_OK;

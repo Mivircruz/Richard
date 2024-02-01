@@ -3,6 +3,7 @@
 #include "managers/constants.h"
 #include "SDL.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ namespace Richard {
     void Engine::Run() {
         // Initialize all the managers.
         if (Initialize() < 0) {
-            cout << "Error running game loop" << endl;
+            Tools::Logger::Error("Error running game loop");
             return;
         }
 
@@ -44,25 +45,20 @@ namespace Richard {
 
     int Engine::Initialize() {
         // Logger initialization
-        logger = Logger::GetInstance();
-        logger->Initialize();
-
-        logger->Info("this is an info msg");
-        logger->Warning("this is a warning msg");
-        logger->Critical("this is a critical msg");
+        Tools::Logger::Initialize();
 
         // SDL initialization
         if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-            cout << "Error initializing SDL2: " << SDL_GetError() << endl;
+            Tools::Logger::Error("Error initializing SDL2: " + string(SDL_GetError()));
             return E_INTIALIZE_SDL_FAIL;
         }
         SDL_version version;
         SDL_VERSION(&version);
-        cout << "SDL " << version.major << "." << version.minor << endl;
+        Tools::Logger::Info("SDL " + to_string(version.major) + "." + to_string(version.minor));
 
         // Window Initialization
         if (window.Initialize() < 0) {
-            cout << "Error initializing Window Manager. Shutting down engine." << endl;
+            Tools::Logger::Error("Error initializing Window Manager. Shutting down engine.");
             Shutdown(); // In case of an error, we need to clean up the SDL initialization
             return E_INTIALIZE_WINDOW_FAIL;
         }

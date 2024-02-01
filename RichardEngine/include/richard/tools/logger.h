@@ -28,86 +28,72 @@ typedef enum log_level {
 } log_level;
 
 
-namespace Richard {
+namespace Richard::Tools {
 	class Logger {
 	public:
 		/*Methods*/
 
 		/*
-		* GetInstance() is a static method that returns an instance of the class Logger when it is invoked.
-		* It returns the same instance if it is invoked more than once as an instance of Logger class is already created.
+		* Constructor. It creates the object Logger.
 		*/
-		static Logger* GetInstance();
+		inline Logger() {};
+
+		/*
+		* Destructor. It destroys the objetc Logger.
+		*/
+		inline ~Logger() {};
 
 		/*
 		* Initialize() initializes all the Logger member variables.
 		* It also set the log level to LEVEL_TRACE (which means that it prints every log level)
 		* It returns 0 in case of success or a non-zero value otherwise.
+		*
+		* WARNING
+		* This method should only be called by the engine, which is the responsible for initializing all tools and managers.
 		*/
-		int Initialize();
+		static int Initialize();
 
 		/*
 		* SetLevel() sets the log level
+		*
+		* WARNING
+		* This method should only be called by the engine, which is the responsible for initializing all tools and managers.
 		*/
-		void SetLevel(log_level level);
+		static void SetLevel(log_level level);
 
 		/*
 		* Trace() logs the message passed as an argument as a LEVEL_TRACE message.
 		*/
-		void Trace(std::string message);
+		static void Trace(std::string message);
 		
 		/*
 		* Debug() logs the message passed as an argument as a LEVEL_DEBUG message.
 		*/
-		void Debug(std::string message);
+		static void Debug(std::string message);
 
 		/*
 		* Info() logs the message passed as an argument as a LEVEL_INFO message.
 		*/
-		void Info(std::string message);
+		static void Info(std::string message);
 
 		/*
 		* Warning() logs the message passed as an argument as a LEVEL_WARNING message.
 		*/
-		void Warning(std::string message);
+		static void Warning(std::string message);
 
 		/*
 		* Error() logs the message passed as an argument as a LEVEL_ERROR message.
 		*/
-		void Error(std::string message);
+		static void Error(std::string message);
 
 		/*
 		* Critical() logs the message passed as an argument as a LEVEL_CRITICAL message.
 		*/
-		void Critical(std::string message);
+		static void Critical(std::string message);
 
 		/*
 		* Shutdown() cleans up the environment that Initialize() method set up.
 		*/
 		void Shutdown();
-
-		/*
-		* Methods deleted as this class is a Singleton
-		*/
-		Logger(const Logger& loger) = delete; // Logger class cannot be cloneable.
-		void operator=(const Logger&) = delete; // Logger class cannot be asignable
-
-
-
-	private:
-		/*Member variables*/
-
-		 /*
-		* Static pointer which will points to the instance of this class.
-		*/
-		static Logger* Instance;
-
-
-		/*Methods*/
-
-		/*
-		* Private constructor as an instance of this class can only be accessed by GetInstance() method.
-		*/
-		inline Logger() {};
 	};
 }
