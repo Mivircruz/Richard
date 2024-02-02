@@ -4,11 +4,11 @@
 #include "tools/logger.h"
 
 /*
-* A INITIALIZE_RESPONSE represents all the possible Initialize() scenarios.
+* engine_initialize_response represents all the possible Initialize() scenarios.
 * It is possible that Initialize() succeeds or that fails
-* due to some internal initialization failing (for example, SDL initialization)
+* due to some internal initialization failing
 */
-enum ENGINE_INTIALIZE_RESPONSE {
+enum engine_initialize_response {
 	E_INTIALIZE_OK = 0,
     E_INTIALIZE_SDL_FAIL = -1,
 	E_INTIALIZE_WINDOW_FAIL = -2

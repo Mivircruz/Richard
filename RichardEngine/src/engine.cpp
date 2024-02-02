@@ -1,4 +1,3 @@
-#define _SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS
 #include "engine.h"
 #include "managers/constants.h"
 #include "SDL.h"
