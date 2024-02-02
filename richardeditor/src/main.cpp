@@ -1,5 +1,5 @@
 #include <iostream>
-#include "richard/engine.h"
+#include "richard.h"
 
 using namespace std;
 

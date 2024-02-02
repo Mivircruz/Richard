@@ -1,5 +1,5 @@
-#include "managers/window.h"
-#include "managers/constants.h"
+#include "window.h"
+#include "constants.h"
 #include "tools/logger.h"
 #include "SDL.h"
 
