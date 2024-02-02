@@ -5,8 +5,9 @@ using namespace std;
 
 int main(void)
 {
-    cout << "Hello World! I'm Richard :)" << endl;
-    int a = Richard::Add(1,7);
-    cout << "Add(1,7) result: " << a << endl;
+    Richard::Engine* engine = Richard::Engine::GetInstance();
+    engine->Run();
+    cout << "Press ENTER to continue" << endl;
+    cin.ignore();
     return 0;
 }

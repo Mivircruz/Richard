@@ -12,6 +12,11 @@ workspace "Richard"
 target_dir = "solutions/bin/%{cfg.buildcfg}/%{prj.name}"
 obj_dir = "solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 
+-- External dependencies
+externals = {}
+externals["sdl2"] = "external/sdl2"
+externals["spdlog"] = "external/spdlog"
+
 project "RichardEngine"
    location "RichardEngine"
    kind "StaticLib"
@@ -23,15 +28,17 @@ project "RichardEngine"
    objdir(obj_dir)
 
    files { 
-      "%{prj.name}/public/**.h", -- This folder will contain all header files that will be exposed to other apps
+      "%{prj.name}/include/**.h", -- This folder will contain all header files that will be exposed to other apps
       "%{prj.name}/src/**.h",
       "%{prj.name}/src/**.cpp" 
    }
 
    -- This allows you to use headers directly instead of referencing the RichardEngine folder
-   -- For example, instead of RichardEngine/public/Richard/engine.h we can directly import engine.h
+   -- For example, instead of RichardEngine/include/Richard/engine.h we can directly import engine.h
    externalincludedirs {
-      "%{prj.name}/public/Richard"
+      "%{prj.name}/include/Richard",
+      "%{externals.sdl2}/include",
+      "%{externals.spdlog}/include"
    }
 
    -- Treat fatal warnings as errors
@@ -70,15 +77,23 @@ project "RichardEditor"
       "%{prj.name}/src/**.cpp" 
    }
    -- This allows you to use headers directly instead of referencing the RichardEngine folder
-   -- For example, instead of RichardEngine/public/Richard/engine.h we can directly import Richard/engine.h
+   -- For example, instead of RichardEngine/include/Richard/engine.h we can directly import Richard/engine.h
    externalincludedirs {
-      "RichardEngine/public"
+      "RichardEngine/include"
    }
 
    -- Treat fatal warnings as errors
    flags { "FatalWarnings" }
 
    systemversion "latest"
+
+   libdirs {
+      "%{externals.sdl2}/lib/x64"
+   }
+
+   links {
+      "SDL2"
+   }
 
    filter "configurations:Debug"
       defines {
