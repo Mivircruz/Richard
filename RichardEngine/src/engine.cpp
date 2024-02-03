@@ -29,6 +29,7 @@ namespace Richard {
         // Start game loop.
         while (!eventType) {
             eventType = window.HandleEvents();
+            window.Render();
         }
 
         // Shutdown all the managers and quit SDL2

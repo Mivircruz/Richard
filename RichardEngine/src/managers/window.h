@@ -53,7 +53,7 @@ namespace Richard::Managers {
 		*/
 		int HandleEvents();
 
-
+		void Render();
 
 	private:
 
@@ -62,7 +62,7 @@ namespace Richard::Managers {
 		/*
 		* Pointer that points to the window that will receive the OS events.
 		*/
-		SDL_Window* window;
+		SDL_Window* mWindow;
 
 		/*
 		* To use OpenGL within SDL, we need to capture the OpenGL Context
