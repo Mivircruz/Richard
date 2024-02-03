@@ -16,6 +16,11 @@ obj_dir = "solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 externals = {}
 externals["sdl2"] = "external/sdl2"
 externals["spdlog"] = "external/spdlog"
+externals["glad"] = "external/glad"
+
+-- Process Glad
+-- It goes to the directory and looks for another premake5.lua file
+include "external/glad"
 
 project "RichardEngine"
    location "RichardEngine"
@@ -38,11 +43,15 @@ project "RichardEngine"
    externalincludedirs {
       "%{prj.name}/src", -- This is added to import headers in include/richard.h
       "%{externals.sdl2}/include",
-      "%{externals.spdlog}/include"
+      "%{externals.spdlog}/include",
+      "%{externals.glad}/include"
    }
 
    -- Treat fatal warnings as errors
    flags { "FatalWarnings" }
+
+   -- This ensures Glad won't include GLFW as we will use SDL2
+   defines {"GLFW_INCLUDE_NONE"}
 
    systemversion "latest"
 
@@ -93,7 +102,8 @@ project "RichardEditor"
    }
 
    links {
-      "SDL2"
+      "SDL2",
+      "glad"
    }
 
    filter "configurations:Debug"
