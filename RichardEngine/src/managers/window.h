@@ -9,6 +9,11 @@
 */
 struct SDL_Window;
 
+/*
+* We forward declare this typo
+*/
+using SDL_GLContext = void*;
+
 namespace Richard::Managers {
 	class Window {
 	public:
@@ -48,6 +53,8 @@ namespace Richard::Managers {
 		*/
 		int HandleEvents();
 
+		void Render();
+
 	private:
 
 		/*Member variables*/
@@ -55,6 +62,11 @@ namespace Richard::Managers {
 		/*
 		* Pointer that points to the window that will receive the OS events.
 		*/
-		SDL_Window* window;
+		SDL_Window* mWindow;
+
+		/*
+		* To use OpenGL within SDL, we need to capture the OpenGL Context
+		*/	
+		SDL_GLContext mGLContext;
 	};
 }
