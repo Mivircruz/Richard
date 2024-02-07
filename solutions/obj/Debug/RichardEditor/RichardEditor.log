@@ -1,4 +1,2 @@
 ﻿  main.cpp
-C:\dev\Richard\RichardEngine\include\richard.h(5,10): error C1083: No se puede abrir el archivo incluir: 'engine.h': No such file or directory
-  (compilando archivo de origen "src/main.cpp")
-  
+  RichardEditor.vcxproj -> C:\dev\Richard\solutions\bin\Debug\RichardEditor\RichardEditor.exe
