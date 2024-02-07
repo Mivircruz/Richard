@@ -28,3 +28,10 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 const int WINDOW_MIN_WIDTH = 400;
 const int WINDOW_MIN_HEIGHT = 200;
+
+/*
+* Constants related to the glad version downloaded
+*/
+const int GLAD_MAJOR_VERSION = 4;
+const int GLAD_MINOR_VERSION = 6;
+const int GLAD_DEPTH_SIZE = 24;
