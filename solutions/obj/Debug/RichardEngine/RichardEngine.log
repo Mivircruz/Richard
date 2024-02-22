@@ -1,5 +1,2 @@
-﻿  engine.cpp
-  window.cpp
-  logger.cpp
-  Generando código...
+﻿  Mesh.cpp
   RichardEngine.vcxproj -> C:\dev\Richard\solutions\bin\Debug\RichardEngine\RichardEngine.lib
