@@ -68,7 +68,7 @@ namespace Richard {
 
     void Engine::Shutdown() {
         window.Shutdown();
+        Tools::Logger::Shutdown();
         SDL_Quit();
-
     }
 }
