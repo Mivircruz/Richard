@@ -1,5 +1,5 @@
 #include "engine.h"
-#include "managers/constants.h"
+#include "constants.h"
 #include "SDL.h"
 #include <iostream>
 #include <string>
@@ -68,7 +68,7 @@ namespace Richard {
 
     void Engine::Shutdown() {
         window.Shutdown();
+        Tools::Logger::Shutdown();
         SDL_Quit();
-
     }
 }

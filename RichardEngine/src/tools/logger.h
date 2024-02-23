@@ -94,6 +94,6 @@ namespace Richard::Tools {
 		/*
 		* Shutdown() cleans up the environment that Initialize() method set up.
 		*/
-		void Shutdown();
+		static void Shutdown();
 	};
 }
