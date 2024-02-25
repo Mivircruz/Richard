@@ -17,11 +17,11 @@ project "glad"
 
    systemversion "latest"
 
-   filter "configurations:Debug"
-      runtime "Debug"
+   filter "configurations:debug"
+      runtime "debug"
       symbols "on"
    
-   filter "configurations:Release"
-      runtime "Release"
+   filter "configurations:release"
+      runtime "release"
       symbols "on"
       optimize "on"

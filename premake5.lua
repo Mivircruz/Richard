@@ -1,11 +1,11 @@
 -- WARNING! If this file is moved, its path needs to be updated in cli/cmd/project_settings.py (const PREMAKE_PATH)
 
-workspace "Richard"
-   startproject "RichardEditor"
+workspace "richard"
+   startproject "editor"
    architecture "x64"
    configurations { 
-      "Debug", 
-      "Release" 
+      "debug", 
+      "release" 
    }
 
 -- WARNING! If this path is changed, the .exe path needs to be updated in cli/cmd/run.bat
@@ -22,8 +22,8 @@ externals["glad"] = "external/glad"
 -- It goes to the directory and looks for another premake5.lua file
 include "external/glad"
 
-project "RichardEngine"
-   location "RichardEngine"
+project "engine"
+   location "engine"
    kind "StaticLib"
    language "C++"
    cppdialect "C++17"
@@ -55,28 +55,28 @@ project "RichardEngine"
 
    systemversion "latest"
 
-   filter "configurations:Debug"
+   filter "configurations:debug"
       defines {
          "RICHARD_CONFIG_DEBUG"
       }
-      runtime "Debug"
+      runtime "debug"
       symbols "on"
    
-   filter "configurations:Release"
+   filter "configurations:release"
       defines {
          "RICHARD_CONFIG_RELEASE"
       }
-      runtime "Release"
+      runtime "release"
       symbols "on"
       optimize "on"
 
-project "RichardEditor"
-   location "RichardEditor"
+project "editor"
+   location "editor"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++17"
    staticruntime "on"
-   links "RichardEngine"
+   links "engine"
 
    targetdir(target_dir)
    objdir(obj_dir)
@@ -85,11 +85,11 @@ project "RichardEditor"
       "%{prj.name}/src/**.h",
       "%{prj.name}/src/**.cpp" 
    }
-   -- This allows you to use headers directly instead of referencing the RichardEngine folder
-   -- For example, instead of RichardEngine/include/Richard/engine.h we can directly import Richard/engine.h
+   -- This allows you to use headers directly instead of referencing the engine folder
+   -- For example, instead of engine/include/richard.h we can directly import richard.h
    externalincludedirs {
-      "RichardEngine/include",
-      "RichardEngine/src"
+      "engine/include",
+      "engine/src"
    }
 
    -- Treat fatal warnings as errors
@@ -106,17 +106,17 @@ project "RichardEditor"
       "glad"
    }
 
-   filter "configurations:Debug"
+   filter "configurations:debug"
       defines {
          "RICHARD_CONFIG_DEBUG"
       }
-      runtime "Debug"
+      runtime "debug"
       symbols "on"
    
-   filter "configurations:Release"
+   filter "configurations:release"
       defines {
          "RICHARD_CONFIG_RELEASE"
       }
-      runtime "Release"
+      runtime "release"
       symbols "on"
       optimize "on"
