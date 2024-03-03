@@ -1,5 +1,6 @@
 #include "window.h"
 #include "constants.h"
+#include "engine.h"
 #include "tools/logger.h"
 #include "SDL.h"
 #include "glad/glad.h"
@@ -13,6 +14,7 @@ namespace Richard::Managers {
 	
 	Window::Window() {
 		mWindow = nullptr;
+		mGLContext = nullptr;
 	} 
 
 	Window::~Window() {
@@ -53,14 +55,12 @@ namespace Richard::Managers {
 		// Set up the funcion pointers
 		gladLoadGLLoader(SDL_GL_GetProcAddress);
 
-		// Set the background color
-		glClearColor(0.0,0.0,1.0,0.0);
-
 		return W_INTIALIZE_OK;
 	}
 
 	void Window::Shutdown() {
 		SDL_DestroyWindow(mWindow);
+		SDL_GL_DeleteContext(mGLContext);
 		mWindow = nullptr;
 	}
 
@@ -78,12 +78,13 @@ namespace Richard::Managers {
 		return EVENT_DEFAULT;
 	}
 
-	void Window::Render() {
-		// Clears the color of the screen (color buffer) and
-		// any cached information about the depth of what the window just rendered (depth buffer)
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	void Window::BeginRender() {
+		// Clear frames
+		Engine::GetInstance()->GetRenderer()->Clear();
+	}
 
-		// Updates the window with OpenGL rendering.
+	void Window::EndRender() {
+		// Updates the window with OpenGL rendering
 		SDL_GL_SwapWindow(mWindow);
 	}
 }

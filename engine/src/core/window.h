@@ -53,7 +53,9 @@ namespace Richard::Managers {
 		*/
 		int HandleEvents();
 
-		void Render();
+		void BeginRender();
+
+		void EndRender();
 
 	private:
 

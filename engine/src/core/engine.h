@@ -1,6 +1,7 @@
 #pragma once
 
 #include "window.h"
+#include "renderer/renderer.h"
 #include "tools/logger.h"
 
 /*
@@ -26,6 +27,11 @@ namespace Richard {
         * It returns the same instance if it is invoked more than once as an instance of Engine class is already created. 
         */
         static Engine* GetInstance();
+
+        /*
+        * GetRenderer() returns the renderer.
+        */
+        Subsystems::Renderer* GetRenderer();
 
         /*
         * Run() is the game loop.
@@ -54,8 +60,12 @@ namespace Richard {
         /* 
         * Window that will handle input events
         */
-        Richard::Managers::Window window;
+        Managers::Window mWindow;
 
+        /*
+        * Render class that will execute the render commands.
+        */
+        Subsystems::Renderer mRenderer;
 
         /*Methods*/
 
