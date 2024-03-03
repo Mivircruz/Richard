@@ -1,5 +1,7 @@
 C:\dev\Richard\engine\src\core\engine.cpp;C:\dev\Richard\solutions\obj\debug\engine\engine.obj
 C:\dev\Richard\engine\src\core\window.cpp;C:\dev\Richard\solutions\obj\debug\engine\window.obj
+C:\dev\Richard\engine\src\events\button.cpp;C:\dev\Richard\solutions\obj\debug\engine\button.obj
+C:\dev\Richard\engine\src\events\mouse.cpp;C:\dev\Richard\solutions\obj\debug\engine\mouse.obj
 C:\dev\Richard\engine\src\renderer\mesh.cpp;C:\dev\Richard\solutions\obj\debug\engine\mesh.obj
 C:\dev\Richard\engine\src\renderer\renderer.cpp;C:\dev\Richard\solutions\obj\debug\engine\renderer.obj
 C:\dev\Richard\engine\src\renderer\rendermesh.cpp;C:\dev\Richard\solutions\obj\debug\engine\rendermesh.obj
