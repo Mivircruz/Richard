@@ -52,29 +52,9 @@ namespace Richard::Events::Periphericals {
 		static int GetYCurrentPosition();
 
 		/*
-		* GetLeftButtonCurrentState() returns the current status of the left button.
+		* GetButtonCurrentState() returns the current status of the button given in the arguement.
 		*/
-		static int GetLeftButtonCurrentState();
-
-		/*
-		* GetMiddleButtonCurrentState() returns the current status of the middle button.
-		*/
-		static int GetMiddleButtonCurrentState();
-
-		/*
-		* GetRightButtonCurrentState() returns the current status of the right button.
-		*/
-		static int GetRightButtonCurrentState();
-
-		/*
-		* GetX1ButtonCurrentState() returns the current status of the X1 button.
-		*/
-		static int GetX1ButtonCurrentState();
-
-		/*
-		* GetX2ButtonCurrentState() returns the current status of the X2 button.
-		*/
-		static int GetX2ButtonCurrentState();
+		static int GetButtonCurrentState(string buttonName);
 
 
 
