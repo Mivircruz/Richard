@@ -46,23 +46,7 @@ namespace Richard::Events::Periphericals {
 		return mCurrentYPosition;
 	}
 
-	int Mouse::GetLeftButtonCurrentState() {
-		return mButtons.at(MOUSE_BUTTON_LEFT).GetCurrentState();
-	}
-
-	int Mouse::GetMiddleButtonCurrentState() {
-		return mButtons.at(MOUSE_BUTTON_MIDDLE).GetCurrentState();
-	}
-
-	int Mouse::GetRightButtonCurrentState() {
-		return mButtons.at(MOUSE_BUTTON_RIGHT).GetCurrentState();
-	}
-
-	int Mouse::GetX1ButtonCurrentState() {
-		return mButtons.at(MOUSE_BUTTON_X1).GetCurrentState();
-	}
-
-	int Mouse::GetX2ButtonCurrentState() {
-		return mButtons.at(MOUSE_BUTTON_X2).GetCurrentState();
+	int Mouse::GetButtonCurrentState(string buttonName) {
+		return mButtons.at(buttonName).GetCurrentState();
 	}
 }

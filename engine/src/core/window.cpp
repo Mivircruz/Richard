@@ -84,11 +84,11 @@ namespace Richard::Managers {
 		// Log mouse info to check that is reading the mouse input
 		Tools::Logger::Info("X: " + to_string(Events::Periphericals::Mouse::GetXCurrentPosition()) +
 		", Y: " + to_string(Events::Periphericals::Mouse::GetYCurrentPosition()) +
-		", Left button: " + to_string(Events::Periphericals::Mouse::GetLeftButtonCurrentState()) +
-		", Middle button: " + to_string(Events::Periphericals::Mouse::GetMiddleButtonCurrentState()) +
-		", Right button: " + to_string(Events::Periphericals::Mouse::GetRightButtonCurrentState()) + 
-		", X1 button: " + to_string(Events::Periphericals::Mouse::GetX1ButtonCurrentState()) + 
-		", X2 button: " + to_string(Events::Periphericals::Mouse::GetX2ButtonCurrentState())
+		", Left button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_LEFT)) +
+		", Middle button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_MIDDLE)) +
+		", Right button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_RIGHT)) +
+		", X1 button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_X1)) +
+		", X2 button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_X2))
 		);
 
 		return EVENT_DEFAULT;
