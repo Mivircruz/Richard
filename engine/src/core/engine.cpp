@@ -130,6 +130,9 @@ namespace Richard {
             return E_INTIALIZE_WINDOW_FAIL;
         }
 
+        // Mouse Initialization
+        Events::Periphericals::Mouse::Initialize();
+
         // Renderer initialization
         mRenderer.Initialize();
 
