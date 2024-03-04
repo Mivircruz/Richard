@@ -14,17 +14,14 @@ namespace Richard::Events::Periphericals {
 	int Mouse::mPreviousYPosition = 0;
 	map<int, Button> Mouse::mButtons = {};
 
-	Mouse::Mouse() {
-	}
+	Mouse::Mouse() {}
 
 	Mouse::~Mouse() {}
 
 	void Mouse::Initialize() {
-		mButtons[MOUSE_BUTTON_LEFT]		= Button();
-		mButtons[MOUSE_BUTTON_MIDDLE]	= Button();
-		mButtons[MOUSE_BUTTON_RIGHT]	= Button();
-		mButtons[MOUSE_BUTTON_X1]		= Button();
-		mButtons[MOUSE_BUTTON_X2]		= Button();
+		for (int i = MOUSE_BUTTON_LEFT; i <= mButtonAmount; i++) {
+			mButtons[i] = Button();
+		}
 	}
 
 	void Mouse::Update() {
@@ -36,7 +33,7 @@ namespace Richard::Events::Periphericals {
 		uint32_t mouseButtonsState = SDL_GetMouseState(&mCurrentXPosition, &mCurrentYPosition);
 
 		// Update the buttons
-		for (int i = 1; i < mButtonAmount+1; i++) {
+		for (int i = MOUSE_BUTTON_LEFT; i <= mButtonAmount; i++) {
 			mButtons.at(i).Update((mouseButtonsState & MOUSE_BUTTON_MASK(i)) ? 1 : 0);
 		}
 	}
