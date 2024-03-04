@@ -1,7 +1,6 @@
 #pragma once
 #include "button.h"
 #include <map>
-#include <string>
 
 using namespace std;
 
@@ -9,11 +8,11 @@ using namespace std;
 * Mouse buttons available.
 * SDL supports up to 5 mouse buttons
 */
-const string MOUSE_BUTTON_LEFT		= "MouseButtonLeft";
-const string MOUSE_BUTTON_MIDDLE	= "MouseButtonMiddle";
-const string MOUSE_BUTTON_RIGHT		= "MouseButtonRight";
-const string MOUSE_BUTTON_X1		= "MouseButtonX1";
-const string MOUSE_BUTTON_X2		= "MouseButtonX2";
+const int MOUSE_BUTTON_LEFT		= 1;
+const int MOUSE_BUTTON_MIDDLE	= 2;
+const int MOUSE_BUTTON_RIGHT	= 3;
+const int MOUSE_BUTTON_X1		= 4;
+const int MOUSE_BUTTON_X2		= 5;
 
 namespace Richard::Events::Periphericals {
 	class Mouse {
@@ -54,7 +53,7 @@ namespace Richard::Events::Periphericals {
 		/*
 		* GetButtonCurrentState() returns the current status of the button given in the arguement.
 		*/
-		static int GetButtonCurrentState(string buttonName);
+		static int GetButtonCurrentState(int buttonName);
 
 
 
@@ -74,6 +73,11 @@ namespace Richard::Events::Periphericals {
 		/*
 		* Mouse buttons.
 		*/
-		static map<string, Button> mButtons;
+		static map<int, Button> mButtons;
+
+		/*
+		* Amount of mouse buttons.
+		*/
+		static const int mButtonAmount = 5;
 	};
 }
