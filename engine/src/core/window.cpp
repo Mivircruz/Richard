@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "engine.h"
 #include "events/mouse.h"
+#include "events/keyboard.h"
 #include "tools/logger.h"
 #include "SDL.h"
 #include "glad/glad.h"
@@ -80,16 +81,7 @@ namespace Richard::Managers {
 
 		// Update mouse input
 		Events::Periphericals::Mouse::Update();
-
-		// Log mouse info to check that is reading the mouse input
-		Tools::Logger::Info("X: " + to_string(Events::Periphericals::Mouse::GetXCurrentPosition()) +
-		", Y: " + to_string(Events::Periphericals::Mouse::GetYCurrentPosition()) +
-		", Left button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_LEFT)) +
-		", Middle button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_MIDDLE)) +
-		", Right button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_RIGHT)) +
-		", X1 button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_X1)) +
-		", X2 button: " + to_string(Events::Periphericals::Mouse::GetButtonCurrentState(MOUSE_BUTTON_X2))
-		);
+		Events::Periphericals::Keyboard::Update();
 
 		return EVENT_DEFAULT;
 	}

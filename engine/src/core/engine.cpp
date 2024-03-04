@@ -1,5 +1,7 @@
 #include "engine.h"
 #include "constants.h"
+#include "events/mouse.h"
+#include "events/keyboard.h"
 #include "renderer/mesh.h"
 #include "renderer/rendermesh.h"
 #include "renderer/shader.h"
@@ -130,8 +132,9 @@ namespace Richard {
             return E_INTIALIZE_WINDOW_FAIL;
         }
 
-        // Mouse Initialization
+        // Periphericals Initialization
         Events::Periphericals::Mouse::Initialize();
+        Events::Periphericals::Keyboard::Initialize();
 
         // Renderer initialization
         mRenderer.Initialize();
