@@ -1,6 +1,2 @@
-﻿  engine.cpp
-  window.cpp
-  button.cpp
-  mouse.cpp
-  Generando código...
+﻿  mouse.cpp
   engine.vcxproj -> C:\dev\Richard\solutions\bin\debug\engine\engine.lib
