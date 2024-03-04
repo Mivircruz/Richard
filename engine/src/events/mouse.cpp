@@ -1,13 +1,18 @@
 #include "mouse.h"
 #include "SDL_mouse.h"
 
+#ifndef MOUSE_BUTTON_MASK
+#define MOUSE_BUTTON_MASK(X)       (1 << ((X)-1))
+#endif
+
+
 namespace Richard::Events::Periphericals {
 	// Static member creation initialization
 	int Mouse::mCurrentXPosition = 0;
 	int Mouse::mPreviousXPosition = 0;
 	int Mouse::mCurrentYPosition = 0;
 	int Mouse::mPreviousYPosition = 0;
-	map<string, Button> Mouse::mButtons = {};
+	map<int, Button> Mouse::mButtons = {};
 
 	Mouse::Mouse() {
 	}
@@ -31,11 +36,9 @@ namespace Richard::Events::Periphericals {
 		uint32_t mouseButtonsState = SDL_GetMouseState(&mCurrentXPosition, &mCurrentYPosition);
 
 		// Update the buttons
-		mButtons.at(MOUSE_BUTTON_LEFT).Update((mouseButtonsState & SDL_BUTTON_LMASK) ? 1 : 0);
-		mButtons.at(MOUSE_BUTTON_MIDDLE).Update((mouseButtonsState & SDL_BUTTON_MMASK) ? 1 : 0);
-		mButtons.at(MOUSE_BUTTON_RIGHT).Update((mouseButtonsState & SDL_BUTTON_RMASK) ? 1 : 0);
-		mButtons.at(MOUSE_BUTTON_X1).Update((mouseButtonsState & SDL_BUTTON_X1MASK) ? 1 : 0);
-		mButtons.at(MOUSE_BUTTON_X2).Update((mouseButtonsState & SDL_BUTTON_X2MASK) ? 1 : 0);
+		for (int i = 1; i < mButtonAmount+1; i++) {
+			mButtons.at(i).Update((mouseButtonsState & MOUSE_BUTTON_MASK(i)) ? 1 : 0);
+		}
 	}
 
 	int Mouse::GetXCurrentPosition() {
@@ -46,7 +49,7 @@ namespace Richard::Events::Periphericals {
 		return mCurrentYPosition;
 	}
 
-	int Mouse::GetButtonCurrentState(string buttonName) {
+	int Mouse::GetButtonCurrentState(int buttonName) {
 		return mButtons.at(buttonName).GetCurrentState();
 	}
 }
