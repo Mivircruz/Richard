@@ -53,3 +53,4 @@ logs/
 *.DS_STORE
 *.pyc
 *Makefile
+cli/
