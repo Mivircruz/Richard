@@ -1,6 +1,5 @@
 #pragma once
 
-#include "events/mouse.h"
 #include "window.h"
 #include "renderer/renderer.h"
 #include "tools/logger.h"
