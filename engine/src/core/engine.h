@@ -67,6 +67,7 @@ namespace Richard {
         */
         Subsystems::Renderer mRenderer;
 
+
         /*Methods*/
 
         /*

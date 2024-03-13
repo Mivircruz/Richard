@@ -1,11 +1,14 @@
 #include "window.h"
 #include "constants.h"
 #include "engine.h"
+#include "events/mouse.h"
+#include "events/keyboard.h"
 #include "tools/logger.h"
 #include "SDL.h"
 #include "glad/glad.h"
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -75,6 +78,11 @@ namespace Richard::Managers {
 				break;
 			}
 		}
+
+		// Update mouse input
+		Events::Periphericals::Mouse::Update();
+		Events::Periphericals::Keyboard::Update();
+
 		return EVENT_DEFAULT;
 	}
 
