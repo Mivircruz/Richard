@@ -1,7 +1,7 @@
 -- WARNING! If this file is moved, its path needs to be updated in cli/cmd/project_settings.py (const PREMAKE_PATH)
 
 workspace "richard"
-   startproject "editor"
+   startproject "application"
    architecture "x64"
    configurations { 
       "debug", 
@@ -70,8 +70,8 @@ project "engine"
       symbols "on"
       optimize "on"
 
-project "editor"
-   location "editor"
+project "application"
+   location "application"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++17"
