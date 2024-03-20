@@ -56,7 +56,7 @@ namespace Richard {
         /*
         * Static pointer which will points to the instance of this class.
         */
-        static Engine* Instance;
+        static Engine* pInstance;
 
         /* 
         * Window that will handle input events
@@ -71,7 +71,7 @@ namespace Richard {
         /*
         * Pointer to the client-defined application.
         */
-        Application* mApp;
+        Application* pApp;
 
         /*Methods*/
 

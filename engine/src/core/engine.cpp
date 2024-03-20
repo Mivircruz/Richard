@@ -1,5 +1,4 @@
 #include "engine.h"
-#include "constants.h"
 #include "events/mouse.h"
 #include "events/keyboard.h"
 #include "renderer/mesh.h"
@@ -15,11 +14,11 @@ namespace Richard {
     /*Public methods*/
 
     Engine* Engine::GetInstance() {
-        if (!Instance) {
-            Instance = new Engine();
+        if (!pInstance) {
+            pInstance = new Engine();
         }
 
-        return Instance;
+        return pInstance;
     }
 
     Subsystems::Renderer* Engine::GetRenderer() {
@@ -34,7 +33,7 @@ namespace Richard {
         }
 
         // Check application provided
-        if(mApp) {
+        if(pApp) {
             Tools::Logger::Warning("Richard Engine already has an application defined. This one will be replaced");
         } else if(!app) {
             Tools::Logger::Error("No Application provided for the engine to run.");
@@ -42,8 +41,8 @@ namespace Richard {
         }
 
         // Initialize the client-defined application
-        mApp = app;
-        mApp->Initialize();
+        pApp = app;
+        pApp->Initialize();
 
         // Start game loop
         int eventType = EVENT_DEFAULT;
@@ -61,10 +60,10 @@ namespace Richard {
     /*Private methods and member variables*/
 
     // Initialize the pointer that will point to the instance class
-    Engine* Engine::Instance = nullptr;
+    Engine* Engine::pInstance = nullptr;
 
     Engine::Engine() {
-        mApp = nullptr;
+        pApp = nullptr;
     }
 
     int Engine::Initialize() {
@@ -99,19 +98,19 @@ namespace Richard {
 
     int Engine::Update() {
         int eventType = mWindow.HandleEvents();
-        mApp->Update();
+        pApp->Update();
         return eventType;
     }
 
     void Engine::Render() {
         mWindow.BeginRender();
-        mApp->Render();
+        pApp->Render();
         mWindow.EndRender();
     }
 
     void Engine::Shutdown() {
         //Shutdown systems in reverse order
-        mApp->Shutdown();
+        pApp->Shutdown();
         mRenderer.Shutdown();
         mWindow.Shutdown();
         SDL_Quit();

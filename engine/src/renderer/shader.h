@@ -67,6 +67,7 @@ namespace Richard::Subsystems::Render {
 		/*Member variables*/
 		uint32_t mProgramId;
 
+
 		/*Methods*/
 
 		/*
