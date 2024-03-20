@@ -16,7 +16,7 @@ namespace Richard::Subsystems::Render {
 		/*
 		* Constructor. It creates the object RenderMesh.
 		*/
-		RenderMesh(weak_ptr<Render::Mesh> mesh, weak_ptr<Richard::Subsystems::Render::Shader> shader);
+		RenderMesh(weak_ptr<Mesh> mesh, weak_ptr<Shader> shader);
 
 		/*
 		* Execute() executes the commmand RenderMesh.
@@ -32,13 +32,13 @@ namespace Richard::Subsystems::Render {
 		* Pointer that points to a mesh. 
 		* It's a weak pointer because the command cannot handle the lifetime of the mesh.
 		*/
-		weak_ptr<Richard::Subsystems::Render::Mesh> mMesh;
+		weak_ptr<Mesh> pMesh;
 
 		/*
 		* Pointer that points to a shader. 
 		* It's a weak pointer because the command cannot handle the lifetime of the shader.
 		*/
-		weak_ptr<Richard::Subsystems::Render::Shader> mShader;
+		weak_ptr<Shader> pShader;
 	};
 }
 

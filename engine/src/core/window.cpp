@@ -1,5 +1,4 @@
 #include "window.h"
-#include "constants.h"
 #include "engine.h"
 #include "events/mouse.h"
 #include "events/keyboard.h"
@@ -16,12 +15,12 @@ namespace Richard::Managers {
 	/*Public methods*/
 	
 	Window::Window() {
-		mWindow = nullptr;
+		pWindow = nullptr;
 		mGLContext = nullptr;
 	} 
 
 	Window::~Window() {
-		if (mWindow) {
+		if (pWindow) {
 			Shutdown();
 		}
 	}
@@ -38,18 +37,18 @@ namespace Richard::Managers {
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, GLAD_DEPTH_SIZE);
 
 		// Window creation for our platform
-		mWindow = SDL_CreateWindow("RichardGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_WIDTH, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
-		if (!mWindow) {
+		pWindow = SDL_CreateWindow("RichardGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_WIDTH, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		if (!pWindow) {
 			Tools::Logger::Error("Error creating window: " + string(SDL_GetError()));
 			return W_INTIALIZE_SDL_WINDOW_FAIL;
 		}
 	
 		// Set the minimum size of a window's client area.
-		SDL_SetWindowMinimumSize(mWindow, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
+		SDL_SetWindowMinimumSize(pWindow, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
 
 		// OpenGL Context creation
 		// It sets up the graphics context
-		mGLContext = SDL_GL_CreateContext(mWindow);
+		mGLContext = SDL_GL_CreateContext(pWindow);
 		if(!mGLContext) {
 			Tools::Logger::Error("Error creating OpenGL Context: " + string(SDL_GetError()));
 			return W_INITIALIZE_OPENGL_CONTEXT_FAIL;
@@ -62,9 +61,9 @@ namespace Richard::Managers {
 	}
 
 	void Window::Shutdown() {
-		SDL_DestroyWindow(mWindow);
+		SDL_DestroyWindow(pWindow);
 		SDL_GL_DeleteContext(mGLContext);
-		mWindow = nullptr;
+		pWindow = nullptr;
 	}
 
 	int Window::HandleEvents() {
@@ -93,6 +92,6 @@ namespace Richard::Managers {
 
 	void Window::EndRender() {
 		// Updates the window with OpenGL rendering
-		SDL_GL_SwapWindow(mWindow);
+		SDL_GL_SwapWindow(pWindow);
 	}
 }
