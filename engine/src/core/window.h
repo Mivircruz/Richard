@@ -47,14 +47,20 @@ namespace Richard::Managers {
 		/*
 		* HandleEvents() pops out the OS events from the queue and, 
 		* depending on the type of event, performs diferent actions.
-		* 
-		* It also receives a boolean that indicates whether the queue 
-		* is not empty or not.
+		* It returns an int that represent what kind of event it has just been processed.
+		* 0 = default event.
+		* 1 = quit event.
 		*/
 		int HandleEvents();
 
+		/*
+		* BeginRender() starts the rendering process.
+		*/
 		void BeginRender();
 
+		/*
+		* EndRender() ends the rendering process.
+		*/
 		void EndRender();
 
 	private:

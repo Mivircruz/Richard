@@ -1,5 +1,6 @@
 #pragma once
 
+#include "client/application.h"
 #include "window.h"
 #include "renderer/renderer.h"
 #include "tools/logger.h"
@@ -39,7 +40,7 @@ namespace Richard {
         * It also receives the OS events and handles them.
         * When this method returns, the game is over.
         */
-        void Run();
+        void Run(Application* app);
 
         /*
         * Methods deleted as this class is a Singleton
@@ -67,13 +68,17 @@ namespace Richard {
         */
         Subsystems::Renderer mRenderer;
 
+        /*
+        * Pointer to the client-defined application.
+        */
+        Application* mApp;
 
         /*Methods*/
 
         /*
         * Private constructor as an instance of this class can only be accessed by GetInstance() method.
         */
-        inline Engine() {};
+        Engine();
 
         /*
         * Initialize() initializes the SDL library and initializes all the necessary managers.
@@ -83,6 +88,19 @@ namespace Richard {
         * E_INTIALIZE_WINDOW_FAIL   In case that Window Manager initizialazation fails.
         */
         int Initialize();
+
+        /*
+        * Update() checks if there are new events.
+        * This events can come from many sources: mouse, keyboard, etc.
+        * It returns an integer that represents the kind of event processed.
+        * For more information, please refer to window header.
+        */
+       int Update();
+
+       /*
+       * Render() makes the rendering process.
+       */
+       void Render();
 
         /*
         * Shutdown() cleans up SDL2 and all the initiliazed managers.
