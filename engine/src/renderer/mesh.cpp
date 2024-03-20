@@ -56,7 +56,7 @@ namespace Richard::Subsystems::Render {
 		return 0;
 	}
 
-	int Render::Mesh::Initialize(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, uint32_t* elementArray, uint32_t elementAmount) {
+	int Mesh::Initialize(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, uint32_t* elementArray, uint32_t elementAmount) {
 		Initialize(vertexArray, vertexAmount, dimensions);
 
 		mElementsAmount = elementAmount;
@@ -90,7 +90,7 @@ namespace Richard::Subsystems::Render {
 	uint32_t Mesh::GetVertexAmount() {
 		return mVertexAmount;
 	}
-	uint32_t Render::Mesh::GetElementsAmount() {
+	uint32_t Mesh::GetElementsAmount() {
 		return mElementsAmount;
 	}
 }
