@@ -33,7 +33,6 @@ project "engine"
    objdir(obj_dir)
 
    files { 
-      "%{prj.name}/include/**.h", -- This folder will contain all header files that will be exposed to other apps
       "%{prj.name}/src/**.h",
       "%{prj.name}/src/**.cpp" 
    }
@@ -41,7 +40,7 @@ project "engine"
    -- This allows you to import just the headers instead of referencing the full path
    -- For example, instead of importing the path external/sdl2/include/SDL.h we can directly import SDL.h
    externalincludedirs {
-      "%{prj.name}/src", -- This is added to import headers in include/richard.h
+      "%{prj.name}/src",
       "%{externals.sdl2}/include",
       "%{externals.spdlog}/include",
       "%{externals.glad}/include"
@@ -86,9 +85,8 @@ project "client"
       "%{prj.name}/src/**.cpp" 
    }
    -- This allows you to use headers directly instead of referencing the engine folder
-   -- For example, instead of engine/include/richard.h we can directly import richard.h
+   -- For example, instead of engine/src/core/engine.h we can directly import core/engine.h
    externalincludedirs {
-      "engine/include",
       "engine/src"
    }
 

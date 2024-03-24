@@ -4,7 +4,7 @@
 
 using namespace std;
 
-namespace Richard::Events::Periphericals {
+namespace Richard::Input {
 	class Button {
 	public:
 		/*Methods*/

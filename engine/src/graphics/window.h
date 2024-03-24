@@ -50,7 +50,7 @@ struct SDL_Window;
 */
 using SDL_GLContext = void*;
 
-namespace Richard::Managers {
+namespace Richard::Graphics {
 	class Window {
 	public:
 		/*Methods*/

@@ -3,7 +3,7 @@
 #include "glad/glad.h"
 #include "tools/errorchecker.h"
 
-namespace Richard::Subsystems::Render {
+namespace Richard::Graphics {
 	/*Public methods*/
 
 	Mesh::Mesh() {

@@ -2,7 +2,7 @@
 #include "tools/logger.h"
 #include "SDL_keyboard.h"
 
-namespace Richard::Events::Periphericals {
+namespace Richard::Input {
     // Static member creation initialization
     map<int, Button> Keyboard::mKeys = {};
 
