@@ -3,7 +3,7 @@
 #include "tools/errorchecker.h"
 #include "tools/logger.h"
 
-namespace Richard::Subsystems::Render {
+namespace Richard::Graphics {
 	/*Public methods*/
 
 	Shader::Shader() {

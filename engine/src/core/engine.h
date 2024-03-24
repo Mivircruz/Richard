@@ -1,8 +1,8 @@
 #pragma once
 
 #include "client/application.h"
-#include "window.h"
-#include "renderer/renderer.h"
+#include "graphics/window.h"
+#include "graphics/renderer.h"
 #include "tools/logger.h"
 
 /*
@@ -32,7 +32,7 @@ namespace Richard {
         /*
         * GetRenderer() returns the renderer.
         */
-        Subsystems::Renderer* GetRenderer();
+        Graphics::Renderer* GetRenderer();
 
         /*
         * Run() is the game loop.
@@ -61,12 +61,12 @@ namespace Richard {
         /* 
         * Window that will handle input events
         */
-        Managers::Window mWindow;
+        Graphics::Window mWindow;
 
         /*
         * Render class that will execute the render commands.
         */
-        Subsystems::Renderer mRenderer;
+        Graphics::Renderer mRenderer;
 
         /*
         * Pointer to the client-defined application.

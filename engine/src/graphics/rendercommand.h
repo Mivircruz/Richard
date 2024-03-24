@@ -3,7 +3,7 @@
 /*
 * Abstract class that represents a render command.
 */
-namespace Richard::Subsystems::Render {
+namespace Richard::Graphics {
 	class RenderCommand {
 
 	public:

@@ -1,7 +1,7 @@
 #include "window.h"
-#include "engine.h"
-#include "events/mouse.h"
-#include "events/keyboard.h"
+#include "core/engine.h"
+#include "input/mouse.h"
+#include "input/keyboard.h"
 #include "tools/logger.h"
 #include "SDL.h"
 #include "glad/glad.h"
@@ -11,7 +11,7 @@
 
 using namespace std;
 
-namespace Richard::Managers {
+namespace Richard::Graphics {
 	/*Public methods*/
 	
 	Window::Window() {
@@ -79,8 +79,8 @@ namespace Richard::Managers {
 		}
 
 		// Update mouse input
-		Events::Periphericals::Mouse::Update();
-		Events::Periphericals::Keyboard::Update();
+		Input::Mouse::Update();
+		Input::Keyboard::Update();
 
 		return EVENT_DEFAULT;
 	}

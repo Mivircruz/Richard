@@ -7,7 +7,7 @@
 
 using namespace std;
 
-namespace Richard::Subsystems::Render {
+namespace Richard::Graphics {
 
 	class RenderMesh : public RenderCommand {
 	public:

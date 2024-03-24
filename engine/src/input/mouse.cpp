@@ -6,7 +6,7 @@
 #endif
 
 
-namespace Richard::Events::Periphericals {
+namespace Richard::Input {
 	// Static member creation initialization
 	int Mouse::mCurrentXPosition = 0;
 	int Mouse::mPreviousXPosition = 0;

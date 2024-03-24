@@ -16,7 +16,7 @@ enum shader_initialize_response {
 	S_INITIALIZE_SHADER_LINK_FAILED = -3
 };
 
-namespace Richard::Subsystems::Render {
+namespace Richard::Graphics {
 	class Shader {
 	public:
 		/*Methods*/
