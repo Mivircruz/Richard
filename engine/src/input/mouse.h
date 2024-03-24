@@ -2,7 +2,7 @@
 #include "button.h"
 #include <map>
 
-namespace Richard::Events::Periphericals {
+namespace Richard::Input {
 	class Mouse {
 	public:
 		/*Methods*/

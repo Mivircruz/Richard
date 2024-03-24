@@ -1,7 +1,7 @@
 #include "window.h"
 #include "core/engine.h"
-#include "events/mouse.h"
-#include "events/keyboard.h"
+#include "input/mouse.h"
+#include "input/keyboard.h"
 #include "tools/logger.h"
 #include "SDL.h"
 #include "glad/glad.h"
@@ -79,8 +79,8 @@ namespace Richard::Graphics {
 		}
 
 		// Update mouse input
-		Events::Periphericals::Mouse::Update();
-		Events::Periphericals::Keyboard::Update();
+		Input::Mouse::Update();
+		Input::Keyboard::Update();
 
 		return EVENT_DEFAULT;
 	}

@@ -1,6 +1,6 @@
 #include "button.h"
 
-namespace Richard::Events::Periphericals {
+namespace Richard::Input {
 	Button::Button() {
 		mCurrentState = 0;
 		mPreviousState = 0;
