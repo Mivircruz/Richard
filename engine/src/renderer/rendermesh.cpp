@@ -7,14 +7,14 @@ namespace Richard::Subsystems::Render {
     /*Public methods*/
 
     RenderMesh::RenderMesh(weak_ptr<Mesh> mesh, weak_ptr<Shader> shader) {
-        mMesh = mesh;
-        mShader = shader;
+        pMesh = mesh;
+        pShader = shader;
     }
 
     void RenderMesh::Execute() {
         // Get Mesh and Shader pointers
-        shared_ptr<Mesh> mesh = mMesh.lock();
-        shared_ptr<Shader> shader = mShader.lock();
+        shared_ptr<Mesh> mesh = pMesh.lock();
+        shared_ptr<Shader> shader = pShader.lock();
         if(!mesh || !shader) {
             Tools::Logger::Error("Shader or Mesh not available for rendering process");
             return;

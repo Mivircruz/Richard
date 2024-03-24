@@ -1,2 +1,13 @@
-﻿  keyboard.cpp
+﻿  engine.cpp
+  window.cpp
+  button.cpp
+  keyboard.cpp
+  mouse.cpp
+  mesh.cpp
+  renderer.cpp
+  rendermesh.cpp
+  shader.cpp
+  errorchecker.cpp
+  logger.cpp
+  Generando código...
   engine.vcxproj -> C:\dev\Richard\solutions\bin\debug\engine\engine.lib
