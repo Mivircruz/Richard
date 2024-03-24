@@ -1,5 +1,5 @@
 #include "window.h"
-#include "engine.h"
+#include "core/engine.h"
 #include "events/mouse.h"
 #include "events/keyboard.h"
 #include "tools/logger.h"
@@ -11,7 +11,7 @@
 
 using namespace std;
 
-namespace Richard::Managers {
+namespace Richard::Graphics {
 	/*Public methods*/
 	
 	Window::Window() {

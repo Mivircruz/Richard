@@ -6,7 +6,7 @@
 
 using namespace std;
 
-namespace Richard::Subsystems {
+namespace Richard::Graphics {
 	class Renderer {
 	public:
 
@@ -47,7 +47,7 @@ namespace Richard::Subsystems {
 		/*
 		* Submit() adds the render command to the command queue.
 		*/
-		void Submit(unique_ptr<Subsystems::Render::RenderCommand> renderCommand);
+		void Submit(unique_ptr<Graphics::RenderCommand> renderCommand);
 		
 		/*
 		* Execute() executes every command in the queue.
@@ -63,6 +63,6 @@ namespace Richard::Subsystems {
 		/*
 		* Queue with all the commands that will be executed in the rendering pipeline.
 		*/
-		queue<unique_ptr<Subsystems::Render::RenderCommand>> mRenderCommands;
+		queue<unique_ptr<Graphics::RenderCommand>> mRenderCommands;
 	};
 }

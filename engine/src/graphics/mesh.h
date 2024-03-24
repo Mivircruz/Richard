@@ -5,7 +5,7 @@
 /*
 * Class where all the VBOs, VAOs and EBOs are gonna get set up
 */
-namespace Richard::Subsystems::Render {
+namespace Richard::Graphics {
 	class Mesh {
 	public:
 

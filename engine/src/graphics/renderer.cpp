@@ -4,7 +4,7 @@
 #include "tools/errorchecker.h"
 #include "glad/glad.h"
 
-namespace Richard::Subsystems {
+namespace Richard::Graphics {
 	/*Public methods*/
 
 	Renderer::Renderer() {}
@@ -49,7 +49,7 @@ namespace Richard::Subsystems {
 		glClearColor(r, g, b, a); 
 	}
 
-	void Renderer::Submit(unique_ptr<Render::RenderCommand> renderCommand) {
+	void Renderer::Submit(unique_ptr<RenderCommand> renderCommand) {
 		mRenderCommands.push(move(renderCommand));
 	}
 

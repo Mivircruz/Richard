@@ -1,9 +1,9 @@
 #include "engine.h"
 #include "events/mouse.h"
 #include "events/keyboard.h"
-#include "renderer/mesh.h"
-#include "renderer/rendermesh.h"
-#include "renderer/shader.h"
+#include "graphics/mesh.h"
+#include "graphics/rendermesh.h"
+#include "graphics/shader.h"
 #include "SDL.h"
 #include <iostream>
 #include <string>
@@ -21,7 +21,7 @@ namespace Richard {
         return pInstance;
     }
 
-    Subsystems::Renderer* Engine::GetRenderer() {
+    Graphics::Renderer* Engine::GetRenderer() {
         return &mRenderer;
     }
 
