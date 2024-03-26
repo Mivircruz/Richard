@@ -1,4 +1,5 @@
-﻿  shader.cpp
-  keyboard.cpp
+﻿  engine.cpp
+  mesh.cpp
+  rendermesh.cpp
   Generando código...
   engine.vcxproj -> C:\dev\Richard\solutions\bin\debug\engine\engine.lib

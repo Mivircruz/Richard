@@ -6,22 +6,12 @@
 namespace Richard::Graphics {
 	/*Public methods*/
 
-	Mesh::Mesh() {
-		mVertexAmount = 0;
-		mElementsAmount = 0;
-		mVAO = 0;
-		mEBO = 0;
-		mVBO = 0;
-	}
-
-	Mesh::~Mesh() {}
-
 	/*
 	* RAI is used to set this up. RAI stands for Resource Acquisition Initialization.
 	* This means that the lifetime of this mesh object is going to define the data,
 	* so when this object dies, so does the data.
 	*/
-	int Mesh::Initialize(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions) {
+	Mesh::Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions) {
 		mVertexAmount = vertexAmount;
 
 		// Generate the Vertex Array Object and make it active
@@ -46,13 +36,10 @@ namespace Richard::Graphics {
 		glDisableVertexAttribArray(0); RICHARD_CHECK_GL_ERROR;
 		glBindBuffer(GL_ARRAY_BUFFER, 0); RICHARD_CHECK_GL_ERROR;
 		glBindVertexArray(0); RICHARD_CHECK_GL_ERROR;
-
-		return 0;
 	}
 
-	int Mesh::Initialize(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, uint32_t* elementArray, uint32_t elementAmount) {
-		Initialize(vertexArray, vertexAmount, dimensions);
-
+	Mesh::Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, uint32_t* elementArray, uint32_t elementAmount) 
+		: Mesh(vertexArray, vertexAmount, dimensions) {
 		mElementsAmount = elementAmount;
 
 		// Bind the VAO so the EBO can be added to it
@@ -68,11 +55,9 @@ namespace Richard::Graphics {
 		// Once the buffers settings are done, disable and unbind
 		// The EBO is cannot be unbined because there is only one EBO per VAO
 		glBindVertexArray(0); RICHARD_CHECK_GL_ERROR;
-
-		return 0;
 	}
 
-	void Mesh::Shutdown() {
+	Mesh::~Mesh() {
 		glDeleteBuffers(1, &mVBO); RICHARD_CHECK_GL_ERROR;
 		if (mEBO) {
 			glDeleteBuffers(1, &mEBO); RICHARD_CHECK_GL_ERROR;
