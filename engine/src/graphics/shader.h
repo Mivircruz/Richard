@@ -23,27 +23,15 @@ namespace Richard::Graphics {
 
 		/*
 		* Constructor. It creates the object Shader.
+		* It also initializes the Vertex Shader and the Fragment Shader.
 		*/
-		Shader();
+		Shader(const string& vertex, const string& fragment);
 
 		/*
-		* Destructor. It destroys the object Shader.
+		* Destructor. It cleans up all the subsystems
+		* initialized by Initialize() and destroys the object.
 		*/
 		~Shader();
-		
-		/*
-		* Initialize() initializes the Vertex Shader and the Fragment Shader.
-		* It returns 0 in case of success or a non-zero value otherwise.
-		* * Error codes:
-		* S_INITIALIZE_VERTEX_COMPILATION_FAILED		In case that vertex shader compilation fails.
-		* S_INITIALIZE_FRAGMENT_COMPILATION_FAILED		In case that fragment shader compilation fails.
-		*/
-		int Initialize(const string& vertex, const string& fragment);
-
-		/*
-		* Deletes the program created by Initialize
-		*/
-		void Shutdown();
 
 		/*
 		Bind() binds the program that contains both Vertex Shader and Fragment Shader.

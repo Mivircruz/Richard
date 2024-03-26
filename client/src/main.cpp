@@ -50,13 +50,11 @@ class ClientApp : public Richard::Application {
         }
         )";
 
-        mShader = make_shared<Richard::Graphics::Shader>();
-        mShader->Initialize(vertexShader, fragmentShader);
+        mShader = make_shared<Richard::Graphics::Shader>(vertexShader, fragmentShader);
     }
 
     void Shutdown() override {
         std::cout << "ClientApp Shutdown" << std::endl;
-        mShader->Shutdown();
         mMesh->Shutdown();
     }
 
