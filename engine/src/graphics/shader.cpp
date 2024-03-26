@@ -6,31 +6,22 @@
 namespace Richard::Graphics {
 	/*Public methods*/
 
-	Shader::Shader() {
+	Shader::Shader(const string& vertex, const string& fragment) {
 		// Start the program
 		mProgramId = glCreateProgram(); RICHARD_CHECK_GL_ERROR;
-	}
 
-	Shader::~Shader() {
-		// Unbind program so it is not in use anymore
-		// This allows the program to be deleted
-		glUseProgram(0); RICHARD_CHECK_GL_ERROR;
-		glDeleteProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
-	}
-
-	int Shader::Initialize(const string& vertex, const string& fragment) {
 		// Create vertex shader
 		int vertexShaderId = CreateShader(vertex, "Vertex", GL_VERTEX_SHADER);
 		if (!vertexShaderId) {
 			Tools::Logger::Error("Shader creation failed. Error creating Vertex shader.");
-			return S_INITIALIZE_VERTEX_COMPILATION_FAILED;
+			return;
 		}
 
 		// Create fragment shader
 		int fragmentShaderId = CreateShader(fragment, "Fragment", GL_FRAGMENT_SHADER);
 		if (!fragmentShaderId) {
 			Tools::Logger::Error("Shader creation failed. Error creating Fragment shader");
-			return S_INITIALIZE_FRAGMENT_COMPILATION_FAILED;
+			return;
 		}
 
 		// Link program
@@ -55,16 +46,20 @@ namespace Richard::Graphics {
 
 			// Set an invalid program ID
 			mProgramId = -1;
-
-			return S_INITIALIZE_SHADER_LINK_FAILED;
+			return;
 		}
 
 		// Delete the shaders as the shaders are already in the program
 		// Therefore, they are no longer needed
 		glDeleteShader(vertexShaderId); RICHARD_CHECK_GL_ERROR;
-		glDeleteShader(fragmentShaderId); RICHARD_CHECK_GL_ERROR;
+		glDeleteShader(fragmentShaderId); RICHARD_CHECK_GL_ERROR
+	}
 
-		return S_INTIALIZE_OK;
+	Shader::~Shader() {
+		// Unbind program so it is not in use anymore
+		// This allows the program to be deleted
+		glUseProgram(0); RICHARD_CHECK_GL_ERROR;
+		glDeleteProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Shader::Bind() {

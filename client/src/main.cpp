@@ -30,8 +30,7 @@ class ClientApp : public Richard::Application {
             1, 3, 2  // second triangle
         };
 
-        mMesh = make_shared<Richard::Graphics::Mesh>();
-        mMesh->Initialize(&vertices[0], 4, 3, &elements[0], 6);
+        mMesh = make_shared<Richard::Graphics::Mesh>(&vertices[0], 4, 3, &elements[0], 6);
 
         //Define the shaders
         const char* vertexShader = R"(
@@ -50,8 +49,7 @@ class ClientApp : public Richard::Application {
         }
         )";
 
-        mShader = make_shared<Richard::Graphics::Shader>();
-        mShader->Initialize(vertexShader, fragmentShader);
+        mShader = make_shared<Richard::Graphics::Shader>(vertexShader, fragmentShader);
     }
 
     void Shutdown() override {
