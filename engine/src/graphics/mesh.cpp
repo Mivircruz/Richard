@@ -14,13 +14,7 @@ namespace Richard::Graphics {
 		mVBO = 0;
 	}
 
-	Mesh::~Mesh() {
-		glDeleteBuffers(1, &mVBO); RICHARD_CHECK_GL_ERROR;
-		if (mEBO) {
-			glDeleteBuffers(1, &mEBO); RICHARD_CHECK_GL_ERROR;
-		}
-		glDeleteVertexArrays(1, &mVAO); RICHARD_CHECK_GL_ERROR;
-	}
+	Mesh::~Mesh() {}
 
 	/*
 	* RAI is used to set this up. RAI stands for Resource Acquisition Initialization.
@@ -76,6 +70,14 @@ namespace Richard::Graphics {
 		glBindVertexArray(0); RICHARD_CHECK_GL_ERROR;
 
 		return 0;
+	}
+
+	void Mesh::Shutdown() {
+		glDeleteBuffers(1, &mVBO); RICHARD_CHECK_GL_ERROR;
+		if (mEBO) {
+			glDeleteBuffers(1, &mEBO); RICHARD_CHECK_GL_ERROR;
+		}
+		glDeleteVertexArrays(1, &mVAO); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Mesh::Bind() {

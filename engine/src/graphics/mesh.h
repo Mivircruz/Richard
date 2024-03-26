@@ -15,7 +15,7 @@ namespace Richard::Graphics {
 		Mesh();
 
 		/*
-		* Destructor. It deletes the VAO and the VBO initialized by Initialize() and destroys the object.
+		* Destructor. It deletes the object Mesh.
 		*/
 		~Mesh();
 
@@ -28,6 +28,10 @@ namespace Richard::Graphics {
 		*/
 		int Initialize(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions);
 
+		/*
+		* Shutdown() deletes the VAO and the VBO initialized by Initialize() and destroys the object.
+		*/
+		void Shutdown();
 
 		/*
 		* Initialize() initializes the VAO, the VBO and the EBO. It takes the following arguments:

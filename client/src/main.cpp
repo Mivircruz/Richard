@@ -56,6 +56,8 @@ class ClientApp : public Richard::Application {
 
     void Shutdown() override {
         std::cout << "ClientApp Shutdown" << std::endl;
+        mShader->Shutdown();
+        mMesh->Shutdown();
     }
 
     void Update() override {

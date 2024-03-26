@@ -11,12 +11,7 @@ namespace Richard::Graphics {
 		mProgramId = glCreateProgram(); RICHARD_CHECK_GL_ERROR;
 	}
 
-	Shader::~Shader() {
-		// Unbind program so it is not in use anymore
-		// This allows the program to be deleted
-		glUseProgram(0); RICHARD_CHECK_GL_ERROR;
-		glDeleteProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
-	}
+	Shader::~Shader() {}
 
 	int Shader::Initialize(const string& vertex, const string& fragment) {
 		// Create vertex shader
@@ -65,6 +60,13 @@ namespace Richard::Graphics {
 		glDeleteShader(fragmentShaderId); RICHARD_CHECK_GL_ERROR;
 
 		return S_INTIALIZE_OK;
+	}
+
+	void Shader::Shutdown() {
+		// Unbind program so it is not in use anymore
+		// This allows the program to be deleted
+		glUseProgram(0); RICHARD_CHECK_GL_ERROR;
+		glDeleteProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Shader::Bind() {
