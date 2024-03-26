@@ -18,6 +18,10 @@ namespace Richard::Input {
         }
     }
 
+    void Keyboard::Shutdown() {
+        mKeys.clear();
+    }
+
     void Keyboard::Update() {
         const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
         for (int i = KEYBOARD_KEY_A; i <= mKeysAmount; i++) {
@@ -31,6 +35,10 @@ namespace Richard::Input {
     }
 
     int Keyboard::GetKeyCurrentState(int keyName) {
+        return mKeys.at(keyName).GetCurrentState();
+    }
+
+    int Keyboard::GetKeyPreviousState(int keyName) {
         return mKeys.at(keyName).GetCurrentState();
     }
 }

@@ -23,6 +23,11 @@ namespace Richard::Input {
 		static void Initialize();
 
 		/*
+		* Shutdown() cleans up the environment that Initialize set up.
+		*/
+		static void Shutdown();
+
+		/*
 		* Update() gets the current state and position of the mouse
 		* and it updates both the position and every button.
 		*/
@@ -42,6 +47,21 @@ namespace Richard::Input {
 		* GetButtonCurrentState() returns the current status of the button given in the argument.
 		*/
 		static int GetButtonCurrentState(int buttonName);
+
+		/*
+		* GetXPreviousPosition() returns the previous x-axis mouse position.
+		*/
+		static int GetXPreviousPosition();
+
+		/*
+		* GetYPreviousPosition() returns the previous y-axis mouse position.
+		*/
+		static int GetYPreviousPosition();
+
+		/*
+		* GetButtonPreviousState() returns the previous status of the button given in the argument.
+		*/
+		static int GetButtonPreviousState(int buttonName);
 
 
 
