@@ -26,11 +26,6 @@ namespace Richard::Input {
         const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
         for (int i = KEYBOARD_KEY_A; i <= mKeysAmount; i++) {
             mKeys.at(i).Update(keyboardState[i]);
-
-            // Code added to check if the keyboard is receing the input correctly
-            if (keyboardState[i]) {
-                Tools::Logger::Info("Key pressed: " + to_string(i));
-            }
         }
     }
 
