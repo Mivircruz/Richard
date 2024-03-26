@@ -23,6 +23,11 @@ namespace Richard::Input {
 		static void Initialize();
 
 		/*
+		* Shutdown() cleans up the environment that Initialize set up.
+		*/
+		static void Shutdown();
+
+		/*
 		* Update() gets the current state of the keyboard
 		* and it updates every key state.
 		*/
@@ -32,6 +37,11 @@ namespace Richard::Input {
 		* GetKeyCurrentState() returns the current status of the key given in the argument.
 		*/
 		static int GetKeyCurrentState(int keyName);
+
+		/*
+		* GetKeyPreviousState() returns the previous status of the key given in the argument.
+		*/
+		static int GetKeyPreviousState(int keyName);
 
 
 	private:

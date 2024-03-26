@@ -11,26 +11,17 @@ namespace Richard::Graphics {
 
 		/*
 		* Constructor. It creates the object Mesh.
-		*/
-		Mesh();
-
-		/*
-		* Destructor. It deletes the VAO and the VBO initialized by Initialize() and destroys the object.
-		*/
-		~Mesh();
-
-		/*
-		* Initialize() initializes the VAO and the VBO. It takes the following arguments:
+		* It initializes the VAO and the VBO. It takes the following arguments:
 		* vertexArray: the array of vertex, the size of this array may vary.
 		* vertexAmount: the amount of vertices in the vertexArray.
 		* dimensions: the dimension that is going to be used (2D with only x, y coordinates or 3D with x, y, z)
 		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
 		*/
-		int Initialize(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions);
-
+		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions);
 
 		/*
-		* Initialize() initializes the VAO, the VBO and the EBO. It takes the following arguments:
+		* Constructor. It creates the object Mesh.
+		* It initializes the VAO, the VBO and the EBO. It takes the following arguments:
 		* vertexArray: the array of vertex, the size of this array may vary.
 		* vertexAmount: the amount of vertices in the vertexArray.
 		* dimensions: the dimension that is going to be used (2D with only x, y coordinates or 3D with x, y, z)
@@ -38,7 +29,12 @@ namespace Richard::Graphics {
 		* elementAmount: the amount of elements in the elementArray.
 		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
 		*/
-		int Initialize(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, uint32_t* elementArray, uint32_t elementAmount);
+		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, uint32_t* elementArray, uint32_t elementAmount);
+		
+		/*
+		* Destructor. Deletes the VAO and the VBO and destroys the object.
+		*/
+		~Mesh();
 
 		/*
 		* Bind() enables the VAO for its usage and it binds it.

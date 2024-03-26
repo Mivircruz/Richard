@@ -112,6 +112,8 @@ namespace Richard {
         //Shutdown systems in reverse order
         pApp->Shutdown();
         mRenderer.Shutdown();
+        Input::Keyboard::Shutdown();
+        Input::Mouse::Shutdown();
         mWindow.Shutdown();
         SDL_Quit();
         Tools::Logger::Shutdown();

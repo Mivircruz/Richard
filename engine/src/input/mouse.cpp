@@ -24,6 +24,14 @@ namespace Richard::Input {
 		}
 	}
 
+	void Mouse::Shutdown() {
+		mCurrentXPosition = 0;
+		mPreviousXPosition = 0;
+		mCurrentYPosition = 0;
+		mPreviousYPosition = 0;
+		mButtons.clear();
+	}
+
 	void Mouse::Update() {
 		// Update the previous state
 		mPreviousXPosition = mCurrentXPosition;
@@ -48,5 +56,17 @@ namespace Richard::Input {
 
 	int Mouse::GetButtonCurrentState(int buttonName) {
 		return mButtons.at(buttonName).GetCurrentState();
+	}
+
+	int Mouse::GetXPreviousPosition() {
+		return mPreviousXPosition;
+	}
+
+	int Mouse::GetYPreviousPosition() {
+		return mPreviousYPosition;
+	}
+
+	int Mouse::GetButtonPreviousState(int buttonName) {
+		return mButtons.at(buttonName).GetPreviousState();
 	}
 }
