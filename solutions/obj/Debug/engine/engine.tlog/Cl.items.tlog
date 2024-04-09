@@ -3,6 +3,7 @@ C:\dev\Richard\engine\src\graphics\mesh.cpp;C:\dev\Richard\solutions\obj\debug\e
 C:\dev\Richard\engine\src\graphics\renderer.cpp;C:\dev\Richard\solutions\obj\debug\engine\renderer.obj
 C:\dev\Richard\engine\src\graphics\rendermesh.cpp;C:\dev\Richard\solutions\obj\debug\engine\rendermesh.obj
 C:\dev\Richard\engine\src\graphics\shader.cpp;C:\dev\Richard\solutions\obj\debug\engine\shader.obj
+C:\dev\Richard\engine\src\graphics\texture.cpp;C:\dev\Richard\solutions\obj\debug\engine\texture.obj
 C:\dev\Richard\engine\src\graphics\window.cpp;C:\dev\Richard\solutions\obj\debug\engine\window.obj
 C:\dev\Richard\engine\src\input\button.cpp;C:\dev\Richard\solutions\obj\debug\engine\button.obj
 C:\dev\Richard\engine\src\input\keyboard.cpp;C:\dev\Richard\solutions\obj\debug\engine\keyboard.obj

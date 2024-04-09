@@ -17,6 +17,7 @@ externals = {}
 externals["sdl2"] = "external/sdl2"
 externals["spdlog"] = "external/spdlog"
 externals["glad"] = "external/glad"
+externals["stb"] = "external/stb"
 
 -- Process Glad
 -- It goes to the directory and looks for another premake5.lua file
@@ -43,7 +44,8 @@ project "engine"
       "%{prj.name}/src",
       "%{externals.sdl2}/include",
       "%{externals.spdlog}/include",
-      "%{externals.glad}/include"
+      "%{externals.glad}/include",
+      "%{externals.stb}"
    }
 
    -- Treat fatal warnings as errors
