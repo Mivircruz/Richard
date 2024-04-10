@@ -14,11 +14,13 @@ namespace Richard::Graphics {
 		mImagePath = imagePath;
 		mPixels = nullptr;
 
-		// It returns the pixel data as a chunk of memory
+		// stbi_load returns the pixel data as a chunk of memory
 		mPixels = stbi_load(mImagePath.c_str(), &mWidth, &mHeight, &mChannelsAmount, 0);
 		if (!mPixels) {
 			Tools::Logger::Error("Error creating texture with path " + mImagePath);
-			return;
+			mWidth = 0;
+			mHeight = 0;
+			mChannelsAmount = 0;
 		}
 
 		// Loads the texture
@@ -72,9 +74,11 @@ namespace Richard::Graphics {
 		else if (mChannelsAmount == 3) {
 			dataFormat = GL_RGB;
 		}
-		else {
+		else if (mPixels) {
+			// We print this error only if the number of channles is not 4 nor 3 and the are pixels to load.
 			Tools::Logger::Error("Number of channels not supported. Richard only supports 3 or 4 channels and this texture has " + mChannelsAmount);
 		}
+
 		if (mPixels && dataFormat) {
 			glTexImage2D(GL_TEXTURE_2D, 0, dataFormat, mWidth, mHeight, 0, dataFormat, GL_UNSIGNED_BYTE, mPixels); RICHARD_CHECK_GL_ERROR;
 			Tools::Logger::Info("Channels loaded. Channels amount: " + mChannelsAmount);

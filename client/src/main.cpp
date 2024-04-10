@@ -7,6 +7,7 @@
 #include "graphics/mesh.h"
 #include "graphics/rendermesh.h"
 #include "graphics/shader.h"
+#include "graphics/texture.h"
 
 using namespace std;
 
@@ -50,6 +51,9 @@ class ClientApp : public Richard::Application {
         )";
 
         mShader = make_shared<Richard::Graphics::Shader>(vertexShader, fragmentShader);
+
+        // Define the texture
+        mTexture = make_shared<Richard::Graphics::Texture>("resources/image.png");
     }
 
     void Shutdown() override {
@@ -70,6 +74,7 @@ class ClientApp : public Richard::Application {
     private:
     shared_ptr<Richard::Graphics::Mesh> mMesh;
     shared_ptr<Richard::Graphics::Shader> mShader;
+    shared_ptr < Richard::Graphics::Texture> mTexture;
 };
 
 Richard::Application* CreateApplication() {
