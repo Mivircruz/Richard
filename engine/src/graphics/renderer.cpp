@@ -19,7 +19,7 @@ namespace Richard::Graphics {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 
 		// Set the default background color
-		SetClearColor(129.0f/255.0f, 40.0f/255.0f, 246.0f/255.0f, 1.0f);
+		//SetClearColor(255.0f /255.0f, 255.0f /255.0f, 255.0f /255.0f, 1.0f);
 
 		return 0;
 	}

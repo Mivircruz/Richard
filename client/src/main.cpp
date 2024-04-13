@@ -5,7 +5,7 @@
 #include "client/application.h"
 #include "core/engine.h"
 #include "graphics/mesh.h"
-#include "graphics/rendermesh.h"
+#include "graphics/rendertexture.h"
 #include "graphics/shader.h"
 #include "graphics/texture.h"
 
@@ -31,13 +31,26 @@ class ClientApp : public Richard::Application {
             1, 3, 2  // second triangle
         };
 
-        mMesh = make_shared<Richard::Graphics::Mesh>(&vertices[0], 4, 3, &elements[0], 6);
+        // Define the quad that will contain the image to load
+        float textureCoodinates[] = {
+            1.f, 1.f,
+            1.f, 0.f,
+            0.f, 0.f,
+            0.f, 1.f
+        };
+
+        mMesh = make_shared<Richard::Graphics::Mesh>(&vertices[0], 4, 3, &textureCoodinates[0], &elements[0], 6);
 
         //Define the shaders
         const char* vertexShader = R"(
             #version 410 core
             layout (location = 0) in vec3 position;
+            layout (location = 1) in vec2 textureCoordinates;
+            out vec3 vpos;
+            out vec2 uvs;
+
             void main() {
+                uvs = textureCoordinates;
                 gl_Position = vec4(position, 1.0);
         }
         )";
@@ -45,28 +58,29 @@ class ClientApp : public Richard::Application {
         const char* fragmentShader = R"(
             #version 410 core
             out vec4 outColor;
+            in vec2 uvs;
+            uniform sampler2D tex;
+
             void main() {
-                outColor = vec4(1.0);
+                // outColor = vec4(1.0);
+                outColor = texture(tex, uvs);
         }
         )";
 
         mShader = make_shared<Richard::Graphics::Shader>(vertexShader, fragmentShader);
 
         // Define the texture
-        mTexture = make_shared<Richard::Graphics::Texture>("resources/image.png");
+        mTexture = make_shared<Richard::Graphics::Texture>("resources/container.jpg", T_FILTER_LINEAR, T_WRAPPING_REPEAT);
     }
 
     void Shutdown() override {
-        std::cout << "ClientApp Shutdown" << std::endl;
     }
 
     void Update() override {
-        std::cout << "ClientApp Update" << std::endl;
     }
 
     void Render() override {
-        std::cout << "ClientApp Render" << std::endl;
-        auto renderCommand = make_unique<Richard::Graphics::RenderMesh>(mMesh, mShader);
+        auto renderCommand = make_unique<Richard::Graphics::RenderTexture>(mMesh, mShader, mTexture);
         Engine::GetInstance()->GetRenderer()->Submit(move(renderCommand));
         Engine::GetInstance()->GetRenderer()->Execute();
     }

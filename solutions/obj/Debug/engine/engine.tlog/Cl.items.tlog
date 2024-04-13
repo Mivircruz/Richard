@@ -2,6 +2,7 @@ C:\dev\Richard\engine\src\core\engine.cpp;C:\dev\Richard\solutions\obj\debug\eng
 C:\dev\Richard\engine\src\graphics\mesh.cpp;C:\dev\Richard\solutions\obj\debug\engine\mesh.obj
 C:\dev\Richard\engine\src\graphics\renderer.cpp;C:\dev\Richard\solutions\obj\debug\engine\renderer.obj
 C:\dev\Richard\engine\src\graphics\rendermesh.cpp;C:\dev\Richard\solutions\obj\debug\engine\rendermesh.obj
+C:\dev\Richard\engine\src\graphics\rendertexture.cpp;C:\dev\Richard\solutions\obj\debug\engine\rendertexture.obj
 C:\dev\Richard\engine\src\graphics\shader.cpp;C:\dev\Richard\solutions\obj\debug\engine\shader.obj
 C:\dev\Richard\engine\src\graphics\texture.cpp;C:\dev\Richard\solutions\obj\debug\engine\texture.obj
 C:\dev\Richard\engine\src\graphics\window.cpp;C:\dev\Richard\solutions\obj\debug\engine\window.obj

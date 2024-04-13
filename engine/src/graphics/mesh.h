@@ -25,6 +25,19 @@ namespace Richard::Graphics {
 		* vertexArray: the array of vertex, the size of this array may vary.
 		* vertexAmount: the amount of vertices in the vertexArray.
 		* dimensions: the dimension that is going to be used (2D with only x, y coordinates or 3D with x, y, z)
+		* textureCoordinates: the texture coordinates of the image to be loaded to memory.
+		* elementArray: the array of elements, the size of this array may vary.
+		* elementAmount: the amount of elements in the elementArray.
+		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
+		*/
+		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, float* textureCoordinates, uint32_t* elementArray, uint32_t elementAmount);
+
+		/*
+		* Constructor. It creates the object Mesh.
+		* It initializes the VAO, the VBO and the EBO. It takes the following arguments:
+		* vertexArray: the array of vertex, the size of this array may vary.
+		* vertexAmount: the amount of vertices in the vertexArray.
+		* dimensions: the dimension that is going to be used (2D with only x, y coordinates or 3D with x, y, z)
 		* elementArray: the array of elements, the size of this array may vary.
 		* elementAmount: the amount of elements in the elementArray.
 		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
@@ -82,8 +95,13 @@ namespace Richard::Graphics {
 		uint32_t mEBO;
 
 		/*
-		* Vertices buffer.
+		* Vertices buffer. It contains the position of the vertices.
 		*/
-		uint32_t mVBO;
+		uint32_t mPositionVBO;
+
+		/*
+		* Vertices buffer. It contains the texture coordinates.
+		*/
+		uint32_t mTextureVBO;
 	};
 }

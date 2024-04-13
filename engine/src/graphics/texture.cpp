@@ -10,26 +10,58 @@
 namespace Richard::Graphics {
 	/*Public methods*/
 
-	Texture::Texture(string imagePath) {
+	Texture::Texture(string imagePath, texture_filter filter, texture_wrapping wrapping) {
 		mImagePath = imagePath;
-		mPixels = nullptr;
+		mPixelData = nullptr;
 
+		// Generate and bind texture
+		glGenTextures(1, &mId); RICHARD_CHECK_GL_ERROR;
+		Bind();
+
+		// Set the texture wrapping/filtering options (on the currently bound texture object)
+		SetFilter(filter);
+		SetWrapping(wrapping);
+
+		// Load image
 		// stbi_load returns the pixel data as a chunk of memory
-		mPixels = stbi_load(mImagePath.c_str(), &mWidth, &mHeight, &mChannelsAmount, 0);
-		if (!mPixels) {
-			Tools::Logger::Error("Error creating texture with path " + mImagePath);
-			mWidth = 0;
-			mHeight = 0;
-			mChannelsAmount = 0;
+		int channelsAmount;
+		mPixelData = stbi_load(mImagePath.c_str(), &mWidth, &mHeight, &channelsAmount, 0);
+
+		// Set data format
+		GLenum dataFormat = 0;
+		if (channelsAmount == 4) {
+			dataFormat = GL_RGBA;
+		}
+		else {
+			dataFormat = GL_RGB;
 		}
 
-		// Loads the texture
-		LoadTexture();
+		// Generate texture
+		if (mPixelData) {
+			glTexImage2D(GL_TEXTURE_2D, 0, dataFormat, mWidth, mHeight, 0, dataFormat, GL_UNSIGNED_BYTE, mPixelData); RICHARD_CHECK_GL_ERROR;
+			Tools::Logger::Info("Image loaded. Image path: " + mImagePath);
+		}
+		else {
+			// Something went wrong so it will render the default texture
+			Tools::Logger::Warning("Could not load image, it will load the default texture. Image path that could not be loaded: " + mImagePath);
+			float pixels[] = {
+				1.f, 0.f, 1.f,	1.f, 1.f, 1.f,	1.f, 0.f, 1.f,	1.f, 1.f, 1.f,
+				1.f, 1.f, 1.f,	1.f, 0.f, 1.f,	1.f, 1.f, 1.f,	1.f, 0.f, 1.f,
+				1.f, 0.f, 1.f,	1.f, 1.f, 1.f,	1.f, 0.f, 1.f,	1.f, 1.f, 1.f,
+				1.f, 1.f, 1.f,	1.f, 0.f, 1.f,	1.f, 1.f, 1.f,	1.f, 0.f, 1.f
+			};
+			mWidth = 4;
+			mHeight = 4;
 
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidth, mHeight, 0, GL_RGB, GL_FLOAT, pixels); RICHARD_CHECK_GL_ERROR;
+		}
+
+		Unbind();
 	}
 
-	Texture::~Texture()
-	{
+
+	Texture::~Texture() {
+		stbi_image_free(mPixelData);
 	}
 
 	void Texture::Bind() {
@@ -56,50 +88,52 @@ namespace Richard::Graphics {
 		return mHeight;
 	}
 
-	int Texture::GetChannelsAmount() {
-		return mChannelsAmount;
-	}
+
 
 	/*Private methods*/
-	void Texture::LoadTexture() {
-		// Bind texture
-		glGenTextures(1, &mId); RICHARD_CHECK_GL_ERROR;
-		Bind();
 
-		// Load image into the texture
-		GLenum dataFormat = 0;
-		if (mChannelsAmount == 4) {
-			dataFormat = GL_RGBA;
-		}
-		else if (mChannelsAmount == 3) {
-			dataFormat = GL_RGB;
-		}
-		else if (mPixels) {
-			// We print this error only if the number of channles is not 4 nor 3 and the are pixels to load.
-			Tools::Logger::Error("Number of channels not supported. Richard only supports 3 or 4 channels and this texture has " + mChannelsAmount);
-		}
+	void Texture::SetFilter(texture_filter filter) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		if (mPixels && dataFormat) {
-			glTexImage2D(GL_TEXTURE_2D, 0, dataFormat, mWidth, mHeight, 0, dataFormat, GL_UNSIGNED_BYTE, mPixels); RICHARD_CHECK_GL_ERROR;
-			Tools::Logger::Info("Channels loaded. Channels amount: " + mChannelsAmount);
+		switch (filter) {
+		case T_FILTER_LINEAR:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); RICHARD_CHECK_GL_ERROR;
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); RICHARD_CHECK_GL_ERROR;
+			break;
+		case T_FILTER_NEAREST:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
+			break;
+		default:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
 		}
-		else {
-			// Something went wrong so it will render the default texture
-			float pixels[] = {
-				1.f, 1.f, 1.f,	0.f, 0.f, 0.f,	1.f, 1.f, 1.f,	0.f, 0.f, 0.f,
-				0.f, 0.f, 0.f,	1.f, 1.f, 1.f,	0.f, 0.f, 0.f,	1.f, 1.f, 1.f,
-				1.f, 1.f, 1.f,	0.f, 0.f, 0.f,	1.f, 1.f, 1.f,	0.f, 0.f, 0.f,
-				0.f, 0.f, 0.f,	1.f, 1.f, 1.f,	0.f, 0.f, 0.f,	1.f, 1.f, 1.f
-			};
-			mWidth = 4;
-			mHeight = 4;
-			mChannelsAmount = 3;
-			dataFormat = GL_RGB;
+	}
 
-			glTexImage2D(GL_TEXTURE_2D, 0, dataFormat, mWidth, mHeight, 0, dataFormat, GL_FLOAT, pixels); RICHARD_CHECK_GL_ERROR;
-			Tools::Logger::Warning("Could not load channels, it will load the default texture. Image path: " + mImagePath);
+	void Texture::SetWrapping(texture_wrapping wrapping) {
+		switch (wrapping) {
+		case T_WRAPPING_REPEAT:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); RICHARD_CHECK_GL_ERROR;
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); RICHARD_CHECK_GL_ERROR;
+			break;
+		case T_WRAPPING_MIRRORED_REPEAT:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT); RICHARD_CHECK_GL_ERROR;
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT); RICHARD_CHECK_GL_ERROR;
+			break;
+		case T_WRAPPING_CLAMP_TO_EDGE:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER); RICHARD_CHECK_GL_ERROR;
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER); RICHARD_CHECK_GL_ERROR;
+			break;
+		case T_WRAPPING_CLAMP_TO_BORDER:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); RICHARD_CHECK_GL_ERROR;
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); RICHARD_CHECK_GL_ERROR;
+			break;
+		default:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); RICHARD_CHECK_GL_ERROR;
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); RICHARD_CHECK_GL_ERROR;
 		}
-
-		Unbind();
 	}
 }

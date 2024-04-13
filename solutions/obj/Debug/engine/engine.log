@@ -1,14 +1,4 @@
-﻿  engine.cpp
-  mesh.cpp
-  renderer.cpp
-  rendermesh.cpp
-  shader.cpp
+﻿  rendertexture.cpp
   texture.cpp
-  window.cpp
-  button.cpp
-  keyboard.cpp
-  mouse.cpp
-  errorchecker.cpp
-  logger.cpp
   Generando código...
   engine.vcxproj -> C:\dev\Richard\solutions\bin\debug\engine\engine.lib

@@ -19,8 +19,8 @@ namespace Richard::Graphics {
 		glBindVertexArray(mVAO); RICHARD_CHECK_GL_ERROR;
 
 		// Generate the Vertex Bufffer Object and make it active
-		glGenBuffers(1, &mVBO); RICHARD_CHECK_GL_ERROR;
-		glBindBuffer(GL_ARRAY_BUFFER, mVBO); RICHARD_CHECK_GL_ERROR;
+		glGenBuffers(1, &mPositionVBO); RICHARD_CHECK_GL_ERROR;
+		glBindBuffer(GL_ARRAY_BUFFER, mPositionVBO); RICHARD_CHECK_GL_ERROR;
 
 		// Upload the data from the CPU to the GPU so it can be used for rendering
 		// This vertex can be deleted from the CPU after this function is called -> ToDo: responsibility of the creator of this mesh!!!!!!!!!
@@ -57,8 +57,33 @@ namespace Richard::Graphics {
 		glBindVertexArray(0); RICHARD_CHECK_GL_ERROR;
 	}
 
+	Mesh::Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, float* textureCoordinates, uint32_t* elementArray, uint32_t elementAmount)
+		: Mesh(vertexArray, vertexAmount, dimensions, elementArray, elementAmount) {
+		// Generate the Vertex Array Object and make it active
+		glBindVertexArray(mVAO); RICHARD_CHECK_GL_ERROR;
+
+		// Generate the Vertex Bufffer Object and make it active
+		glGenBuffers(1, &mTextureVBO); RICHARD_CHECK_GL_ERROR;
+		glBindBuffer(GL_ARRAY_BUFFER, mTextureVBO); RICHARD_CHECK_GL_ERROR;
+
+		// Upload the data from the CPU to the GPU so it can be used for rendering
+		// This vertex can be deleted from the CPU after this function is called -> ToDo: responsibility of the creator of this mesh!!!!!!!!!
+		// The dimension per vertex in this case is 2 because texture coordinates are usually in two dimensions
+		glBufferData(GL_ARRAY_BUFFER, vertexAmount * 2 * sizeof(float), textureCoordinates, GL_STATIC_DRAW); RICHARD_CHECK_GL_ERROR;
+
+		// Map the VBO to an attribute for a shader to use
+		glEnableVertexAttribArray(0); RICHARD_CHECK_GL_ERROR;
+
+		// Specify how to interpret the VBO Data.
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0); RICHARD_CHECK_GL_ERROR;
+
+		// Once the buffers settings are done, disable and unbind
+		glBindBuffer(GL_ARRAY_BUFFER, 0); RICHARD_CHECK_GL_ERROR;
+		glBindVertexArray(0); RICHARD_CHECK_GL_ERROR;
+	}
+
 	Mesh::~Mesh() {
-		glDeleteBuffers(1, &mVBO); RICHARD_CHECK_GL_ERROR;
+		glDeleteBuffers(1, &mPositionVBO); RICHARD_CHECK_GL_ERROR;
 		if (mEBO) {
 			glDeleteBuffers(1, &mEBO); RICHARD_CHECK_GL_ERROR;
 		}
