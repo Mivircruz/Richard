@@ -92,10 +92,10 @@ namespace Richard {
         /*
         * Update() checks if there are new events.
         * This events can come from many sources: mouse, keyboard, etc.
-        * It returns an integer that represents the kind of event processed.
+        * //TodO: completar mejor esto
         * For more information, please refer to window header.
         */
-       int Update();
+       void Update();
 
        /*
        * Render() makes the rendering process.

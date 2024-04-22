@@ -14,13 +14,14 @@ obj_dir = "solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 
 -- External dependencies
 externals = {}
-externals["sdl2"] = "external/sdl2"
-externals["spdlog"] = "external/spdlog"
-externals["glad"] = "external/glad"
+externals["sdl2"] = "dependencies/include/sdl2"
+externals["spdlog"] = "dependencies/include/spdlog"
+externals["glad"] = "dependencies/include/glad"
+externals["glfw"] = "dependencies/include/glfw"
 
 -- Process Glad
 -- It goes to the directory and looks for another premake5.lua file
-include "external/glad"
+include "dependencies/include/glad"
 
 project "engine"
    location "engine"
@@ -38,12 +39,13 @@ project "engine"
    }
 
    -- This allows you to import just the headers instead of referencing the full path
-   -- For example, instead of importing the path external/sdl2/include/SDL.h we can directly import SDL.h
+   -- For example, instead of importing the path dependencies/sdl2/include/SDL.h we can directly import SDL.h
    externalincludedirs {
       "%{prj.name}/src",
       "%{externals.sdl2}/include",
       "%{externals.spdlog}/include",
-      "%{externals.glad}/include"
+      "%{externals.glad}/include",
+      "%{externals.glfw}"
    }
 
    -- Treat fatal warnings as errors
@@ -96,7 +98,7 @@ project "client"
    systemversion "latest"
 
    libdirs {
-      "%{externals.sdl2}/lib/x64"
+      "dependencies/lib/sdl2/x64"
    }
 
    links {

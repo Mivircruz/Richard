@@ -1,5 +1,83 @@
 ﻿  engine.cpp
-  mesh.cpp
-  rendermesh.cpp
-  Generando código...
-  engine.vcxproj -> C:\dev\Richard\solutions\bin\debug\engine\engine.lib
+LINK : warning LNK4098: la biblioteca predeterminada'MSVCRTD' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
+LINK : warning LNK4217: "strncmp" importa el símbolo "libucrtd.lib(strncmp.obj)" definido en "glfw3.lib(init.obj)" en la función "_glfwParseUriList"
+LINK : warning LNK4286: "strncmp" importa el símbolo "libucrtd.lib(strncmp.obj)" definido en "glfw3.lib(input.obj)"
+LINK : warning LNK4286: "strncmp" importa el símbolo "libucrtd.lib(strncmp.obj)" definido en "glfw3.lib(context.obj)"
+LINK : warning LNK4286: "strncmp" importa el símbolo "libucrtd.lib(strncmp.obj)" definido en "glfw3.lib(egl_context.obj)"
+LINK : warning LNK4217: "free" importa el símbolo "libucrtd.lib(free.obj)" definido en "glfw3.lib(init.obj)" en la función "defaultDeallocate"
+LINK : warning LNK4217: "free" importa el símbolo "libucrtd.lib(free.obj)" definido en "glfw3.lib(null_init.obj)" en la función "_glfwConnectNull"
+LINK : warning LNK4217: "malloc" importa el símbolo "libucrtd.lib(malloc.obj)" definido en "glfw3.lib(init.obj)" en la función "defaultAllocate"
+LINK : warning LNK4217: "strtol" importa el símbolo "libucrtd.lib(strtox.obj)" definido en "glfw3.lib(init.obj)" en la función "_glfwParseUriList"
+LINK : warning LNK4217: "__stdio_common_vsprintf" importa el símbolo "libucrtd.lib(output.obj)" definido en "glfw3.lib(init.obj)" en la función "vsnprintf"
+LINK : warning LNK4217: "__stdio_common_vsprintf" importa el símbolo "libucrtd.lib(output.obj)" definido en "glfw3.lib(win32_joystick.obj)" en la función "supportsXInput"
+LINK : warning LNK4217: "strcspn" importa el símbolo "libucrtd.lib(strcspn.obj)" definido en "glfw3.lib(input.obj)" en la función "glfwUpdateGamepadMappings"
+LINK : warning LNK4217: "strtoul" importa el símbolo "libucrtd.lib(strtox.obj)" definido en "glfw3.lib(input.obj)" en la función "parseMapping"
+LINK : warning LNK4217: "qsort" importa el símbolo "libucrtd.lib(qsort.obj)" definido en "glfw3.lib(monitor.obj)" en la función "refreshVideoModes"
+LINK : warning LNK4286: "qsort" importa el símbolo "libucrtd.lib(qsort.obj)" definido en "glfw3.lib(win32_joystick.obj)"
+LINK : warning LNK4217: "wcscmp" importa el símbolo "libucrtd.lib(wcscmp.obj)" definido en "glfw3.lib(win32_monitor.obj)" en la función "_glfwPollMonitorsWin32"
+mesh.obj : error LNK2001: símbolo externo glad_glBindBuffer sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glDeleteBuffers sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glGenBuffers sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glBufferData sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glDisableVertexAttribArray sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glEnableVertexAttribArray sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glVertexAttribPointer sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glBindVertexArray sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glDeleteVertexArrays sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glGenVertexArrays sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glClear sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glClearColor sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glEnable sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glBlendFunc sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glDepthFunc sin resolver
+rendermesh.obj : error LNK2001: símbolo externo glad_glDrawArrays sin resolver
+rendermesh.obj : error LNK2001: símbolo externo glad_glDrawElements sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glAttachShader sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glCompileShader sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glCreateProgram sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glCreateShader sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glDeleteProgram sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glDeleteShader sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetProgramiv sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetProgramInfoLog sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetShaderiv sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetShaderInfoLog sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetUniformLocation sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glLinkProgram sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glShaderSource sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUseProgram sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform1f sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform2f sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform3f sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform4f sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform1i sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glValidateProgram sin resolver
+window.obj : error LNK2019: símbolo externo gladLoadGLLoader sin resolver al que se hace referencia en la función "public: int __cdecl Richard::Graphics::Window::Initialize(void)" (?Initialize@Window@Graphics@Richard@@QEAAHXZ)
+window.obj : error LNK2001: símbolo externo glad_glViewport sin resolver
+errorchecker.obj : error LNK2001: símbolo externo glad_glGetError sin resolver
+glfw3.lib(init.obj) : error LNK2019: símbolo externo __imp_strtok sin resolver al que se hace referencia en la función _glfwParseUriList
+glfw3.lib(init.obj) : error LNK2019: símbolo externo __imp_realloc sin resolver al que se hace referencia en la función defaultReallocate
+glfw3.lib(window.obj) : error LNK2019: símbolo externo __imp_strncpy sin resolver al que se hace referencia en la función glfwWindowHintString
+glfw3.lib(input.obj) : error LNK2001: símbolo externo __imp_strncpy sin resolver
+glfw3.lib(monitor.obj) : error LNK2001: símbolo externo __imp_strncpy sin resolver
+glfw3.lib(win32_joystick.obj) : error LNK2001: símbolo externo __imp_strncpy sin resolver
+glfw3.lib(osmesa_context.obj) : error LNK2001: símbolo externo __imp__wassert sin resolver
+glfw3.lib(monitor.obj) : error LNK2001: símbolo externo __imp__wassert sin resolver
+glfw3.lib(vulkan.obj) : error LNK2001: símbolo externo __imp__wassert sin resolver
+glfw3.lib(wgl_context.obj) : error LNK2001: símbolo externo __imp__wassert sin resolver
+glfw3.lib(egl_context.obj) : error LNK2001: símbolo externo __imp__wassert sin resolver
+glfw3.lib(window.obj) : error LNK2001: símbolo externo __imp__wassert sin resolver
+glfw3.lib(input.obj) : error LNK2001: símbolo externo __imp__wassert sin resolver
+glfw3.lib(context.obj) : error LNK2001: símbolo externo __imp__wassert sin resolver
+glfw3.lib(win32_thread.obj) : error LNK2001: símbolo externo __imp__wassert sin resolver
+glfw3.lib(input.obj) : error LNK2019: símbolo externo __imp_strspn sin resolver al que se hace referencia en la función glfwUpdateGamepadMappings
+glfw3.lib(input.obj) : error LNK2019: símbolo externo __imp_fmaxf sin resolver al que se hace referencia en la función glfwGetGamepadState
+glfw3.lib(input.obj) : error LNK2019: símbolo externo __imp_fminf sin resolver al que se hace referencia en la función glfwGetGamepadState
+glfw3.lib(monitor.obj) : error LNK2001: símbolo externo __imp_fminf sin resolver
+glfw3.lib(null_monitor.obj) : error LNK2001: símbolo externo __imp_fminf sin resolver
+glfw3.lib(context.obj) : error LNK2019: símbolo externo __imp___stdio_common_vsscanf sin resolver al que se hace referencia en la función _vsscanf_l
+glfw3.lib(monitor.obj) : error LNK2019: símbolo externo __imp_powf sin resolver al que se hace referencia en la función glfwSetGamma
+glfw3.lib(null_monitor.obj) : error LNK2001: símbolo externo __imp_powf sin resolver
+glfw3.lib(win32_monitor.obj) : error LNK2019: símbolo externo __imp_wcscpy sin resolver al que se hace referencia en la función createMonitor
+LIBCMTD.lib(exe_winmain.obj) : error LNK2019: símbolo externo WinMain sin resolver al que se hace referencia en la función "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+..\solutions\bin\debug\engine\engine.lib : fatal error LNK1120: 51 externos sin resolver

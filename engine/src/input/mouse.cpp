@@ -38,12 +38,12 @@ namespace Richard::Input {
 		mPreviousYPosition = mCurrentYPosition;
 
 		// Update the mouse position
-		uint32_t mouseButtonsState = SDL_GetMouseState(&mCurrentXPosition, &mCurrentYPosition);
+		//uint32_t mouseButtonsState = SDL_GetMouseState(&mCurrentXPosition, &mCurrentYPosition);
 
 		// Update the buttons
-		for (int i = MOUSE_BUTTON_LEFT; i <= mButtonAmount; i++) {
+		/*for (int i = MOUSE_BUTTON_LEFT; i <= mButtonAmount; i++) {
 			mButtons.at(i).Update((mouseButtonsState & MOUSE_BUTTON_MASK(i)) ? 1 : 0);
-		}
+		}*/
 	}
 
 	int Mouse::GetXCurrentPosition() {

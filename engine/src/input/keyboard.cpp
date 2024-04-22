@@ -23,10 +23,10 @@ namespace Richard::Input {
     }
 
     void Keyboard::Update() {
-        const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
+       /* const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
         for (int i = KEYBOARD_KEY_A; i <= mKeysAmount; i++) {
             mKeys.at(i).Update(keyboardState[i]);
-        }
+        }*/
     }
 
     int Keyboard::GetKeyCurrentState(int keyName) {

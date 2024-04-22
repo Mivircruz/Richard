@@ -1,2 +1,4 @@
 ﻿  main.cpp
-  client.vcxproj -> C:\dev\Richard\solutions\bin\debug\client\client.exe
+C:\dev\Richard\engine\src\graphics\window.h(3,10): error C1083: No se puede abrir el archivo incluir: 'glfw3.h': No such file or directory
+  (compilando archivo de origen "src/main.cpp")
+  

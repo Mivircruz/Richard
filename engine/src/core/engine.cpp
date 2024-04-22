@@ -45,9 +45,8 @@ namespace Richard {
         pApp->Initialize();
 
         // Start game loop
-        int eventType = EVENT_DEFAULT;
-        while (!eventType) {
-            eventType = Update();
+        while (!mWindow.WindowShouldClose()) {
+            Update();
             Render();
         }
         
@@ -70,15 +69,6 @@ namespace Richard {
         // Logger initialization
         Tools::Logger::Initialize();
 
-        // SDL initialization
-        if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-            Tools::Logger::Error("Error initializing SDL2: " + string(SDL_GetError()));
-            return E_INTIALIZE_SDL_FAIL;
-        }
-        SDL_version version;
-        SDL_VERSION(&version);
-        Tools::Logger::Info("SDL " + to_string(version.major) + "." + to_string(version.minor));
-
         // Window Initialization
         if (mWindow.Initialize() < 0) {
             Tools::Logger::Error("Error initializing Window Manager. Shutting down engine.");
@@ -96,10 +86,9 @@ namespace Richard {
         return E_INTIALIZE_OK;
     }
 
-    int Engine::Update() {
-        int eventType = mWindow.HandleEvents();
+    void Engine::Update() {
+        mWindow.HandleEvents();
         pApp->Update();
-        return eventType;
     }
 
     void Engine::Render() {
@@ -115,7 +104,6 @@ namespace Richard {
         Input::Keyboard::Shutdown();
         Input::Mouse::Shutdown();
         mWindow.Shutdown();
-        SDL_Quit();
         Tools::Logger::Shutdown();
     }
 }
