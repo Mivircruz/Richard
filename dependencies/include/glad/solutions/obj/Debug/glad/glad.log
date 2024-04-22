@@ -1,0 +1,4 @@
+﻿  glad.c
+/src/glad.c(1,1): error C1083: No se puede abrir el archivo origen: 'src\glad.c': No such file or directory
+  (compilando archivo de origen "/src/glad.c")
+  
