@@ -1,4 +1,26 @@
-﻿  rendertexture.cpp
-  texture.cpp
+﻿  engine.cpp
+  mesh.cpp
+  renderer.cpp
+C:\dev\Richard\engine\src\core\engine.cpp(7,10): error C1083: No se puede abrir el archivo incluir: 'SDL.h': No such file or directory
+C:\dev\Richard\engine\src\graphics\mesh.cpp(3,10): error C1083: No se puede abrir el archivo incluir: 'glad/glad.h': No such file or directory
+C:\dev\Richard\engine\src\tools\errorchecker.h(2,10): error C1083: No se puede abrir el archivo incluir: 'glad/glad.h': No such file or directory
+  (compilando archivo de origen "src/graphics/renderer.cpp")
+  
+  rendermesh.cpp
+C:\dev\Richard\engine\src\graphics\rendermesh.cpp(2,10): error C1083: No se puede abrir el archivo incluir: 'glad/glad.h': No such file or directory
+  shader.cpp
+C:\dev\Richard\engine\src\graphics\shader.cpp(2,10): error C1083: No se puede abrir el archivo incluir: 'glad/glad.h': No such file or directory
+  window.cpp
+C:\dev\Richard\engine\src\graphics\window.cpp(6,10): error C1083: No se puede abrir el archivo incluir: 'SDL.h': No such file or directory
+  button.cpp
+  keyboard.cpp
+C:\dev\Richard\engine\src\input\keyboard.cpp(3,10): error C1083: No se puede abrir el archivo incluir: 'SDL_keyboard.h': No such file or directory
+  mouse.cpp
+C:\dev\Richard\engine\src\input\mouse.cpp(2,10): error C1083: No se puede abrir el archivo incluir: 'SDL_mouse.h': No such file or directory
+  errorchecker.cpp
+C:\dev\Richard\engine\src\tools\errorchecker.h(2,10): error C1083: No se puede abrir el archivo incluir: 'glad/glad.h': No such file or directory
+  (compilando archivo de origen "src/tools/errorchecker.cpp")
+  
+  logger.cpp
+C:\dev\Richard\engine\src\tools\logger.cpp(10,10): error C1083: No se puede abrir el archivo incluir: 'spdlog/spdlog.h': No such file or directory
   Generando código...
-  engine.vcxproj -> C:\dev\Richard\solutions\bin\debug\engine\engine.lib
