@@ -3,8 +3,8 @@
 #include "input/mouse.h"
 #include "input/keyboard.h"
 #include "tools/logger.h"
-#include "SDL.h"
 #include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
 #include <iostream>
 #include <string>
@@ -37,8 +37,8 @@ namespace Richard::Graphics {
 	int Window::Initialize() {
 		// GLFW initialization
 		glfwInit();
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GL_MAJOR_VERSION);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, GL_MINOR_VERSION);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_MAJOR_VERSION);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_MINOR_VERSION);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		// Window creation

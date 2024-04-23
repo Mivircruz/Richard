@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glfw3.h"
+struct GLFWwindow;
 
 /*
 * window_event represents the OS events that the method HandleEvents() may receive.
@@ -32,8 +32,8 @@ const int WINDOW_HEIGHT = 600;
 /*
 * Constants related to the glad version downloaded
 */
-const int GL_MAJOR_VERSION = 4;
-const int GL_MINOR_VERSION = 6;
+const int OPENGL_MAJOR_VERSION = 4;
+const int OPENGL_MINOR_VERSION = 6;
 const int GLAD_DEPTH_SIZE = 24;
 
 namespace Richard::Graphics {

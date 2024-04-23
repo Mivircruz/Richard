@@ -13,11 +13,11 @@ target_dir = "solutions/bin/%{cfg.buildcfg}/%{prj.name}"
 obj_dir = "solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 
 -- External dependencies
-externals = {}
-externals["sdl2"] = "dependencies/include/sdl2"
-externals["spdlog"] = "dependencies/include/spdlog"
-externals["glad"] = "dependencies/include/glad"
-externals["glfw"] = "dependencies/include/glfw"
+external_dependencies = {}
+external_dependencies["sdl2"] = "dependencies/include/sdl2"
+external_dependencies["spdlog"] = "dependencies/include/spdlog"
+external_dependencies["glad"] = "dependencies/include/glad"
+external_dependencies["glfw"] = "dependencies/include/glfw"
 
 -- Process Glad
 -- It goes to the directory and looks for another premake5.lua file
@@ -42,17 +42,14 @@ project "engine"
    -- For example, instead of importing the path dependencies/sdl2/include/SDL.h we can directly import SDL.h
    externalincludedirs {
       "%{prj.name}/src",
-      "%{externals.sdl2}/include",
-      "%{externals.spdlog}/include",
-      "%{externals.glad}/include",
-      "%{externals.glfw}"
+      "%{external_dependencies.sdl2}/include",
+      "%{external_dependencies.spdlog}/include",
+      "%{external_dependencies.glad}/include",
+      "%{external_dependencies.glfw}/include"
    }
 
    -- Treat fatal warnings as errors
    flags { "FatalWarnings" }
-
-   -- This ensures Glad won't include GLFW as we will use SDL2
-   defines {"GLFW_INCLUDE_NONE"}
 
    systemversion "latest"
 
@@ -98,12 +95,14 @@ project "client"
    systemversion "latest"
 
    libdirs {
-      "dependencies/lib/sdl2/x64"
+      "dependencies/lib/sdl2/x64",
+      "dependencies/lib/glfw"
    }
 
    links {
       "SDL2",
-      "glad"
+      "glad",
+      "glfw3"
    }
 
    filter "configurations:debug"
