@@ -23,5 +23,6 @@ project "glad"
    
    filter "configurations:release"
       runtime "release"
+      staticruntime "off"
       symbols "on"
       optimize "on"

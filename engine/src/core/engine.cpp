@@ -4,7 +4,6 @@
 #include "graphics/mesh.h"
 #include "graphics/rendermesh.h"
 #include "graphics/shader.h"
-#include "SDL.h"
 #include <iostream>
 #include <string>
 

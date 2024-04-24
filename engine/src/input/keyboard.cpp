@@ -1,6 +1,5 @@
 #include "keyboard.h"
 #include "tools/logger.h"
-#include "SDL_keyboard.h"
 
 namespace Richard::Input {
     // Static member creation initialization

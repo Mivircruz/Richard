@@ -1,5 +1,4 @@
 #include "mouse.h"
-#include "SDL_mouse.h"
 
 #ifndef MOUSE_BUTTON_MASK
 #define MOUSE_BUTTON_MASK(X)       (1 << ((X)-1))
