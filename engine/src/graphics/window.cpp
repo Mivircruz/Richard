@@ -42,14 +42,14 @@ namespace Richard::Graphics {
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		// Window creation
-		GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "RichardEngine", NULL, NULL);
-		if (window == NULL) {
+		pWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "RichardEngine", NULL, NULL);
+		if (pWindow == NULL) {
 			Tools::Logger::Critical("Error creating GLFW window");
 			Shutdown();
 			return -1;
 		}
-		glfwMakeContextCurrent(window);
-		glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
+		glfwMakeContextCurrent(pWindow);
+		glfwSetFramebufferSizeCallback(pWindow, FramebufferSizeCallback);
 
 		// Load all OpenGL function pointers
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
