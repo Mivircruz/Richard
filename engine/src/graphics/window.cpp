@@ -1,13 +1,14 @@
 #include "window.h"
+
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+#include <iostream>
+#include <string>
+
 #include "core/engine.h"
 #include "input/mouse.h"
 #include "input/keyboard.h"
 #include "tools/logger.h"
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-
-#include <iostream>
-#include <string>
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -66,16 +67,15 @@ namespace Richard::Graphics {
 	}
 
 	void Window::HandleEvents() {
-		// input
 		ProcessInput();
 
-		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+		// Swap buffers and poll IO events (keys pressed/released, mouse moved, etc.)
 		glfwSwapBuffers(pWindow);
 		glfwPollEvents();
 
-		// Update mouse input
-		//Input::Mouse::Update(); //ToDo: cambiar esto
-		//Input::Keyboard::Update(); //ToDo: cambiar esto
+		// Code added to test Mouse functionality
+		std::pair<float, float> mousePos = Input::Mouse::GetPosition();
+		Tools::Logger::Info("Mouse Position. X: " + std::to_string(mousePos.first) + ", Y: " + std::to_string(mousePos.second));
 	}
 
 	bool Window::WindowShouldClose() {
@@ -87,7 +87,10 @@ namespace Richard::Graphics {
 		Engine::GetInstance()->GetRenderer()->Clear();
 	}
 
-	void Window::EndRender() {
+	void Window::EndRender() {}
+
+	GLFWwindow* Window::Get() {
+		return pWindow;
 	}
 
 

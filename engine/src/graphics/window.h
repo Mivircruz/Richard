@@ -72,6 +72,10 @@ namespace Richard::Graphics {
 		*/
 		void HandleEvents();
 
+		/*
+		* WindowShouldClose() returns true if an escape key was pressed.
+		* It returns false otherwise.
+		*/
 		bool WindowShouldClose();
 
 		/*
@@ -83,6 +87,11 @@ namespace Richard::Graphics {
 		* EndRender() ends the rendering process.
 		*/
 		void EndRender();
+
+		/*
+		* Get() returns the pointer that points to the window.
+		*/
+		GLFWwindow* Get();
 
 
 

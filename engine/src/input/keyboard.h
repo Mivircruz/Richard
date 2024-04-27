@@ -1,6 +1,4 @@
 #pragma once
-#include "button.h"
-#include <map>
 
 namespace Richard::Input {
 	class Keyboard {
@@ -18,50 +16,16 @@ namespace Richard::Input {
 		~Keyboard();
 
 		/*
-		* Initialize() initializes the keys map.
+		* IsKeyPressed() returns true if the key given in the argument is being pressed or held down.
+		* It returns false otherwise.
 		*/
-		static void Initialize();
-
-		/*
-		* Shutdown() cleans up the environment that Initialize set up.
-		*/
-		static void Shutdown();
-
-		/*
-		* Update() gets the current state of the keyboard
-		* and it updates every key state.
-		*/
-		static void Update();
-
-		/*
-		* GetKeyCurrentState() returns the current status of the key given in the argument.
-		*/
-		static int GetKeyCurrentState(int keyName);
-
-		/*
-		* GetKeyPreviousState() returns the previous status of the key given in the argument.
-		*/
-		static int GetKeyPreviousState(int keyName);
-
-
-	private:
-		/*Member variables*/
-		/*
-		* Keyboard buttons.
-		*/
-		static map<int, Button> mKeys;
-
-		/*
-		* Amount of keys.
-		*/
-		static const int mKeysAmount = 286;
+		static bool IsKeyPressed(int keyName);
 	};
 }
 
 /*
 * Keys  available.
-* SDL supports up to 286 mouse buttons.
-* Adapted from SDL - check SDL_NUM_SCANCODES for more information.
+* 
 */
 const int KEYBOARD_KEY_A = 4;
 const int KEYBOARD_KEY_B = 5;

@@ -24,6 +24,10 @@ namespace Richard {
         return &mRenderer;
     }
 
+    Graphics::Window* Engine::GetWindow() {
+        return mWindow;
+    }
+
     void Engine::Run(Application* app) {
         // Initialize all the managers
         if (Initialize() < 0) {
@@ -44,7 +48,7 @@ namespace Richard {
         pApp->Initialize();
 
         // Start game loop
-        while (!mWindow.WindowShouldClose()) {
+        while (!mWindow->WindowShouldClose()) {
             Update();
             Render();
         }
@@ -57,8 +61,9 @@ namespace Richard {
 
     /*Private methods and member variables*/
 
-    // Initialize the pointer that will point to the instance class
+    // Initialize static pointers
     Engine* Engine::pInstance = nullptr;
+    Graphics::Window* Engine::mWindow = nullptr;
 
     Engine::Engine() {
         pApp = nullptr;
@@ -69,15 +74,12 @@ namespace Richard {
         Tools::Logger::Initialize();
 
         // Window Initialization
-        if (mWindow.Initialize() < 0) {
+        mWindow = new Graphics::Window();
+        if (mWindow->Initialize() < 0) {
             Tools::Logger::Error("Error initializing Window Manager. Shutting down engine.");
             Shutdown(); // In case of an error, we need to clean up the SDL initialization
             return E_INTIALIZE_WINDOW_FAIL;
         }
-
-        // Input handlers initialization
-        Input::Mouse::Initialize();
-        Input::Keyboard::Initialize();
 
         // Renderer initialization
         mRenderer.Initialize();
@@ -86,23 +88,21 @@ namespace Richard {
     }
 
     void Engine::Update() {
-        mWindow.HandleEvents();
+        mWindow->HandleEvents();
         pApp->Update();
     }
 
     void Engine::Render() {
-        mWindow.BeginRender();
+        mWindow->BeginRender();
         pApp->Render();
-        mWindow.EndRender();
+        mWindow->EndRender();
     }
 
     void Engine::Shutdown() {
         //Shutdown systems in reverse order
         pApp->Shutdown();
         mRenderer.Shutdown();
-        Input::Keyboard::Shutdown();
-        Input::Mouse::Shutdown();
-        mWindow.Shutdown();
+        mWindow->Shutdown();
         Tools::Logger::Shutdown();
     }
 }
