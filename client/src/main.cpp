@@ -53,15 +53,12 @@ class ClientApp : public Richard::Application {
     }
 
     void Shutdown() override {
-        std::cout << "ClientApp Shutdown" << std::endl;
     }
 
     void Update() override {
-        std::cout << "ClientApp Update" << std::endl;
     }
 
     void Render() override {
-        std::cout << "ClientApp Render" << std::endl;
         auto renderCommand = make_unique<Richard::Graphics::RenderMesh>(mMesh, mShader);
         Engine::GetInstance()->GetRenderer()->Submit(move(renderCommand));
         Engine::GetInstance()->GetRenderer()->Execute();

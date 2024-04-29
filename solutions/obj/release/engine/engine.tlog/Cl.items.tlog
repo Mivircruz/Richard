@@ -1,0 +1,10 @@
+C:\dev\Richard\engine\src\core\engine.cpp;C:\dev\Richard\solutions\obj\release\engine\engine.obj
+C:\dev\Richard\engine\src\graphics\mesh.cpp;C:\dev\Richard\solutions\obj\release\engine\mesh.obj
+C:\dev\Richard\engine\src\graphics\renderer.cpp;C:\dev\Richard\solutions\obj\release\engine\renderer.obj
+C:\dev\Richard\engine\src\graphics\rendermesh.cpp;C:\dev\Richard\solutions\obj\release\engine\rendermesh.obj
+C:\dev\Richard\engine\src\graphics\shader.cpp;C:\dev\Richard\solutions\obj\release\engine\shader.obj
+C:\dev\Richard\engine\src\graphics\window.cpp;C:\dev\Richard\solutions\obj\release\engine\window.obj
+C:\dev\Richard\engine\src\input\keyboard.cpp;C:\dev\Richard\solutions\obj\release\engine\keyboard.obj
+C:\dev\Richard\engine\src\input\mouse.cpp;C:\dev\Richard\solutions\obj\release\engine\mouse.obj
+C:\dev\Richard\engine\src\tools\errorchecker.cpp;C:\dev\Richard\solutions\obj\release\engine\errorchecker.obj
+C:\dev\Richard\engine\src\tools\logger.cpp;C:\dev\Richard\solutions\obj\release\engine\logger.obj

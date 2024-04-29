@@ -1,22 +1,32 @@
 #include "window.h"
+
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+#include <iostream>
+#include <string>
+
 #include "core/engine.h"
 #include "input/mouse.h"
 #include "input/keyboard.h"
 #include "tools/logger.h"
-#include "SDL.h"
-#include "glad/glad.h"
 
-#include <iostream>
-#include <string>
+// settings
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
 
 using namespace std;
 
 namespace Richard::Graphics {
+
+	// Function to pass to GLFW to pass to glfwSetFramebufferSizeCallback in Initialize() method.
+	void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
+
+
+
 	/*Public methods*/
 	
 	Window::Window() {
 		pWindow = nullptr;
-		mGLContext = nullptr;
 	} 
 
 	Window::~Window() {
@@ -26,63 +36,46 @@ namespace Richard::Graphics {
 	}
 
 	int Window::Initialize() {
-		// Before the window creation, we specify the OpenGL version and the profile that we want
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, GLAD_MAJOR_VERSION);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, GLAD_MINOR_VERSION);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		// GLFW initialization
+		glfwInit();
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_MAJOR_VERSION);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_MINOR_VERSION);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		// Graphic specifications: 
-		// Window updates twice as often and has 24 bits for the color
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, GLAD_DEPTH_SIZE);
-
-		// Window creation for our platform
-		pWindow = SDL_CreateWindow("RichardGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_WIDTH, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
-		if (!pWindow) {
-			Tools::Logger::Error("Error creating window: " + string(SDL_GetError()));
-			return W_INTIALIZE_SDL_WINDOW_FAIL;
+		// Window creation
+		pWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "RichardEngine", NULL, NULL);
+		if (pWindow == NULL) {
+			Tools::Logger::Critical("Error creating GLFW window");
+			Shutdown();
+			return -1;
 		}
-	
-		// Set the minimum size of a window's client area.
-		SDL_SetWindowMinimumSize(pWindow, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT);
+		glfwMakeContextCurrent(pWindow);
+		glfwSetFramebufferSizeCallback(pWindow, FramebufferSizeCallback);
 
-		// OpenGL Context creation
-		// It sets up the graphics context
-		mGLContext = SDL_GL_CreateContext(pWindow);
-		if(!mGLContext) {
-			Tools::Logger::Error("Error creating OpenGL Context: " + string(SDL_GetError()));
-			return W_INITIALIZE_OPENGL_CONTEXT_FAIL;
+		// Load all OpenGL function pointers
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+		{
+			Tools::Logger::Critical("Error initializing GLAD");
+			return -1;
 		}
-
-		// Set up the funcion pointers
-		gladLoadGLLoader(SDL_GL_GetProcAddress);
 
 		return W_INTIALIZE_OK;
 	}
 
 	void Window::Shutdown() {
-		SDL_DestroyWindow(pWindow);
-		SDL_GL_DeleteContext(mGLContext);
-		pWindow = nullptr;
+		glfwTerminate();
 	}
 
-	int Window::HandleEvents() {
-		SDL_Event event;
+	void Window::HandleEvents() {
+		ProcessInput();
 
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			case SDL_QUIT:
-				return EVENT_QUIT;
-			default:
-				break;
-			}
-		}
+		// Swap buffers and poll IO events (keys pressed/released, mouse moved, etc.)
+		glfwSwapBuffers(pWindow);
+		glfwPollEvents();
+	}
 
-		// Update mouse input
-		Input::Mouse::Update();
-		Input::Keyboard::Update();
-
-		return EVENT_DEFAULT;
+	bool Window::WindowShouldClose() {
+		return glfwWindowShouldClose(pWindow);
 	}
 
 	void Window::BeginRender() {
@@ -90,8 +83,24 @@ namespace Richard::Graphics {
 		Engine::GetInstance()->GetRenderer()->Clear();
 	}
 
-	void Window::EndRender() {
-		// Updates the window with OpenGL rendering
-		SDL_GL_SwapWindow(pWindow);
+	void Window::EndRender() {}
+
+	GLFWwindow* Window::Get() {
+		return pWindow;
+	}
+
+
+
+	/*Private methods*/
+
+	void Window::ProcessInput() {
+		if (glfwGetKey(pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			glfwSetWindowShouldClose(pWindow, true);
+	}
+
+	// Whenever the window size changed (by OS or user resize) this callback function executes
+	void FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
+		// Make sure the viewport matches the new window dimensions.
+		glViewport(0, 0, width, height);
 	}
 }
