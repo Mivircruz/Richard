@@ -72,10 +72,6 @@ namespace Richard::Graphics {
 		// Swap buffers and poll IO events (keys pressed/released, mouse moved, etc.)
 		glfwSwapBuffers(pWindow);
 		glfwPollEvents();
-
-		// Code added to test Mouse functionality
-		std::pair<float, float> mousePos = Input::Mouse::GetPosition();
-		Tools::Logger::Info("Mouse Position. X: " + std::to_string(mousePos.first) + ", Y: " + std::to_string(mousePos.second));
 	}
 
 	bool Window::WindowShouldClose() {
