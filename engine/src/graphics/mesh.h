@@ -11,16 +11,6 @@ namespace Richard::Graphics {
 
 		/*
 		* Constructor. It creates the object Mesh.
-		* It initializes the VAO and the VBO. It takes the following arguments:
-		* vertexArray: the array of vertex, the size of this array may vary.
-		* vertexAmount: the amount of vertices in the vertexArray.
-		* dimensions: the dimension that is going to be used (2D with only x, y coordinates or 3D with x, y, z)
-		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
-		*/
-		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions);
-
-		/*
-		* Constructor. It creates the object Mesh.
 		* It initializes the VAO, the VBO and the EBO. It takes the following arguments:
 		* vertexArray: the array of vertex, the size of this array may vary.
 		* vertexAmount: the amount of vertices in the vertexArray.
@@ -30,19 +20,7 @@ namespace Richard::Graphics {
 		* elementAmount: the amount of elements in the elementArray.
 		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
 		*/
-		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, float* textureCoordinates, uint32_t* elementArray, uint32_t elementAmount);
-
-		/*
-		* Constructor. It creates the object Mesh.
-		* It initializes the VAO, the VBO and the EBO. It takes the following arguments:
-		* vertexArray: the array of vertex, the size of this array may vary.
-		* vertexAmount: the amount of vertices in the vertexArray.
-		* dimensions: the dimension that is going to be used (2D with only x, y coordinates or 3D with x, y, z)
-		* elementArray: the array of elements, the size of this array may vary.
-		* elementAmount: the amount of elements in the elementArray.
-		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
-		*/
-		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, uint32_t* elementArray, uint32_t elementAmount);
+		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, float* textureCoordinates, uint32_t* indexArray, uint32_t indexAmount);
 		
 		/*
 		* Destructor. Deletes the VAO and the VBO and destroys the object.
@@ -82,7 +60,7 @@ namespace Richard::Graphics {
 		/*
 		* Amount of elements
 		*/
-		uint32_t mElementsAmount;
+		uint32_t mIndexAmount;
 
 		/*
 		* Collection of VBOs and EBOs.
@@ -97,11 +75,6 @@ namespace Richard::Graphics {
 		/*
 		* Vertices buffer. It contains the position of the vertices.
 		*/
-		uint32_t mPositionVBO;
-
-		/*
-		* Vertices buffer. It contains the texture coordinates.
-		*/
-		uint32_t mTextureVBO;
+		uint32_t mVBO;
 	};
 }

@@ -57,7 +57,7 @@ namespace Richard::Graphics {
 
 	private:
 		/*Member variables*/
-		uint32_t mProgramId;
+		uint32_t mShaderProgram;
 
 
 		/*Methods*/

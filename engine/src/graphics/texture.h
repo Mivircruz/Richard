@@ -35,85 +35,83 @@ enum texture_wrapping {
 
 namespace Richard::Graphics {
     class Texture {
-        public:
-            /*Methods*/
+    public:
+        /*Methods*/
 
-            /* 
-            * Constuctor. It creates a texture with the given image path.
-            * If something fails during the loading process, it will render a default image.
-			// The default texture is 4x4 pixel image in black and white like a chess board.
-            */
-            Texture(string imagePath, texture_filter filter, texture_wrapping wrapping);
+        /*
+        * Constuctor. It creates a texture with the given image path.
+        * If something fails during the loading process, it will render a default image.
+        // The default texture is 4x4 pixel image in black and white like a chess board.
+        */
+        Texture(string imagePath, texture_filter filter, texture_wrapping wrapping);
 
-            /*
-            * Destructor. It frees the memory asked for the image 
-            * and destroys the object Texture.
-            * */
-            ~Texture();
+        /*
+        * Destructor. It frees the memory asked for the image
+        * and destroys the object Texture.
+        * */
+        ~Texture();
 
-            /*
-            * Bind() binds the texture
-            */
-            void Bind();
+        /*
+        * Bind() binds the texture
+        */
+        void Bind();
 
-            /*
-            * Unbind() unbinds the texture
-            */
-            void Unbind();
+        /*
+        * Unbind() unbinds the texture
+        */
+        void Unbind();
 
-            /*
-            * GetId() returns the texture Id.
-            */
-            uint32_t GetId();
+        /*
+        * GetId() returns the texture Id.
+        */
+        uint32_t GetId();
 
-            /*
-            * GetImagePath() returns the image path.
-            */
-            string GetImagePath();
+        /*
+        * GetImagePath() returns the image path.
+        */
+        string GetImagePath();
 
-            /*
-            * GetWidth() returns the width in pixels of the image.
-            */
-            int GetWidth();
+        /*
+        * GetWidth() returns the width in pixels of the image.
+        */
+        int GetWidth();
 
-            /*
-            * GetHeight() returns the height in pixels of the image.
-            */
-            int GetHeight();
-
-
-
-        private:
-            /*Methods*/
-
-            void LoadTexture(); //RODO: borrar
-
-            /*
-            * SetFilter() sets the filter that will be used to render the texture.
-            * Its default value is T_FILTER_LINEAR.
-            */
-            void SetFilter(texture_filter filter);
-
-            /*
-            * SetWrapping() sets the wrapping options that will be used to handle
-            * the out-of-range case (if it happens).
-            * Its default value is T_WRAPPING_REPEAT.
-            */
-            void SetWrapping(texture_wrapping wrapping);
+        /*
+        * GetHeight() returns the height in pixels of the image.
+        */
+        int GetHeight();
 
 
-            /*Member variables*/
 
-            /*Image path*/
-            string mImagePath;
+    private:
+        /*Methods*/
 
-            /*Texture Id*/
-            uint32_t mId;
+        /*
+        * SetFilter() sets the filter that will be used to render the texture.
+        * Its default value is T_FILTER_LINEAR.
+        */
+        void SetFilter(texture_filter filter);
 
-            /*Width and Height in pixels of the image*/
-            int mWidth, mHeight;
+        /*
+        * SetWrapping() sets the wrapping options that will be used to handle
+        * the out-of-range case (if it happens).
+        * Its default value is T_WRAPPING_REPEAT.
+        */
+        void SetWrapping(texture_wrapping wrapping);
 
-            /*Pixel data*/
-           unsigned char* mPixelData;
+
+        /*Member variables*/
+
+        /*Image path*/
+        string mImagePath;
+
+        /*Texture Id*/
+        uint32_t mTexture;
+
+        /*Width and Height in pixels of the image*/
+        int mWidth, mHeight;
+
+        /*Pixel data*/
+        unsigned char* mPixelData;
     };
 }

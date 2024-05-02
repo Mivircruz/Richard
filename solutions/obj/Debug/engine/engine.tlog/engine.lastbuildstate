@@ -1,2 +1,6 @@
 PlatformToolSet=v143:VCToolArchitecture=Native32Bit:VCToolsVersion=14.39.33519:TargetPlatformVersion=10.0.22000.0:
+<<<<<<< HEAD
 debug|x64|C:\dev\Richard\|
+=======
+Debug|x64|C:\dev\Richard\|
+>>>>>>> 537ac56f097f0429288075eb03e72e55917904af

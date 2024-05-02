@@ -14,10 +14,8 @@ obj_dir = "solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 
 -- External dependencies
 external_dependencies = {}
-external_dependencies["sdl2"] = "dependencies/include/sdl2"
-external_dependencies["spdlog"] = "dependencies/include/spdlog"
-external_dependencies["glad"] = "dependencies/include/glad"
 external_dependencies["stb"] = "dependencies/include/stb"
+external_dependencies["glad"] = "dependencies/include/glad"
 
 -- Process Glad
 -- It goes to the directory and looks for another premake5.lua file
@@ -39,11 +37,10 @@ project "engine"
    }
 
    -- This allows you to import just the headers instead of referencing the full path
-   -- For example, instead of importing the path dependencies/sdl2/include/SDL.h we can directly import SDL.h
+   -- For example, instead of importing the path dependencies/spdlog/include/SDL.h we can directly import SDL.h
    externalincludedirs {
       "%{prj.name}/src",
-      "%{external_dependencies.sdl2}/include",
-      "%{external_dependencies.spdlog}/include",
+      "dependencies/include",
       "%{external_dependencies.glad}/include",
       "%{external_dependencies.stb}"
    }
@@ -95,12 +92,12 @@ project "client"
    systemversion "latest"
 
    libdirs {
-      "dependencies/lib/sdl2/x64"
+      "dependencies/lib/glfw"
    }
 
    links {
-      "SDL2",
-      "glad"
+      "glad",
+      "glfw3"
    }
 
    filter "configurations:debug"

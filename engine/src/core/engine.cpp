@@ -4,7 +4,6 @@
 #include "graphics/mesh.h"
 #include "graphics/rendermesh.h"
 #include "graphics/shader.h"
-#include "SDL.h"
 #include <iostream>
 #include <string>
 
@@ -23,6 +22,10 @@ namespace Richard {
 
     Graphics::Renderer* Engine::GetRenderer() {
         return &mRenderer;
+    }
+
+    Graphics::Window* Engine::GetWindow() {
+        return mWindow;
     }
 
     void Engine::Run(Application* app) {
@@ -45,9 +48,8 @@ namespace Richard {
         pApp->Initialize();
 
         // Start game loop
-        int eventType = EVENT_DEFAULT;
-        while (!eventType) {
-            eventType = Update();
+        while (!mWindow->WindowShouldClose()) {
+            Update();
             Render();
         }
         
@@ -59,8 +61,9 @@ namespace Richard {
 
     /*Private methods and member variables*/
 
-    // Initialize the pointer that will point to the instance class
+    // Initialize static pointers
     Engine* Engine::pInstance = nullptr;
+    Graphics::Window* Engine::mWindow = nullptr;
 
     Engine::Engine() {
         pApp = nullptr;
@@ -70,25 +73,13 @@ namespace Richard {
         // Logger initialization
         Tools::Logger::Initialize();
 
-        // SDL initialization
-        if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-            Tools::Logger::Error("Error initializing SDL2: " + string(SDL_GetError()));
-            return E_INTIALIZE_SDL_FAIL;
-        }
-        SDL_version version;
-        SDL_VERSION(&version);
-        Tools::Logger::Info("SDL " + to_string(version.major) + "." + to_string(version.minor));
-
         // Window Initialization
-        if (mWindow.Initialize() < 0) {
+        mWindow = new Graphics::Window();
+        if (mWindow->Initialize() < 0) {
             Tools::Logger::Error("Error initializing Window Manager. Shutting down engine.");
             Shutdown(); // In case of an error, we need to clean up the SDL initialization
             return E_INTIALIZE_WINDOW_FAIL;
         }
-
-        // Input handlers initialization
-        Input::Mouse::Initialize();
-        Input::Keyboard::Initialize();
 
         // Renderer initialization
         mRenderer.Initialize();
@@ -96,26 +87,22 @@ namespace Richard {
         return E_INTIALIZE_OK;
     }
 
-    int Engine::Update() {
-        int eventType = mWindow.HandleEvents();
+    void Engine::Update() {
+        mWindow->HandleEvents();
         pApp->Update();
-        return eventType;
     }
 
     void Engine::Render() {
-        mWindow.BeginRender();
+        mWindow->BeginRender();
         pApp->Render();
-        mWindow.EndRender();
+        mWindow->EndRender();
     }
 
     void Engine::Shutdown() {
         //Shutdown systems in reverse order
         pApp->Shutdown();
         mRenderer.Shutdown();
-        Input::Keyboard::Shutdown();
-        Input::Mouse::Shutdown();
-        mWindow.Shutdown();
-        SDL_Quit();
+        mWindow->Shutdown();
         Tools::Logger::Shutdown();
     }
 }

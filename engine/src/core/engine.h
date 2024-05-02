@@ -35,6 +35,11 @@ namespace Richard {
         Graphics::Renderer* GetRenderer();
 
         /*
+        * GetWindow() returns the window.
+        */
+        static Graphics::Window* GetWindow();
+
+        /*
         * Run() is the game loop.
         * It initializes all the necessary managers to run the game.
         * It also receives the OS events and handles them.
@@ -61,7 +66,7 @@ namespace Richard {
         /* 
         * Window that will handle input events
         */
-        Graphics::Window mWindow;
+        static Graphics::Window* mWindow;
 
         /*
         * Render class that will execute the render commands.
@@ -92,10 +97,10 @@ namespace Richard {
         /*
         * Update() checks if there are new events.
         * This events can come from many sources: mouse, keyboard, etc.
-        * It returns an integer that represents the kind of event processed.
+        * //TodO: completar mejor esto
         * For more information, please refer to window header.
         */
-       int Update();
+       void Update();
 
        /*
        * Render() makes the rendering process.

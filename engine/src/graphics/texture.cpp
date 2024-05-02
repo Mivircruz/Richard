@@ -5,7 +5,7 @@
 #include "tools/logger.h"
 // This is specified by the stb documentation.
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "stb/stb_image.h"
 
 namespace Richard::Graphics {
 	/*Public methods*/
@@ -15,57 +15,37 @@ namespace Richard::Graphics {
 		mPixelData = nullptr;
 
 		// Generate and bind texture
-		glGenTextures(1, &mId); RICHARD_CHECK_GL_ERROR;
+		glGenTextures(1, &mTexture); RICHARD_CHECK_GL_ERROR;
 		Bind();
 
 		// Set the texture wrapping/filtering options (on the currently bound texture object)
 		SetFilter(filter);
-		SetWrapping(wrapping);
+		//SetWrapping(wrapping); ToDo: uncomment this
 
 		// Load image
 		// stbi_load returns the pixel data as a chunk of memory
+		stbi_set_flip_vertically_on_load(true);
 		int channelsAmount;
 		mPixelData = stbi_load(mImagePath.c_str(), &mWidth, &mHeight, &channelsAmount, 0);
 
-		// Set data format
-		GLenum dataFormat = 0;
-		if (channelsAmount == 4) {
-			dataFormat = GL_RGBA;
-		}
-		else {
-			dataFormat = GL_RGB;
-		}
-
 		// Generate texture
 		if (mPixelData) {
-			glTexImage2D(GL_TEXTURE_2D, 0, dataFormat, mWidth, mHeight, 0, dataFormat, GL_UNSIGNED_BYTE, mPixelData); RICHARD_CHECK_GL_ERROR;
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidth, mHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, mPixelData); RICHARD_CHECK_GL_ERROR;
 			Tools::Logger::Info("Image loaded. Image path: " + mImagePath);
 		}
 		else {
-			// Something went wrong so it will render the default texture
-			Tools::Logger::Warning("Could not load image, it will load the default texture. Image path that could not be loaded: " + mImagePath);
-			float pixels[] = {
-				1.f, 0.f, 1.f,	1.f, 1.f, 1.f,	1.f, 0.f, 1.f,	1.f, 1.f, 1.f,
-				1.f, 1.f, 1.f,	1.f, 0.f, 1.f,	1.f, 1.f, 1.f,	1.f, 0.f, 1.f,
-				1.f, 0.f, 1.f,	1.f, 1.f, 1.f,	1.f, 0.f, 1.f,	1.f, 1.f, 1.f,
-				1.f, 1.f, 1.f,	1.f, 0.f, 1.f,	1.f, 1.f, 1.f,	1.f, 0.f, 1.f
-			};
-			mWidth = 4;
-			mHeight = 4;
-
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidth, mHeight, 0, GL_RGB, GL_FLOAT, pixels); RICHARD_CHECK_GL_ERROR;
+			Tools::Logger::Error("Could not load image. Image path: " + mImagePath);
 		}
-
-		Unbind();
+		stbi_image_free(mPixelData);
 	}
 
 
 	Texture::~Texture() {
-		stbi_image_free(mPixelData);
+		//stbi_image_free(mPixelData);
 	}
 
 	void Texture::Bind() {
-		glBindTexture(GL_TEXTURE_2D, mId); RICHARD_CHECK_GL_ERROR;
+		glBindTexture(GL_TEXTURE_2D, mTexture); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Texture::Unbind() {
@@ -73,7 +53,7 @@ namespace Richard::Graphics {
 	}
 
 	uint32_t Texture::GetId() {
-		return mId;
+		return mTexture;
 	}
 
 	string Texture::GetImagePath() {
@@ -93,12 +73,14 @@ namespace Richard::Graphics {
 	/*Private methods*/
 
 	void Texture::SetFilter(texture_filter filter) {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		// Set the texture wrapping parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		// Set texture filtering parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		switch (filter) {
+		/*switch (filter) {
 		case T_FILTER_LINEAR:
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); RICHARD_CHECK_GL_ERROR;
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); RICHARD_CHECK_GL_ERROR;
@@ -110,7 +92,7 @@ namespace Richard::Graphics {
 		default:
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
-		}
+		}*/
 	}
 
 	void Texture::SetWrapping(texture_wrapping wrapping) {
