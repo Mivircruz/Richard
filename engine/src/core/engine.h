@@ -1,8 +1,8 @@
 #pragma once
 
 #include "client/application.h"
-#include "window.h"
-#include "renderer/renderer.h"
+#include "graphics/window.h"
+#include "graphics/renderer.h"
 #include "tools/logger.h"
 
 /*
@@ -32,7 +32,12 @@ namespace Richard {
         /*
         * GetRenderer() returns the renderer.
         */
-        Subsystems::Renderer* GetRenderer();
+        Graphics::Renderer* GetRenderer();
+
+        /*
+        * GetWindow() returns the window.
+        */
+        static Graphics::Window* GetWindow();
 
         /*
         * Run() is the game loop.
@@ -61,12 +66,12 @@ namespace Richard {
         /* 
         * Window that will handle input events
         */
-        Managers::Window mWindow;
+        static Graphics::Window* mWindow;
 
         /*
         * Render class that will execute the render commands.
         */
-        Subsystems::Renderer mRenderer;
+        Graphics::Renderer mRenderer;
 
         /*
         * Pointer to the client-defined application.
@@ -92,10 +97,9 @@ namespace Richard {
         /*
         * Update() checks if there are new events.
         * This events can come from many sources: mouse, keyboard, etc.
-        * It returns an integer that represents the kind of event processed.
-        * For more information, please refer to window header.
+        * It also executes the Update() method implemented by the client.
         */
-       int Update();
+       void Update();
 
        /*
        * Render() makes the rendering process.
@@ -103,7 +107,7 @@ namespace Richard {
        void Render();
 
         /*
-        * Shutdown() cleans up SDL2 and all the initiliazed managers.
+        * Shutdown() cleans up all the initiliazed subsystems such as Window, Logger, etc.
         */
         void Shutdown();
     };
