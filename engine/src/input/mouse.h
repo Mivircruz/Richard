@@ -1,6 +1,6 @@
 #pragma once
-#include "button.h"
-#include <map>
+
+#include <utility>
 
 namespace Richard::Input {
 	class Mouse {
@@ -18,75 +18,15 @@ namespace Richard::Input {
 		~Mouse();
 
 		/*
-		* Initialize() initializes the button map.
+		* GetPosition() returns the current x-axis and y-axis mouse position (in that order).
 		*/
-		static void Initialize();
+		static std::pair<float, float> GetPosition();
 
 		/*
-		* Shutdown() cleans up the environment that Initialize set up.
+		* IsButtonPressed() returns true if the button given in the argument is being pressed.
+		* It returns false otherwise.
 		*/
-		static void Shutdown();
-
-		/*
-		* Update() gets the current state and position of the mouse
-		* and it updates both the position and every button.
-		*/
-		static void Update();
-
-		/*
-		* GetXCurrentPosition() returns the current x-axis mouse position.
-		*/
-		static int GetXCurrentPosition();
-
-		/*
-		* GetYCurrentPosition() returns the current y-axis mouse position.
-		*/
-		static int GetYCurrentPosition();
-
-		/*
-		* GetButtonCurrentState() returns the current status of the button given in the argument.
-		*/
-		static int GetButtonCurrentState(int buttonName);
-
-		/*
-		* GetXPreviousPosition() returns the previous x-axis mouse position.
-		*/
-		static int GetXPreviousPosition();
-
-		/*
-		* GetYPreviousPosition() returns the previous y-axis mouse position.
-		*/
-		static int GetYPreviousPosition();
-
-		/*
-		* GetButtonPreviousState() returns the previous status of the button given in the argument.
-		*/
-		static int GetButtonPreviousState(int buttonName);
-
-
-
-	private:
-		/*Member variables*/
-
-		/*
-		* Current and previous position of the mouse in the x-axis position
-		*/
-		static int mCurrentXPosition, mPreviousXPosition;
-
-		/*
-		* Current and previous position of the mouse in the y-axis position
-		*/
-		static int mCurrentYPosition, mPreviousYPosition;
-
-		/*
-		* Mouse buttons.
-		*/
-		static map<int, Button> mButtons;
-
-		/*
-		* Amount of mouse buttons.
-		*/
-		static const int mButtonAmount = 5;
+		static bool IsButtonPressed(int buttonName);
 	};
 }
 

@@ -1,5 +1,7 @@
 #pragma once
 
+struct GLFWwindow;
+
 /*
 * window_event represents the OS events that the method HandleEvents() may receive.
 * It is used to indicate those functions that call HandleEvents() which event
@@ -26,29 +28,13 @@ enum window_initialize_response {
 */
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
-const int WINDOW_MIN_WIDTH = 400;
-const int WINDOW_MIN_HEIGHT = 200;
 
 /*
 * Constants related to the glad version downloaded
 */
-const int GLAD_MAJOR_VERSION = 4;
-const int GLAD_MINOR_VERSION = 6;
+const int OPENGL_MAJOR_VERSION = 4;
+const int OPENGL_MINOR_VERSION = 6;
 const int GLAD_DEPTH_SIZE = 24;
-
-/*
-* We forward declare this struct so every file that imports this header,
-* will not have to import anything SDL_Window related.
-* 
-* For example, engine.h will not need to import this struct
-* and neither will application/src/main.cpp, as it imports engine.h
-*/
-struct SDL_Window;
-
-/*
-* We forward declare this typo
-*/
-using SDL_GLContext = void*;
 
 namespace Richard::Graphics {
 	class Window {
@@ -83,11 +69,14 @@ namespace Richard::Graphics {
 		/*
 		* HandleEvents() pops out the OS events from the queue and, 
 		* depending on the type of event, performs diferent actions.
-		* It returns an int that represent what kind of event it has just been processed.
-		* 0 = default event.
-		* 1 = quit event.
 		*/
-		int HandleEvents();
+		void HandleEvents();
+
+		/*
+		* WindowShouldClose() returns true if an escape key was pressed.
+		* It returns false otherwise.
+		*/
+		bool WindowShouldClose();
 
 		/*
 		* BeginRender() starts the rendering process.
@@ -99,18 +88,27 @@ namespace Richard::Graphics {
 		*/
 		void EndRender();
 
-	private:
+		/*
+		* Get() returns the pointer that points to the window.
+		*/
+		GLFWwindow* Get();
 
+
+
+	private:
 		/*Member variables*/
 
 		/*
 		* Pointer that points to the window that will receive the OS events.
 		*/
-		SDL_Window* pWindow;
+		GLFWwindow* pWindow;
+
+
+		/*Methods*/
 
 		/*
-		* To use OpenGL within SDL, we need to capture the OpenGL Context
-		*/	
-		SDL_GLContext mGLContext;
+		* Process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly.
+		*/
+		void Window::ProcessInput();
 	};
 }

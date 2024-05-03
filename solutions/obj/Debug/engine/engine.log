@@ -1,5 +1,68 @@
 ﻿  engine.cpp
   mesh.cpp
+  renderer.cpp
   rendermesh.cpp
+  shader.cpp
+  window.cpp
+  button.cpp
+  keyboard.cpp
+  mouse.cpp
+  errorchecker.cpp
+  logger.cpp
   Generando código...
-  engine.vcxproj -> C:\dev\Richard\solutions\bin\debug\engine\engine.lib
+engine.obj : error LNK2019: símbolo externo SDL_GetError sin resolver al que se hace referencia en la función "private: int __cdecl Richard::Engine::Initialize(void)" (?Initialize@Engine@Richard@@AEAAHXZ)
+window.obj : error LNK2001: símbolo externo SDL_GetError sin resolver
+engine.obj : error LNK2019: símbolo externo SDL_Init sin resolver al que se hace referencia en la función "private: int __cdecl Richard::Engine::Initialize(void)" (?Initialize@Engine@Richard@@AEAAHXZ)
+engine.obj : error LNK2019: símbolo externo SDL_Quit sin resolver al que se hace referencia en la función "private: void __cdecl Richard::Engine::Shutdown(void)" (?Shutdown@Engine@Richard@@AEAAXXZ)
+mesh.obj : error LNK2001: símbolo externo glad_glBindBuffer sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glDeleteBuffers sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glGenBuffers sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glBufferData sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glDisableVertexAttribArray sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glEnableVertexAttribArray sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glVertexAttribPointer sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glBindVertexArray sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glDeleteVertexArrays sin resolver
+mesh.obj : error LNK2001: símbolo externo glad_glGenVertexArrays sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glClear sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glClearColor sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glEnable sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glBlendFunc sin resolver
+renderer.obj : error LNK2001: símbolo externo glad_glDepthFunc sin resolver
+rendermesh.obj : error LNK2001: símbolo externo glad_glDrawArrays sin resolver
+rendermesh.obj : error LNK2001: símbolo externo glad_glDrawElements sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glAttachShader sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glCompileShader sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glCreateProgram sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glCreateShader sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glDeleteProgram sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glDeleteShader sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetProgramiv sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetProgramInfoLog sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetShaderiv sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetShaderInfoLog sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glGetUniformLocation sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glLinkProgram sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glShaderSource sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUseProgram sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform1f sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform2f sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform3f sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform4f sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glUniform1i sin resolver
+shader.obj : error LNK2001: símbolo externo glad_glValidateProgram sin resolver
+window.obj : error LNK2019: símbolo externo SDL_CreateWindow sin resolver al que se hace referencia en la función "public: int __cdecl Richard::Graphics::Window::Initialize(void)" (?Initialize@Window@Graphics@Richard@@QEAAHXZ)
+window.obj : error LNK2019: símbolo externo SDL_SetWindowMinimumSize sin resolver al que se hace referencia en la función "public: int __cdecl Richard::Graphics::Window::Initialize(void)" (?Initialize@Window@Graphics@Richard@@QEAAHXZ)
+window.obj : error LNK2019: símbolo externo SDL_DestroyWindow sin resolver al que se hace referencia en la función "public: void __cdecl Richard::Graphics::Window::Shutdown(void)" (?Shutdown@Window@Graphics@Richard@@QEAAXXZ)
+window.obj : error LNK2019: símbolo externo SDL_GL_GetProcAddress sin resolver al que se hace referencia en la función "public: int __cdecl Richard::Graphics::Window::Initialize(void)" (?Initialize@Window@Graphics@Richard@@QEAAHXZ)
+window.obj : error LNK2019: símbolo externo SDL_GL_SetAttribute sin resolver al que se hace referencia en la función "public: int __cdecl Richard::Graphics::Window::Initialize(void)" (?Initialize@Window@Graphics@Richard@@QEAAHXZ)
+window.obj : error LNK2019: símbolo externo SDL_GL_CreateContext sin resolver al que se hace referencia en la función "public: int __cdecl Richard::Graphics::Window::Initialize(void)" (?Initialize@Window@Graphics@Richard@@QEAAHXZ)
+window.obj : error LNK2019: símbolo externo SDL_GL_SwapWindow sin resolver al que se hace referencia en la función "public: void __cdecl Richard::Graphics::Window::EndRender(void)" (?EndRender@Window@Graphics@Richard@@QEAAXXZ)
+window.obj : error LNK2019: símbolo externo SDL_GL_DeleteContext sin resolver al que se hace referencia en la función "public: void __cdecl Richard::Graphics::Window::Shutdown(void)" (?Shutdown@Window@Graphics@Richard@@QEAAXXZ)
+window.obj : error LNK2019: símbolo externo SDL_PollEvent sin resolver al que se hace referencia en la función "public: int __cdecl Richard::Graphics::Window::HandleEvents(void)" (?HandleEvents@Window@Graphics@Richard@@QEAAHXZ)
+window.obj : error LNK2019: símbolo externo gladLoadGLLoader sin resolver al que se hace referencia en la función "public: int __cdecl Richard::Graphics::Window::Initialize(void)" (?Initialize@Window@Graphics@Richard@@QEAAHXZ)
+keyboard.obj : error LNK2019: símbolo externo SDL_GetKeyboardState sin resolver al que se hace referencia en la función "public: static void __cdecl Richard::Input::Keyboard::Update(void)" (?Update@Keyboard@Input@Richard@@SAXXZ)
+mouse.obj : error LNK2019: símbolo externo SDL_GetMouseState sin resolver al que se hace referencia en la función "public: static void __cdecl Richard::Input::Mouse::Update(void)" (?Update@Mouse@Input@Richard@@SAXXZ)
+errorchecker.obj : error LNK2001: símbolo externo glad_glGetError sin resolver
+LIBCMTD.lib(exe_winmain.obj) : error LNK2019: símbolo externo WinMain sin resolver al que se hace referencia en la función "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+..\solutions\bin\debug\engine\engine.lib : fatal error LNK1120: 54 externos sin resolver

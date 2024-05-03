@@ -1,11 +1,27 @@
+<<<<<<< HEAD
 C:\dev\Richard\engine\src\core\engine.cpp;C:\dev\Richard\solutions\obj\debug\engine\engine.obj
 C:\dev\Richard\engine\src\graphics\mesh.cpp;C:\dev\Richard\solutions\obj\debug\engine\mesh.obj
 C:\dev\Richard\engine\src\graphics\renderer.cpp;C:\dev\Richard\solutions\obj\debug\engine\renderer.obj
 C:\dev\Richard\engine\src\graphics\rendermesh.cpp;C:\dev\Richard\solutions\obj\debug\engine\rendermesh.obj
+C:\dev\Richard\engine\src\graphics\rendertexture.cpp;C:\dev\Richard\solutions\obj\debug\engine\rendertexture.obj
 C:\dev\Richard\engine\src\graphics\shader.cpp;C:\dev\Richard\solutions\obj\debug\engine\shader.obj
+C:\dev\Richard\engine\src\graphics\texture.cpp;C:\dev\Richard\solutions\obj\debug\engine\texture.obj
 C:\dev\Richard\engine\src\graphics\window.cpp;C:\dev\Richard\solutions\obj\debug\engine\window.obj
 C:\dev\Richard\engine\src\input\button.cpp;C:\dev\Richard\solutions\obj\debug\engine\button.obj
 C:\dev\Richard\engine\src\input\keyboard.cpp;C:\dev\Richard\solutions\obj\debug\engine\keyboard.obj
 C:\dev\Richard\engine\src\input\mouse.cpp;C:\dev\Richard\solutions\obj\debug\engine\mouse.obj
 C:\dev\Richard\engine\src\tools\errorchecker.cpp;C:\dev\Richard\solutions\obj\debug\engine\errorchecker.obj
 C:\dev\Richard\engine\src\tools\logger.cpp;C:\dev\Richard\solutions\obj\debug\engine\logger.obj
+=======
+C:\dev\Richard\engine\src\core\engine.cpp;C:\dev\Richard\solutions\obj\Debug\engine\engine.obj
+C:\dev\Richard\engine\src\graphics\mesh.cpp;C:\dev\Richard\solutions\obj\Debug\engine\mesh.obj
+C:\dev\Richard\engine\src\graphics\renderer.cpp;C:\dev\Richard\solutions\obj\Debug\engine\renderer.obj
+C:\dev\Richard\engine\src\graphics\rendermesh.cpp;C:\dev\Richard\solutions\obj\Debug\engine\rendermesh.obj
+C:\dev\Richard\engine\src\graphics\shader.cpp;C:\dev\Richard\solutions\obj\Debug\engine\shader.obj
+C:\dev\Richard\engine\src\graphics\window.cpp;C:\dev\Richard\solutions\obj\Debug\engine\window.obj
+C:\dev\Richard\engine\src\input\button.cpp;C:\dev\Richard\solutions\obj\Debug\engine\button.obj
+C:\dev\Richard\engine\src\input\keyboard.cpp;C:\dev\Richard\solutions\obj\Debug\engine\keyboard.obj
+C:\dev\Richard\engine\src\input\mouse.cpp;C:\dev\Richard\solutions\obj\Debug\engine\mouse.obj
+C:\dev\Richard\engine\src\tools\errorchecker.cpp;C:\dev\Richard\solutions\obj\Debug\engine\errorchecker.obj
+C:\dev\Richard\engine\src\tools\logger.cpp;C:\dev\Richard\solutions\obj\Debug\engine\logger.obj
+>>>>>>> 537ac56f097f0429288075eb03e72e55917904af

@@ -21,20 +21,16 @@ namespace Richard::Graphics {
         }
 
         // Bind
-        mesh->Bind();
         shader->Bind();
+        mesh->Bind();
 
         // Draw
-        uint32_t elementsAmount = mesh->GetElementsAmount();
+        uint32_t elementsAmount = mesh->GetIndexAmount();
         if (elementsAmount) {
             glDrawElements(GL_TRIANGLES, elementsAmount, GL_UNSIGNED_INT, 0);
         }
         else {
             glDrawArrays(GL_TRIANGLE_STRIP, 0, mesh->GetVertexAmount()); RICHARD_CHECK_GL_ERROR;
         }
-
-        // Unbind
-        mesh->Unbind();
-        shader->Unbind();
     }
 }
