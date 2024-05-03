@@ -10,7 +10,7 @@
 namespace Richard::Graphics {
 	/*Public methods*/
 
-	Texture::Texture(string imagePath, texture_filter filter, texture_wrapping wrapping) {
+	Texture::Texture(string imagePath) {
 		mImagePath = imagePath;
 		mPixelData = nullptr;
 
@@ -19,8 +19,7 @@ namespace Richard::Graphics {
 		Bind();
 
 		// Set the texture wrapping/filtering options (on the currently bound texture object)
-		SetFilter(filter);
-		//SetWrapping(wrapping); ToDo: uncomment this
+		SetFilters();
 
 		// Load image
 		// stbi_load returns the pixel data as a chunk of memory
@@ -41,7 +40,7 @@ namespace Richard::Graphics {
 
 
 	Texture::~Texture() {
-		//stbi_image_free(mPixelData);
+		Unbind();
 	}
 
 	void Texture::Bind() {
@@ -72,50 +71,12 @@ namespace Richard::Graphics {
 
 	/*Private methods*/
 
-	void Texture::SetFilter(texture_filter filter) {
+	void Texture::SetFilters() {
 		// Set the texture wrapping parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		// Set texture filtering parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		/*switch (filter) {
-		case T_FILTER_LINEAR:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); RICHARD_CHECK_GL_ERROR;
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); RICHARD_CHECK_GL_ERROR;
-			break;
-		case T_FILTER_NEAREST:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
-			break;
-		default:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); RICHARD_CHECK_GL_ERROR;
-		}*/
-	}
-
-	void Texture::SetWrapping(texture_wrapping wrapping) {
-		switch (wrapping) {
-		case T_WRAPPING_REPEAT:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); RICHARD_CHECK_GL_ERROR;
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); RICHARD_CHECK_GL_ERROR;
-			break;
-		case T_WRAPPING_MIRRORED_REPEAT:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT); RICHARD_CHECK_GL_ERROR;
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT); RICHARD_CHECK_GL_ERROR;
-			break;
-		case T_WRAPPING_CLAMP_TO_EDGE:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER); RICHARD_CHECK_GL_ERROR;
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER); RICHARD_CHECK_GL_ERROR;
-			break;
-		case T_WRAPPING_CLAMP_TO_BORDER:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); RICHARD_CHECK_GL_ERROR;
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); RICHARD_CHECK_GL_ERROR;
-			break;
-		default:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); RICHARD_CHECK_GL_ERROR;
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); RICHARD_CHECK_GL_ERROR;
-		}
 	}
 }

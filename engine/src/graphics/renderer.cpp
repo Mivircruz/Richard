@@ -35,7 +35,8 @@ namespace Richard::Graphics {
 
 		// Clears the color of the screen (color buffer) and
 		// any cached information about the depth of what the window just rendered (depth buffer)
-		SetClearColor(76.0f / 255.0f, 0.0f / 255.0f, 155.0f / 255.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  RICHARD_CHECK_GL_ERROR;
+		glClearColor(76.0f / 255.0f, 0.0f / 255.0f, 155.0f / 255.0f, 1.0f);
 	}
 
 	

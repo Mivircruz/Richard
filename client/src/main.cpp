@@ -65,11 +65,11 @@ class ClientApp : public Richard::Application {
             0.f, 1.f
         };
 
-        mMesh = make_shared<Richard::Graphics::Mesh>(&vertices[0], 4, 8, &textureCoodinates[0], &indices[0], 6);
+        mMesh = make_shared<Richard::Graphics::Mesh>(&vertices[0], 4, 3, 3, 2, &indices[0], 6);
 
 
         // Define the texture
-        mTexture = make_shared<Richard::Graphics::Texture>("resources/poro.jpg", T_FILTER_LINEAR, T_WRAPPING_REPEAT);
+        mTexture = make_shared<Richard::Graphics::Texture>("resources/poro.jpg");
     }
 
     void Shutdown() override {

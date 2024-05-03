@@ -25,7 +25,7 @@ namespace Richard::Graphics {
         mesh->Bind();
 
         // Draw
-        uint32_t elementsAmount = mesh->GetElementsAmount();
+        uint32_t elementsAmount = mesh->GetIndexAmount();
         if (elementsAmount) {
             glDrawElements(GL_TRIANGLES, elementsAmount, GL_UNSIGNED_INT, 0);
         }
