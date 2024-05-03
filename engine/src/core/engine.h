@@ -97,8 +97,7 @@ namespace Richard {
         /*
         * Update() checks if there are new events.
         * This events can come from many sources: mouse, keyboard, etc.
-        * //TodO: completar mejor esto
-        * For more information, please refer to window header.
+        * It also executes the Update() method implemented by the client.
         */
        void Update();
 
@@ -108,7 +107,7 @@ namespace Richard {
        void Render();
 
         /*
-        * Shutdown() cleans up SDL2 and all the initiliazed managers.
+        * Shutdown() cleans up all the initiliazed subsystems such as Window, Logger, etc.
         */
         void Shutdown();
     };

@@ -7,9 +7,6 @@ namespace Richard::Graphics {
 	/*Public methods*/
 
 	Shader::Shader(const string& vertex, const string& fragment) {
-		// Start the program
-		mProgramId = glCreateProgram(); RICHARD_CHECK_GL_ERROR;
-
 		// Create vertex shader
 		int vertexShaderId = CreateShader(vertex, "Vertex", GL_VERTEX_SHADER);
 		if (!vertexShaderId) {
@@ -24,28 +21,33 @@ namespace Richard::Graphics {
 			return;
 		}
 
+		// Start the program and attach shaders
+		mShaderProgram = glCreateProgram(); RICHARD_CHECK_GL_ERROR;
+		glAttachShader(mShaderProgram, vertexShaderId); RICHARD_CHECK_GL_ERROR;
+		glAttachShader(mShaderProgram, fragmentShaderId); RICHARD_CHECK_GL_ERROR;
+
+
 		// Link program
-		glLinkProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
-		glValidateProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
+		glLinkProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
 
 		// Check link error status
 		int status;
-		glGetProgramiv(mProgramId, GL_LINK_STATUS, &status); RICHARD_CHECK_GL_ERROR;
+		glGetProgramiv(mShaderProgram, GL_LINK_STATUS, &status); RICHARD_CHECK_GL_ERROR;
 		if (status != GL_TRUE) {
 			// Get link error message length
 			GLint length;
-			glGetProgramiv(mProgramId, GL_INFO_LOG_LENGTH, &length); RICHARD_CHECK_GL_ERROR;
+			glGetProgramiv(mShaderProgram, GL_INFO_LOG_LENGTH, &length); RICHARD_CHECK_GL_ERROR;
 
 			// Get link error message and log it
 			string errorLog(length, ' ');
-			glGetProgramInfoLog(mProgramId, length, &length, &errorLog[0]); RICHARD_CHECK_GL_ERROR;
+			glGetProgramInfoLog(mShaderProgram, length, &length, &errorLog[0]); RICHARD_CHECK_GL_ERROR;
 			Tools::Logger::Error("Error linkin shaders: " + errorLog);
 
 			// Delete program
-			glDeleteProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
+			glDeleteProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
 
 			// Set an invalid program ID
-			mProgramId = -1;
+			mShaderProgram = -1;
 			return;
 		}
 
@@ -59,11 +61,11 @@ namespace Richard::Graphics {
 		// Unbind program so it is not in use anymore
 		// This allows the program to be deleted
 		glUseProgram(0); RICHARD_CHECK_GL_ERROR;
-		glDeleteProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
+		glDeleteProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Shader::Bind() {
-		glUseProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Shader::Unbind() {
@@ -71,28 +73,28 @@ namespace Richard::Graphics {
 	}
 
 	void Shader::SetUniformInt(const string& name, int value) {
-		glUseProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
-		glUniform1i(glGetUniformLocation(mProgramId, name.c_str()), value); RICHARD_CHECK_GL_ERROR;
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
+		glUniform1i(glGetUniformLocation(mShaderProgram, name.c_str()), value); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Shader::SetUniformFloat1(const string& name, float value) {
-		glUseProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
-		glUniform1f(glGetUniformLocation(mProgramId, name.c_str()), value); RICHARD_CHECK_GL_ERROR;
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
+		glUniform1f(glGetUniformLocation(mShaderProgram, name.c_str()), value); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Shader::SetUniformFloat2(const string& name, float value1, float value2) {
-		glUseProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
-		glUniform2f(glGetUniformLocation(mProgramId, name.c_str()), value1, value2); RICHARD_CHECK_GL_ERROR;
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
+		glUniform2f(glGetUniformLocation(mShaderProgram, name.c_str()), value1, value2); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Shader::SetUniformFloat3(const string& name, float value1, float value2, float value3) {
-		glUseProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
-		glUniform3f(glGetUniformLocation(mProgramId, name.c_str()), value1, value2, value3); RICHARD_CHECK_GL_ERROR;
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
+		glUniform3f(glGetUniformLocation(mShaderProgram, name.c_str()), value1, value2, value3); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Shader::SetUniformFloat4(const string& name, float value1, float value2, float value3, float value4) {
-		glUseProgram(mProgramId); RICHARD_CHECK_GL_ERROR;
-		glUniform4f(glGetUniformLocation(mProgramId, name.c_str()), value1, value2, value3, value4); RICHARD_CHECK_GL_ERROR;
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
+		glUniform4f(glGetUniformLocation(mShaderProgram, name.c_str()), value1, value2, value3, value4); RICHARD_CHECK_GL_ERROR;
 	}
 
 
@@ -128,8 +130,6 @@ namespace Richard::Graphics {
 
 			return -1;
 		}
-
-		glAttachShader(mProgramId, shaderId); RICHARD_CHECK_GL_ERROR;
 
 		return shaderId;
 	}

@@ -68,10 +68,6 @@ namespace Richard::Graphics {
 
 	void Window::HandleEvents() {
 		ProcessInput();
-
-		// Swap buffers and poll IO events (keys pressed/released, mouse moved, etc.)
-		glfwSwapBuffers(pWindow);
-		glfwPollEvents();
 	}
 
 	bool Window::WindowShouldClose() {
@@ -83,7 +79,11 @@ namespace Richard::Graphics {
 		Engine::GetInstance()->GetRenderer()->Clear();
 	}
 
-	void Window::EndRender() {}
+	void Window::EndRender() {
+		// Swap buffers and poll IO events (keys pressed/released, mouse moved, etc.)
+		glfwSwapBuffers(pWindow);
+		glfwPollEvents();
+	}
 
 	GLFWwindow* Window::Get() {
 		return pWindow;

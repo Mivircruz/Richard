@@ -14,6 +14,7 @@ obj_dir = "solutions/obj/%{cfg.buildcfg}/%{prj.name}"
 
 -- External dependencies
 external_dependencies = {}
+external_dependencies["stb"] = "dependencies/include/stb"
 external_dependencies["glad"] = "dependencies/include/glad"
 
 -- Process Glad
@@ -40,7 +41,8 @@ project "engine"
    externalincludedirs {
       "%{prj.name}/src",
       "dependencies/include",
-      "%{external_dependencies.glad}/include"
+      "%{external_dependencies.glad}/include",
+      "%{external_dependencies.stb}"
    }
 
    -- Treat fatal warnings as errors
