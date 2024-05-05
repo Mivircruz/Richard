@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef SHADER_H
+#define SHADER_H
+
 #include <string>
 
 using namespace std;
@@ -25,7 +28,7 @@ namespace Richard::Graphics {
 		* Constructor. It creates the object Shader.
 		* It also initializes the Vertex Shader and the Fragment Shader.
 		*/
-		Shader(const string& vertex, const string& fragment);
+		Shader(const char* vertexPath, const char* fragmentPath);
 
 		/*
 		* Destructor. It cleans up all the subsystems
@@ -69,3 +72,5 @@ namespace Richard::Graphics {
 		int CreateShader(const string& source, const string shaderName, uint32_t shaderType);
 	};
 }
+
+#endif
