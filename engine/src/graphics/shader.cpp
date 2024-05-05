@@ -43,7 +43,10 @@ namespace Richard::Graphics {
 		}
 		catch (std::ifstream::failure& e) {
 			(void)e;
-			Tools::Logger::Error("Shader could not read files.");
+			string shaderMsg = "Shader could not read files. Error: ";
+			const char* errorMsg = e.what();
+			string logMsg = shaderMsg + errorMsg;
+			Tools::Logger::Error(logMsg);
 		}
 
 		// Create vertex shader
