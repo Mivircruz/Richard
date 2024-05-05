@@ -1,21 +1,60 @@
 #include "Shader.h"
+
 #include "glad/glad.h"
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
 #include "tools/errorchecker.h"
 #include "tools/logger.h"
 
 namespace Richard::Graphics {
 	/*Public methods*/
 
-	Shader::Shader(const string& vertex, const string& fragment) {
+	Shader::Shader(const char* vertexPath, const char* fragmentPath) {
+		// Retrieve the vertex/fragment source code from filePath
+		std::string vertexCode;
+		std::string fragmentCode;
+		std::ifstream vShaderFile;
+		std::ifstream fShaderFile;
+
+		// Ensure ifstream objects can throw exceptions:
+		vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+		fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+		try {
+			// Open files
+			vShaderFile.open(vertexPath);
+			fShaderFile.open(fragmentPath);
+			std::stringstream vShaderStream, fShaderStream;
+
+			// Read file's buffer contents into streams
+			vShaderStream << vShaderFile.rdbuf();
+			fShaderStream << fShaderFile.rdbuf();
+
+			// Close file handlers
+			vShaderFile.close();
+			fShaderFile.close();
+
+			// Convert stream into string
+			vertexCode = vShaderStream.str();
+			fragmentCode = fShaderStream.str();
+		}
+		catch (std::ifstream::failure& e) {
+			(void)e;
+			Tools::Logger::Error("Shader could not read files.");
+		}
+
 		// Create vertex shader
-		int vertexShaderId = CreateShader(vertex, "Vertex", GL_VERTEX_SHADER);
+		int vertexShaderId = CreateShader(vertexCode, "Vertex", GL_VERTEX_SHADER);
 		if (!vertexShaderId) {
 			Tools::Logger::Error("Shader creation failed. Error creating Vertex shader.");
 			return;
 		}
 
 		// Create fragment shader
-		int fragmentShaderId = CreateShader(fragment, "Fragment", GL_FRAGMENT_SHADER);
+		int fragmentShaderId = CreateShader(fragmentCode, "Fragment", GL_FRAGMENT_SHADER);
 		if (!fragmentShaderId) {
 			Tools::Logger::Error("Shader creation failed. Error creating Fragment shader");
 			return;

@@ -41,7 +41,7 @@ class ClientApp : public Richard::Application {
             "  FragColor = texture(ourTexture, TexCoord);\n"
             "}\n\0";
 
-        mShader = make_shared<Richard::Graphics::Shader>(vertexShader, fragmentShader);
+        mShader = make_shared<Richard::Graphics::Shader>("resources/shaders/texture_vs.txt", "resources/shaders/texture_fs.txt");
 
         // Define the square
         float vertices[] = {
@@ -69,7 +69,7 @@ class ClientApp : public Richard::Application {
 
 
         // Define the texture
-        mTexture = make_shared<Richard::Graphics::Texture>("resources/poro.jpg");
+        mTexture = make_shared<Richard::Graphics::Texture>("resources/images/poro.jpg");
     }
 
     void Shutdown() override {
