@@ -47,11 +47,11 @@ class ClientApp : public Richard::Application {
 
         // Define the textures
         shared_ptr<Richard::Graphics::Texture> texture1 = make_shared<Richard::Graphics::Texture>("resources/images/poro.jpg", T_COLOR_RGB);
-        //shared_ptr<Richard::Graphics::Texture> texture2 = make_shared<Richard::Graphics::Texture>("resources/images/pusheen.png", T_COLOR_RGBA);
+        shared_ptr<Richard::Graphics::Texture> texture2 = make_shared<Richard::Graphics::Texture>("resources/images/pusheen.png", T_COLOR_RGBA);
         mTextures.push_back(texture1);
-        //mTextures.push_back(texture2);
-        //mShader->SetUniformInt("texture1", 0);
-        //mShader->SetUniformInt("texture2", 0);
+        mTextures.push_back(texture2);
+        mShader->SetUniformInt("texture1", 0);
+        mShader->SetUniformInt("texture2", 0);
     }
 
     void Shutdown() override {
@@ -64,7 +64,7 @@ class ClientApp : public Richard::Application {
 
         auto renderCommand = make_unique<Richard::Graphics::RenderTexture>(mMesh, mShader);
         renderCommand->AddTexture(mTextures.at(0));
-        //renderCommand->AddTexture(mTextures.at(1));
+        renderCommand->AddTexture(mTextures.at(1));
         Engine::GetInstance()->GetRenderer()->Submit(move(renderCommand));
         Engine::GetInstance()->GetRenderer()->Execute();
     }

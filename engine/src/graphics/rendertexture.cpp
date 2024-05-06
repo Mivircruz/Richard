@@ -19,10 +19,9 @@ namespace Richard::Graphics {
         // Get Mesh, Texture and Shader pointers
         shared_ptr<Mesh> mesh = pMesh.lock();
 
-        shared_ptr<Texture> texture;
         vector<shared_ptr<Texture>> textures;
         for (int i = 0; i < pTextures.size(); i++) {
-            texture = pTextures.at(i).lock();
+            shared_ptr<Texture> texture = pTextures.at(i).lock();
             if (!texture) {
                 Tools::Logger::Error("Texture not available for rendering process");
                 return;
