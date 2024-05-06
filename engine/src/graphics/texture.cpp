@@ -10,7 +10,7 @@
 namespace Richard::Graphics {
 	/*Public methods*/
 
-	Texture::Texture(string imagePath) {
+	Texture::Texture(string imagePath, uint32_t colorFormat, uint32_t minFilter, uint32_t maxFilter, uint32_t tWrapping, uint32_t sWrapping) {
 		mImagePath = imagePath;
 		mPixelData = nullptr;
 
@@ -19,7 +19,8 @@ namespace Richard::Graphics {
 		Bind();
 
 		// Set the texture wrapping/filtering options (on the currently bound texture object)
-		SetFilters();
+		SetFilters(minFilter, maxFilter);
+		SetWrapping(tWrapping, sWrapping);
 
 		// Load image
 		// stbi_load returns the pixel data as a chunk of memory
@@ -29,7 +30,8 @@ namespace Richard::Graphics {
 
 		// Generate texture
 		if (mPixelData) {
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mWidth, mHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, mPixelData); RICHARD_CHECK_GL_ERROR;
+			glTexImage2D(GL_TEXTURE_2D, 0, colorFormat, mWidth, mHeight, 0, colorFormat, GL_UNSIGNED_BYTE, mPixelData); RICHARD_CHECK_GL_ERROR;
+			glGenerateMipmap(GL_TEXTURE_2D);
 			Tools::Logger::Info("Image loaded. Image path: " + mImagePath);
 		}
 		else {
@@ -38,6 +40,7 @@ namespace Richard::Graphics {
 		stbi_image_free(mPixelData);
 	}
 
+	Texture::Texture(string imagePath, uint32_t colorFormat) : Texture(imagePath, colorFormat, T_FILTER_LINEAR, T_FILTER_LINEAR, T_WRAPPING_REPEAT, T_WRAPPING_REPEAT) {}
 
 	Texture::~Texture() {
 		Unbind();
@@ -71,12 +74,13 @@ namespace Richard::Graphics {
 
 	/*Private methods*/
 
-	void Texture::SetFilters() {
-		// Set the texture wrapping parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		// Set texture filtering parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	void Texture::SetFilters(uint32_t minFilter, uint32_t maxFilter) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, maxFilter);
+	}
+
+	void Texture::SetWrapping(uint32_t tWrapping, uint32_t sWrapping) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, sWrapping);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, tWrapping);
 	}
 }
