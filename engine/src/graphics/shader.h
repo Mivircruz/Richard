@@ -47,8 +47,12 @@ namespace Richard::Graphics {
 		void Unbind();
 
 		/*
-		* The following methods specify the value of a uniform variable for the current program object
-		* The difference between them is the type and amount of argument they receive
+		* The following methods specify the value of a uniform variable for the current program object.
+		* The difference between them is the type and amount of argument they receive.
+		* Using these methods we can actually assign a location value, known as texture unit,	
+		* to the texture sampler so we can set multiple textures at once in a fragment shader.
+		* The default texture unit for a texture is 0 which is the default active texture unit,
+		* so is not necessary to assign a location if there is only one texture to be rendered.
 		*/
 		void SetUniformInt(const string& name, int value);
 		void SetUniformFloat1(const string& name, float value);

@@ -1,6 +1,7 @@
 #include "client/main.h"
 
 #include <iostream>
+#include <vector>
 
 #include "client/application.h"
 #include "core/engine.h"
@@ -44,8 +45,13 @@ class ClientApp : public Richard::Application {
         mMesh = make_shared<Richard::Graphics::Mesh>(&vertices[0], 4, 3, 3, 2, &indices[0], 6);
 
 
-        // Define the texture
-        mTexture = make_shared<Richard::Graphics::Texture>("resources/images/poro.jpg");
+        // Define the textures
+        shared_ptr<Richard::Graphics::Texture> texture1 = make_shared<Richard::Graphics::Texture>("resources/images/poro.jpg", T_COLOR_RGB);
+        shared_ptr<Richard::Graphics::Texture> texture2 = make_shared<Richard::Graphics::Texture>("resources/images/pusheen.png", T_COLOR_RGBA);
+        mTextures.push_back(texture1);
+        mTextures.push_back(texture2);
+        mShader->SetUniformInt("texture1", 0);
+        mShader->SetUniformInt("texture2", 1);
     }
 
     void Shutdown() override {
@@ -55,7 +61,10 @@ class ClientApp : public Richard::Application {
     }
 
     void Render() override {
-        auto renderCommand = make_unique<Richard::Graphics::RenderTexture>(mMesh, mShader, mTexture);
+
+        auto renderCommand = make_unique<Richard::Graphics::RenderTexture>(mMesh, mShader);
+        renderCommand->AddTexture(mTextures.at(0));
+        renderCommand->AddTexture(mTextures.at(1));
         Engine::GetInstance()->GetRenderer()->Submit(move(renderCommand));
         Engine::GetInstance()->GetRenderer()->Execute();
     }
@@ -63,7 +72,7 @@ class ClientApp : public Richard::Application {
     private:
     shared_ptr<Richard::Graphics::Mesh> mMesh;
     shared_ptr<Richard::Graphics::Shader> mShader;
-    shared_ptr < Richard::Graphics::Texture> mTexture;
+    vector<shared_ptr<Richard::Graphics::Texture>> mTextures;
 };
 
 Richard::Application* CreateApplication() {
