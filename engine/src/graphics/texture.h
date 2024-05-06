@@ -137,8 +137,5 @@ namespace Richard::Graphics {
 
         /*Width and Height in pixels of the image*/
         int mWidth, mHeight;
-
-        /*Pixel data*/
-        unsigned char* mPixelData;
     };
 }

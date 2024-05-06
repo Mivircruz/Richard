@@ -12,7 +12,6 @@ namespace Richard::Graphics {
 
 	Texture::Texture(string imagePath, uint32_t colorFormat, uint32_t minFilter, uint32_t maxFilter, uint32_t tWrapping, uint32_t sWrapping) {
 		mImagePath = imagePath;
-		mPixelData = nullptr;
 
 		// Generate and bind texture
 		glGenTextures(1, &mTexture); RICHARD_CHECK_GL_ERROR;
@@ -26,18 +25,18 @@ namespace Richard::Graphics {
 		// stbi_load returns the pixel data as a chunk of memory
 		stbi_set_flip_vertically_on_load(true);
 		int channelsAmount;
-		mPixelData = stbi_load(mImagePath.c_str(), &mWidth, &mHeight, &channelsAmount, 0);
+		unsigned char* data = stbi_load(mImagePath.c_str(), &mWidth, &mHeight, &channelsAmount, 0);
 
 		// Generate texture
-		if (mPixelData) {
-			glTexImage2D(GL_TEXTURE_2D, 0, colorFormat, mWidth, mHeight, 0, colorFormat, GL_UNSIGNED_BYTE, mPixelData); RICHARD_CHECK_GL_ERROR;
+		if (data) {
+			glTexImage2D(GL_TEXTURE_2D, 0, colorFormat, mWidth, mHeight, 0, colorFormat, GL_UNSIGNED_BYTE, data); RICHARD_CHECK_GL_ERROR;
 			glGenerateMipmap(GL_TEXTURE_2D);
 			Tools::Logger::Info("Image loaded. Image path: " + mImagePath);
 		}
 		else {
 			Tools::Logger::Error("Could not load image. Image path: " + mImagePath);
 		}
-		stbi_image_free(mPixelData);
+		stbi_image_free(data);
 	}
 
 	Texture::Texture(string imagePath, uint32_t colorFormat) : Texture(imagePath, colorFormat, T_FILTER_LINEAR, T_FILTER_LINEAR, T_WRAPPING_REPEAT, T_WRAPPING_REPEAT) {}

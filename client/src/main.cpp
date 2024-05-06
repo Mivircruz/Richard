@@ -51,7 +51,7 @@ class ClientApp : public Richard::Application {
         mTextures.push_back(texture1);
         mTextures.push_back(texture2);
         mShader->SetUniformInt("texture1", 0);
-        mShader->SetUniformInt("texture2", 0);
+        mShader->SetUniformInt("texture2", 1);
     }
 
     void Shutdown() override {
