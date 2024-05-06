@@ -1,3 +1,8 @@
+#pragma once
+
+#ifndef ERRORCHECKER_H
+#define ERRORCHECKER_H
+
 #include "logger.h"
 #include "glad/glad.h"
 
@@ -16,3 +21,5 @@ namespace Richard::Tools {
 	*/
 	void CheckGLError();
 }
+
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef RENDERER_H
+#define RENDERER_H
+
 #include "rendercommand.h"
 #include <memory>
 #include <queue>
@@ -66,3 +69,5 @@ namespace Richard::Graphics {
 		queue<unique_ptr<Graphics::RenderCommand>> mRenderCommands;
 	};
 }
+
+#endif

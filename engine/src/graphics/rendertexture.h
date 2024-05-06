@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef RENDERTEXTURE_H
+#define RENDERTEXTURE_H
+
 #include <memory>
 #include <vector>
 
@@ -51,3 +54,5 @@ namespace Richard::Graphics {
 		vector<weak_ptr<Texture>> pTextures;
     };
 }
+
+#endif

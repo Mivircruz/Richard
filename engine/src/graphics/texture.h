@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef TEXTURE_H
+#define TEXTURE_H
+
 #include <string>
 
 using namespace std;
@@ -139,3 +142,5 @@ namespace Richard::Graphics {
         int mWidth, mHeight;
     };
 }
+
+#endif
