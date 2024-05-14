@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef RENDERCOMMAND_H
+#define RENDERCOMMAND_H
+
 /*
 * Abstract class that represents a render command.
 */
@@ -14,3 +17,5 @@ namespace Richard::Graphics {
 		virtual void Execute() = 0;
 	};
 }
+
+#endif
