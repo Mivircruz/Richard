@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef RENDERMESH_H
+#define RENDERMESH_H
+
 #include "rendercommand.h"
 #include <memory>
 #include "mesh.h"
@@ -42,4 +45,4 @@ namespace Richard::Graphics {
 	};
 }
 
-
+#endif

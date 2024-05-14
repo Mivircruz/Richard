@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef MESH_H
+#define MESH_H
+
 #include <cstdint>
 
 /*
@@ -130,3 +133,5 @@ namespace Richard::Graphics {
 		uint32_t mVBO;
 	};
 }
+
+#endif

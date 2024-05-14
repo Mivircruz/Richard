@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef ENGINE_H
+#define ENGINE_H
+
 #include "client/application.h"
 #include "graphics/window.h"
 #include "graphics/renderer.h"
@@ -113,3 +116,5 @@ namespace Richard {
     };
 
 }
+
+#endif

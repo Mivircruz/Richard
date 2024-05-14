@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef LOGGER_H
+#define LOGGER_H
+
 #include <memory>
 #include <iostream>
 
@@ -97,3 +100,5 @@ namespace Richard::Tools {
 		static void Shutdown();
 	};
 }
+
+#endif

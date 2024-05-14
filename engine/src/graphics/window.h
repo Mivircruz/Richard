@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef WINDOW_H
+#define WINDOW_H
+
 struct GLFWwindow;
 
 /*
@@ -112,3 +115,5 @@ namespace Richard::Graphics {
 		void Window::ProcessInput();
 	};
 }
+
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef MOUSE_H
+#define MOUSE_H
+
 #include <utility>
 
 namespace Richard::Input {
@@ -39,3 +42,5 @@ const int MOUSE_BUTTON_MIDDLE = 2;
 const int MOUSE_BUTTON_RIGHT = 3;
 const int MOUSE_BUTTON_X1 = 4;
 const int MOUSE_BUTTON_X2 = 5;
+
+#endif

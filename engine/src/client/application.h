@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef APPLICATION_H
+#define APPLICATION_H
+
 namespace Richard {
     class Application {
         public:
@@ -14,3 +17,5 @@ namespace Richard {
             virtual void Render() {}
     };
 }
+
+#endif
