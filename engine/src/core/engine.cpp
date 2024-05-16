@@ -63,7 +63,7 @@ namespace Richard {
 
     // Initialize static pointers
     Engine* Engine::pInstance = nullptr;
-    Graphics::Window* Engine::mWindow = nullptr;
+    Graphics::Window* Engine::mWindow = new Graphics::Window();
 
     Engine::Engine() {
         pApp = nullptr;
@@ -74,10 +74,10 @@ namespace Richard {
         Tools::Logger::Initialize();
 
         // Window Initialization
-        mWindow = new Graphics::Window();
         if (mWindow->Initialize() < 0) {
             Tools::Logger::Error("Error initializing Window Manager. Shutting down engine.");
-            Shutdown(); // In case of an error, we need to clean up the SDL initialization
+            // In case of an error, we need to clean up the GLFW initialization
+            Shutdown();
             return E_INTIALIZE_WINDOW_FAIL;
         }
 

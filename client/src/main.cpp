@@ -13,8 +13,12 @@
 using namespace std;
 
 class ClientApp : public Richard::Application {
-    public:
-    
+public:
+
+    ClientApp() {
+        Engine::GetInstance()->GetWindow()->SetFullscreen();
+    }
+
     void Initialize() override {
         std::cout << "ClientApp Initialize" << std::endl;
 
@@ -52,6 +56,8 @@ class ClientApp : public Richard::Application {
         mTextures.push_back(texture2);
         mShader->SetUniformInt("texture1", 0);
         mShader->SetUniformInt("texture2", 1);
+
+        Engine::GetInstance()->GetRenderer()->SetClearColor(2.0f / 255.0f, 97.0f / 255.0f, 53.0f / 255.0f, 1.0f);
     }
 
     void Shutdown() override {
@@ -69,7 +75,7 @@ class ClientApp : public Richard::Application {
         Engine::GetInstance()->GetRenderer()->Execute();
     }
 
-    private:
+private:
     shared_ptr<Richard::Graphics::Mesh> mMesh;
     shared_ptr<Richard::Graphics::Shader> mShader;
     vector<shared_ptr<Richard::Graphics::Texture>> mTextures;
