@@ -27,6 +27,9 @@ namespace Richard::Graphics {
 	
 	Window::Window() {
 		pWindow = nullptr;
+		mSize.height = SCR_HEIGHT;
+		mSize.width = SCR_WIDTH;
+		mIsFullScreenOn = false;
 	} 
 
 	Window::~Window() {
@@ -43,7 +46,12 @@ namespace Richard::Graphics {
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		// Window creation
-		pWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "RichardEngine", NULL, NULL);
+		if (mIsFullScreenOn) {
+			pWindow = glfwCreateWindow(mSize.width, mSize.height, "RichardEngine", glfwGetPrimaryMonitor(), NULL);
+		}
+		else {
+			pWindow = glfwCreateWindow(mSize.width, mSize.height, "RichardEngine", NULL, NULL);
+		}
 		if (pWindow == NULL) {
 			Tools::Logger::Critical("Error creating GLFW window");
 			Shutdown();
@@ -60,6 +68,15 @@ namespace Richard::Graphics {
 		}
 
 		return W_INTIALIZE_OK;
+	}
+
+	void Window::SetSize(int width, int height) {
+		mSize.height = height;
+		mSize.width = width;
+	}
+
+	void Window::SetFullscreen() {
+		mIsFullScreenOn = true;
 	}
 
 	void Window::Shutdown() {
