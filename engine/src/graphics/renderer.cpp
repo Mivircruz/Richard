@@ -14,7 +14,7 @@ namespace Richard::Graphics {
 	int Renderer::Initialize() {
 
 		// Set the default background color
-		SetClearColor(76.0f/255.0f, 0.0f/255.0f, 155.0f/255.0f, 1.0f);
+		SetClearColor(0.0f/255.0f, 0.0f/255.0f, 0.0f/255.0f, 1.0f);
 
 		return 0;
 	}
@@ -36,7 +36,7 @@ namespace Richard::Graphics {
 		// Clears the color of the screen (color buffer) and
 		// any cached information about the depth of what the window just rendered (depth buffer)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  RICHARD_CHECK_GL_ERROR;
-		glClearColor(76.0f / 255.0f, 0.0f / 255.0f, 155.0f / 255.0f, 1.0f);
+		glClearColor(mBackgroundColor.r, mBackgroundColor.g, mBackgroundColor.b, mBackgroundColor.a);
 	}
 
 	
@@ -44,6 +44,10 @@ namespace Richard::Graphics {
 	void Renderer::SetClearColor(float r, float g, float b, float a) {
 		glClearColor(r, g, b, a); 
 		glClear(GL_COLOR_BUFFER_BIT);  RICHARD_CHECK_GL_ERROR;
+		mBackgroundColor.r = r;
+		mBackgroundColor.g = g;
+		mBackgroundColor.b = b;
+		mBackgroundColor.a = a;
 	}
 
 	void Renderer::Submit(unique_ptr<RenderCommand> renderCommand) {
