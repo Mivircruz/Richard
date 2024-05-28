@@ -24,15 +24,45 @@ namespace Richard::Graphics {
 
 		/*
 		* Constructor. It creates the object Mesh.
+		* This constructor is used to create a Mesh with a vertex that contains positions, colors and textures.
+		* Besides, it recevies an index array.
+		* It initializes the VAO, the VBO and the EBO. It takes the following arguments:
+		* vertexArray: the array of vertex, the size of this array may vary.
+		* vertexAmount: the amount of vertices in the vertexArray.
+		* posDimensions: the dimension of the position vertices (2D with only x, y coordinates or 3D with x, y, z)
+		* indexArray: the array of elements, the size of this array may vary.
+		* indexAmount: the amount of elements in the elementArray.
+		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
+		*/
+		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, uint32_t* indexArray, uint32_t indexAmount);
+
+
+		/*
+		* Constructor. It creates the object Mesh.
 		* This constructor is used to create a Mesh with a vertex that contains positions and colors.
 		* It initializes the VAO. It takes the following arguments:
 		* vertexArray: the array of vertex, the size of this array may vary.
 		* vertexAmount: the amount of vertices in the vertexArray.
 		* posDimensions: the dimension of the position vertices (2D with only x, y coordinates or 3D with x, y, z)
-		* colorDimensions: the dimension of the color vertices
+		* colorDimensions: the dimension of the color vertices. If it is 0, no color array is enabled (it will be just like the first constructor).
 		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
 		*/
 		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t posDimensions, uint32_t colorDimensions);
+
+		/*
+		* Constructor. It creates the object Mesh.
+		* This constructor is used to create a Mesh with a vertex that contains positions, colors and textures.
+		* Besides, it recevies an index array.
+		* It initializes the VAO, the VBO and the EBO. It takes the following arguments:
+		* vertexArray: the array of vertex, the size of this array may vary.
+		* vertexAmount: the amount of vertices in the vertexArray.
+		* posDimensions: the dimension of the position vertices (2D with only x, y coordinates or 3D with x, y, z)
+		* colorDimensions: the dimension of the colors. 
+		* indexArray: the array of elements, the size of this array may vary.
+		* indexAmount: the amount of elements in the elementArray.
+		* Although this engine will work only with 2D dimension, the z coordinate can help with sorting and graphic-related issues.
+		*/
+		Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t posDimensions, uint32_t colorDimensions, uint32_t* indexArray, uint32_t indexAmount);
 
 		/*
 		* Constructor. It creates the object Mesh.
@@ -103,6 +133,12 @@ namespace Richard::Graphics {
 		* It also uploads the data from the CPU to the GPU.
 		*/
 		void CreateVBO(float* vertexArray, uint32_t dimensions);
+
+		/*
+		* CreateEBO() creates a EBO and makes it active.
+		* It also uploads the data from the CPU to the GPU.
+		*/
+		void CreateEBO(uint32_t* indexArray, uint32_t indexAmount);
 
 
 		/*Member variables*/
