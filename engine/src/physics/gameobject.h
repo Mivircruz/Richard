@@ -41,16 +41,75 @@ namespace Richard::Physics {
 		void SetPosition(std::pair<double, double> position);
 
 		/*
+		* SetSize() sets the object size.
+		* The first element represents the widht and the second one, the height.
+		*/
+		void SetSize(std::pair<double, double> size);
+
+		/*
+		* SetVelocity() sets the object velocity.
+		* The first element represents the x-axis and the second one, the y-axis.
+		*/
+		void SetVelocity(std::pair<double, double> speed);
+
+		/*
 		* Move() moves the object position in the direction given.
 		* The first element represents the x-axis and the second one, the y-axis.
 		*/
 		void Move(std::pair<double, double> direction);
 
 		/*
-		* SetSize() sets the object size.
-		* The first element represents the widht and the second one, the height.
+		* MoveWithConstantVelocity() moves the object position to the direction given by the velocity.
 		*/
-		void SetSize(std::pair<double, double> size);
+		void MoveWithConstantVelocity();
+
+		/*
+		* MoveUp() moves the object up.
+		* It will move one unit of mSpeed.
+		*/
+		void MoveUp();
+
+		/*
+		* MoveDown() moves the object down.
+		* It will move an unit of mSpeed.
+		*/
+		void MoveDown();
+
+		/*
+		* MoveLeft() moves the object left.
+		* It will move an unit of mSpeed.
+		*/
+		void MoveLeft();
+
+		/*
+		* MoveRight() moves the object right.
+		* It will move an unit of mSpeed.
+		*/
+		void MoveRight();
+
+		/*
+		* GetTop() returns the top of the object.
+		* The object is supossed to have its maximum lenght in the center.
+		*/
+		double GetTop();
+
+		/*
+		* GetBottom() returns the bottom of the object.
+		* The object is supossed to have its minimum lenght in the center.
+		*/
+		double GetBottom();
+
+		/*
+		* GetLeftEdge() returns the left edge of the object.
+		* The object is supossed to have its minimum left-lenght in the center.
+		*/
+		double GetLeftEdge();
+
+		/*
+		* GetRightEdge() returns the left edge of the object.
+		* The object is supossed to have its maximum right-lenght in the center.
+		*/
+		double GetRightEdge();
 
 		/*
 		* Each class should handle its own rendering.
@@ -79,9 +138,10 @@ namespace Richard::Physics {
 		std::pair<double, double> mSize;
 
 		/*
-		* Object speed
+		* Object speed.
+		* It has a module and a direction.
 		*/
-		float mSpeed;
+		std::pair<double, double> mSpeed;
 
 		/*
 		* Mesh. 

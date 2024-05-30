@@ -1,4 +1,4 @@
-#include "paddle.h"
+#include "ball.h"
 
 #include "core/engine.h"
 #include "graphics/rendermesh.h"
@@ -18,18 +18,16 @@ static uint32_t Indices[]{
 	1, 3, 2  // second triangle
 };
 
-Paddle::Paddle(std::pair<double, double> position, std::pair<double, double> size, int upKey, int downKey)
+Ball::Ball(std::pair<double, double> position, std::pair<double, double> size) 
 	: GameObject(position, size, nullptr, nullptr) {
 	mMesh = make_shared<Graphics::Mesh>(&Vertices[0], 4, 3, &Indices[0], 6);
 	mShader = make_shared<Graphics::Shader>("resources/shaders/pong_vs.txt", "resources/shaders/pong_fs.txt");
-	mUpKey = upKey;
-	mDownKey = downKey;
-	mSpeed = make_pair(0.f, 0.001f);
+	mSpeed = make_pair(0.f, 0.f);
 }
 
-void Paddle::Render() {
+void Ball::Render() {
 	// Create identity matrix
-	glm::mat4 model = glm::mat4(1.f); 
+	glm::mat4 model = glm::mat4(1.f);
 
 	// Make a tranlsation to move the object
 	model = glm::translate(model, { mPosition.first, mPosition.second, 0.f });
@@ -42,12 +40,27 @@ void Paddle::Render() {
 	Engine::GetInstance()->GetRenderer()->Submit(move(renderCommand));
 }
 
-void Paddle::Update() {
-	if (Input::Keyboard::IsKeyPressed(mUpKey) && GetTop() < 1.f) {
-		MoveUp();
+void Ball::Update() {
+	if (Input::Keyboard::IsKeyPressed(KEY_P) && mSpeed.first == 0.f && mSpeed.second == 0.f) {
+		mSpeed = make_pair(0.001f, 0.001f);
+		return;
 	}
 
-	if (Input::Keyboard::IsKeyPressed(mDownKey) && GetBottom() > -1.f) {
-		MoveDown();
+	if (GetTop() >= 1.f || GetBottom() <= -1.f) {
+		ChangeDirectionY();
 	}
+
+	if (GetLeftEdge() <= -1.f || GetRightEdge() >= 1.f) {
+		ChangeDirectionX();
+	}
+
+	MoveWithConstantVelocity();
+}
+
+void Ball::ChangeDirectionX() {
+	mSpeed.first *= -1.f;
+}
+
+void Ball::ChangeDirectionY() {
+	mSpeed.second *= -1.f;
 }
