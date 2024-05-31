@@ -24,6 +24,10 @@ namespace Richard {
         return &mRenderer;
     }
 
+    Physics::GameObjectManager* Engine::GetGameObjectManager() {
+        return &mGameObjectManager;
+    }
+
     Graphics::Window* Engine::GetWindow() {
         return mWindow;
     }
@@ -89,11 +93,13 @@ namespace Richard {
 
     void Engine::Update() {
         mWindow->HandleEvents();
+        mGameObjectManager.Update();
         pApp->Update();
     }
 
     void Engine::Render() {
         mWindow->BeginRender();
+        mGameObjectManager.Render();
         pApp->Render();
         mWindow->EndRender();
     }

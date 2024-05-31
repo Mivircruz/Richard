@@ -6,6 +6,7 @@
 #include "client/application.h"
 #include "graphics/window.h"
 #include "graphics/renderer.h"
+#include "physics/gameobjectmanager.h"
 #include "tools/logger.h"
 
 /*
@@ -36,6 +37,11 @@ namespace Richard {
         * GetRenderer() returns the renderer.
         */
         Graphics::Renderer* GetRenderer();
+
+        /*
+        * GetGameObjectManager() returns the game object manager.
+        */
+        Physics::GameObjectManager* GetGameObjectManager();
 
         /*
         * GetWindow() returns the window.
@@ -75,6 +81,11 @@ namespace Richard {
         * Render class that will execute the render commands.
         */
         Graphics::Renderer mRenderer;
+
+        /*
+        * Manager that will update and render game objects.
+        */
+        Physics::GameObjectManager mGameObjectManager;
 
         /*
         * Pointer to the client-defined application.

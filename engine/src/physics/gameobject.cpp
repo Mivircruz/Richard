@@ -61,10 +61,19 @@ namespace Richard::Physics {
 	}
 
 	double GameObject::GetLeftEdge() {
-		return mPosition.first - (mSize.second / 2);
+		return mPosition.first - (mSize.first / 2);
 	}
 
 	double GameObject::GetRightEdge() {
-		return mPosition.first + (mSize.second / 2);
+		return mPosition.first + (mSize.first / 2);
+	}
+
+	bool GameObject::IsCollidingHorizontallyWith(shared_ptr<GameObject> gameobject) {
+		return (max(this->GetLeftEdge(), gameobject->GetLeftEdge()) <= min(this->GetRightEdge(), gameobject->GetRightEdge()));
+	}
+
+	bool GameObject::IsCollidingVerticallyWith(shared_ptr<GameObject> gameobject) {
+		return (max(this->GetBottom(), gameobject->GetBottom()) <= min(this->GetTop(), gameobject->GetTop()));
+
 	}
 }

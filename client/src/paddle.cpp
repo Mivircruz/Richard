@@ -24,7 +24,7 @@ Paddle::Paddle(std::pair<double, double> position, std::pair<double, double> siz
 	mShader = make_shared<Graphics::Shader>("resources/shaders/pong_vs.txt", "resources/shaders/pong_fs.txt");
 	mUpKey = upKey;
 	mDownKey = downKey;
-	mSpeed = make_pair(0.f, 0.001f);
+	mSpeed = make_pair(0.f, 0.00099f);
 }
 
 void Paddle::Render() {

@@ -1,5 +1,6 @@
 #include "client/main.h"
 
+#include <memory>
 #include <iostream>
 #include <vector>
 
@@ -28,39 +29,34 @@ public:
 
         // Paddle creation
         pair <double, double> paddleSize(0.1, 0.3);
-        pair <double, double> leftPaddlePosition(-1.f, 0.f);
-        pair <double, double> rightPaddlePosition(1.f, 0.f);
 
-        mLeftPaddle = make_shared<Paddle>(leftPaddlePosition, paddleSize, KEY_W, KEY_S);
-        mRightPaddle = make_shared<Paddle>(rightPaddlePosition, paddleSize, KEY_UP, KEY_DOWN);
+        mLeftPaddle = make_shared<Paddle>(make_pair(-1.f, 0.f), paddleSize, KEY_W, KEY_S);
+        mRightPaddle = make_shared<Paddle>(make_pair(1.f, 0.f), paddleSize, KEY_UP, KEY_DOWN);
 
         // Ball creation
         mBall = make_shared<Ball>(make_pair(0.f, 0.f), make_pair(0.075f, 0.1f));
+
+
+        Engine::GetInstance()->GetGameObjectManager()->Submit("leftPaddle", mLeftPaddle);
+        Engine::GetInstance()->GetGameObjectManager()->Submit("rightPaddle", mRightPaddle);
+        Engine::GetInstance()->GetGameObjectManager()->Submit("ball", mBall);
     }
 
     void Shutdown() override {
     }
 
     void Update() override {
-        mBall->Update();
-        mLeftPaddle->Update();
-        mRightPaddle->Update();
+        if (mLeftPaddle->IsCollidingHorizontallyWith(mBall) || mRightPaddle->IsCollidingHorizontallyWith(mBall)) {
+            mBall->ChangeDirectionX();
+        }
     }
 
     void Render() override {
-        mBall->Render();
-        mLeftPaddle->Render();
-        mRightPaddle->Render();
-
-        Engine::GetInstance()->GetRenderer()->Execute();
     }
 
 private:
     shared_ptr<Ball> mBall;
     shared_ptr<Paddle> mLeftPaddle, mRightPaddle;
-
-    shared_ptr<Richard::Graphics::Mesh> mMesh;
-    shared_ptr<Richard::Graphics::Shader> mShader;
 };
 
 Richard::Application* CreateApplication() {
