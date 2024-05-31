@@ -21,4 +21,6 @@ public:
 	void ChangeDirectionX();
 
 	void ChangeDirectionY();
+
+	void Reset();
 };

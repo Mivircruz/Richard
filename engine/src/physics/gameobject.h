@@ -122,17 +122,11 @@ namespace Richard::Physics {
 		virtual void Update() {}
 
 		/*
-		* IsCollidingHorizontallyWith() returns true if the objects is colliding with the given object in the x-axis.
+		* IsCollidingWith() returns true if the objects is colliding with the given object.
 		* False otherwise.
-		* IMPORTANT: it will check 
 		*/
-		bool IsCollidingHorizontallyWith(shared_ptr<GameObject> gameobject);
+		bool IsCollidingWith(shared_ptr<GameObject> gameobject);
 
-		/*
-		* IsCollidingVerticallyWith() returns true if the objects is colliding with the given object in the y-axis.
-		* False otherwise.
-		*/
-		bool IsCollidingVerticallyWith(shared_ptr<GameObject> gameobject);
 
 
 	protected:

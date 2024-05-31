@@ -27,6 +27,10 @@ public:
         // Background color setup
         Engine::GetInstance()->GetRenderer()->SetClearColor(2.0f / 255.0f, 97.0f / 255.0f, 53.0f / 255.0f, 1.0f);
 
+        // Player points
+        mLeftPlayerPoints = 0;
+        mRightPlayerPoints = 0;
+
         // Paddle creation
         pair <double, double> paddleSize(0.1, 0.3);
 
@@ -35,7 +39,6 @@ public:
 
         // Ball creation
         mBall = make_shared<Ball>(make_pair(0.f, 0.f), make_pair(0.075f, 0.1f));
-
 
         Engine::GetInstance()->GetGameObjectManager()->Submit("leftPaddle", mLeftPaddle);
         Engine::GetInstance()->GetGameObjectManager()->Submit("rightPaddle", mRightPaddle);
@@ -46,17 +49,34 @@ public:
     }
 
     void Update() override {
-        if (mLeftPaddle->IsCollidingHorizontallyWith(mBall) || mRightPaddle->IsCollidingHorizontallyWith(mBall)) {
+        if (mLeftPaddle->IsCollidingWith(mBall) || mRightPaddle->IsCollidingWith(mBall)) {
             mBall->ChangeDirectionX();
+            return;
         }
+
+        if (mBall->GetLeftEdge() <= -1.f || mBall->GetRightEdge() >= 1.f) {
+            AddPlayerPoints();
+            mBall->Reset();
+        }
+
     }
 
     void Render() override {
     }
 
+    void AddPlayerPoints() {
+        if (mBall->GetLeftEdge() > 0) {
+            ++mLeftPlayerPoints;
+        }
+        else {
+            ++mRightPlayerPoints;
+        }
+    }
+
 private:
     shared_ptr<Ball> mBall;
     shared_ptr<Paddle> mLeftPaddle, mRightPaddle;
+    int mLeftPlayerPoints, mRightPlayerPoints;
 };
 
 Richard::Application* CreateApplication() {

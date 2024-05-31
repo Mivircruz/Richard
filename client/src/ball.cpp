@@ -22,7 +22,7 @@ Ball::Ball(std::pair<double, double> position, std::pair<double, double> size)
 	: GameObject(position, size, nullptr, nullptr) {
 	mMesh = make_shared<Graphics::Mesh>(&Vertices[0], 4, 3, &Indices[0], 6);
 	mShader = make_shared<Graphics::Shader>("resources/shaders/pong_vs.txt", "resources/shaders/pong_fs.txt");
-	mSpeed = make_pair(0.f, 0.f);
+	SetVelocity(make_pair(0.f, 0.f));
 }
 
 void Ball::Render() {
@@ -46,12 +46,8 @@ void Ball::Update() {
 		return;
 	}
 
-	if (GetTop() >= 1.f || GetBottom() <= -1.f) {
+	if ((GetTop() >= 1.f || GetBottom() <= -1.f) && (GetLeftEdge() > -1.f && GetRightEdge() < 1.f)) {
 		ChangeDirectionY();
-	}
-
-	if (GetLeftEdge() <= -1.f || GetRightEdge() >= 1.f) {
-		ChangeDirectionX();
 	}
 
 	MoveWithConstantVelocity();
@@ -63,4 +59,9 @@ void Ball::ChangeDirectionX() {
 
 void Ball::ChangeDirectionY() {
 	mSpeed.second *= -1.f;
+}
+
+void Ball::Reset() {
+	SetPosition(make_pair(0.f, 0.f));
+	SetVelocity(make_pair(0.f, 0.f));
 }
