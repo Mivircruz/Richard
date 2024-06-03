@@ -1,6 +1,7 @@
 #include "Shader.h"
 
 #include "glad/glad.h"
+#include "glm/gtc/type_ptr.hpp"
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -139,7 +140,27 @@ namespace Richard::Graphics {
 		glUniform4f(glGetUniformLocation(mShaderProgram, name.c_str()), value1, value2, value3, value4); RICHARD_CHECK_GL_ERROR;
 	}
 
+	void Shader::SetUniformFloat2(const string& name, const glm::vec2& values) {
+		SetUniformFloat2(name, values.x, values.y);
+	}
 
+	void Shader::SetUniformFloat3(const string& name, const glm::vec3& values) {
+		SetUniformFloat3(name, values.x, values.y, values.z);
+	}
+
+	void Shader::SetUniformFloat4(const string& name, const glm::vec4& values) {
+		SetUniformFloat4(name, values.x, values.y, values.z, values.w);
+	}
+
+	void Shader::SetUniformMat3(const string& name, const glm::mat3& matrix) {
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
+		glUniformMatrix3fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix)); RICHARD_CHECK_GL_ERROR
+	}
+
+	void Shader::SetUniformMat4(const string& name, const glm::mat4& matrix) {
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
+		glUniformMatrix4fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix)); RICHARD_CHECK_GL_ERROR
+	}
 
 
 
