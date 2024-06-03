@@ -19,10 +19,9 @@ static uint32_t Indices[]{
 };
 
 Ball::Ball(std::pair<double, double> position, std::pair<double, double> size) 
-	: GameObject(position, size, nullptr, nullptr) {
+	: GameObject(position, size, make_pair(0.f, 0.f), nullptr, nullptr) {
 	mMesh = make_shared<Graphics::Mesh>(&Vertices[0], 4, 3, &Indices[0], 6);
 	mShader = make_shared<Graphics::Shader>("resources/shaders/pong_vs.txt", "resources/shaders/pong_fs.txt");
-	SetVelocity(make_pair(0.f, 0.f));
 }
 
 void Ball::Render() {
@@ -41,8 +40,8 @@ void Ball::Render() {
 }
 
 void Ball::Update() {
-	if (Input::Keyboard::IsKeyPressed(KEY_C) && mSpeed.first == 0.f && mSpeed.second == 0.f) {
-		mSpeed = make_pair(0.0002f, 0.0002f);
+	if (Input::Keyboard::IsKeyPressed(KEY_C) && mVelocity.first == 0.f && mVelocity.second == 0.f) {
+		mVelocity = make_pair(0.00035f, 0.00035f);
 		return;
 	}
 
@@ -53,12 +52,35 @@ void Ball::Update() {
 	MoveWithConstantVelocity();
 }
 
+void Ball::HandleCollision(pair<double, double> collisionObjectPos, double collisionObjectHeight) {
+	// Calcula la posición relativa de la pelota respecto al objeto
+	double relativeIntersectY = collisionObjectPos.second + collisionObjectHeight / 2 - mPosition.second;
+
+	// Calcula el ángulo de rebote en función de la posición de impacto en el objeto
+	double normalizedRelativeIntersectionY = relativeIntersectY / (collisionObjectHeight / 2);
+	double bounceAngle = normalizedRelativeIntersectionY * (3.14 / 4); // Ángulo máximo de rebote
+
+	double xAngle;
+	// Cambia la dirección de la pelota en función del ángulo de rebote
+	if (mPosition.first > 0) { // Si la pelota se mueve hacia la derecha
+		xAngle = -cos(bounceAngle); // Ajusta la velocidad en x con el ángulo de rebote
+	}
+	else { // Si la pelota se mueve hacia la izquierda
+		xAngle = cos(bounceAngle); // Ajusta la velocidad en x con el ángulo de rebote
+	}
+
+	double yAngle = sin(bounceAngle);
+
+	auto currentVelocity = GetVelocityModule();
+	SetVelocity(make_pair(currentVelocity * xAngle, currentVelocity * yAngle));
+}
+
 void Ball::ChangeDirectionX() {
-	mSpeed.first *= -1.f;
+	mVelocity.first *= -1.f;
 }
 
 void Ball::ChangeDirectionY() {
-	mSpeed.second *= -1.f;
+	mVelocity.second *= -1.f;
 }
 
 void Ball::Reset() {

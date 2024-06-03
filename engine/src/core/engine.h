@@ -57,6 +57,11 @@ namespace Richard {
         void Run(Application* app);
 
         /*
+        * Quit() stops the game loop.
+        */
+        void Quit();
+
+        /*
         * Methods deleted as this class is a Singleton
         */
         Engine(const Engine& instance) = delete; // Engine class cannot be cloneable.
@@ -91,6 +96,11 @@ namespace Richard {
         * Pointer to the client-defined application.
         */
         Application* pApp;
+
+        /*
+        * Indicates wether the execute methos was called or not.
+        */
+        bool mQuitExecuted;
 
         /*Methods*/
 

@@ -52,13 +52,17 @@ namespace Richard {
         pApp->Initialize();
 
         // Start game loop
-        while (!mWindow->WindowShouldClose()) {
+        while (!mWindow->WindowShouldClose() && !mQuitExecuted) {
             Update();
             Render();
         }
         
         // Shutdown all the managers and quit SDL2
         Shutdown();
+    }
+
+    void Engine::Quit() {
+        mQuitExecuted = true;
     }
 
 
@@ -71,6 +75,7 @@ namespace Richard {
 
     Engine::Engine() {
         pApp = nullptr;
+        mQuitExecuted = false;
     }
 
     int Engine::Initialize() {

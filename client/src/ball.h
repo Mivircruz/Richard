@@ -12,11 +12,13 @@ using namespace std;
 class Ball : public Physics::GameObject {
 public:
 
-	Ball(std::pair<double, double> position, std::pair<double, double> size);
+	Ball(pair<double, double> position, pair<double, double> size);
 
 	void Render() override;
 
 	void Update() override;
+
+	void HandleCollision(pair<double, double> collisionObjectPos, double collisionObjectHeight);
 
 	void ChangeDirectionX();
 

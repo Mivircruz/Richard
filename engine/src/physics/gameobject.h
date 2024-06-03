@@ -32,58 +32,148 @@ namespace Richard::Physics {
 		* Constructor. It creates the object Gameobject.
 		* It receives the size and the position of the object and the mesh and shader necessary to render the object.
 		*/
-		GameObject(std::pair<double, double> position, std::pair<double, double> size, shared_ptr<Graphics::Mesh> mesh, shared_ptr<Graphics::Shader> shader);
+		GameObject(pair<double, double> position, pair<double, double> size, shared_ptr<Graphics::Mesh> mesh, shared_ptr<Graphics::Shader> shader);
+
+		/*
+		* Constructor. It creates the object Gameobject.
+		* It receives the size and the position of the object and the mesh and shader necessary to render the object.
+		* It also receives the velocity
+		*/
+		GameObject(pair<double, double> position, pair<double, double> size, pair<double, double> velocity, shared_ptr<Graphics::Mesh> mesh, shared_ptr<Graphics::Shader> shader);
+
+		/*
+		* Constructor. It creates the object Gameobject.
+		* It receives the size and the position of the object and the mesh and shader necessary to render the object.
+		* It also receives the velocity and the acceleration
+		*/
+		GameObject(pair<double, double> position, pair<double, double> size, pair<double, double> velocity, pair<double, double> acceleration, shared_ptr<Graphics::Mesh> mesh, shared_ptr<Graphics::Shader> shader);
+
 
 		/*
 		* SetPosition() sets the object position.
 		* The first element represents the x-axis and the second one, the y-axis.
 		*/
-		void SetPosition(std::pair<double, double> position);
+		void SetPosition(pair<double, double> position);
+
+		/*
+		* GetPosition() returns the object position.
+		*/
+		pair<double, double> GetPosition();
+
+		/*
+		* GetPosition() returns the object initial position.
+		*/
+		pair<double, double> GetInitialPosition();
 
 		/*
 		* SetSize() sets the object size.
 		* The first element represents the widht and the second one, the height.
 		*/
-		void SetSize(std::pair<double, double> size);
+		void SetSize(pair<double, double> size);
+
+		/*
+		* GetSize() returns the object size.
+		*/
+		pair<double, double> GetSize();
+
+		/*
+		* GetInitialSize() returns the object initial size.
+		*/
+		pair<double, double> GetInitialSize();
 
 		/*
 		* SetVelocity() sets the object velocity.
 		* The first element represents the x-axis and the second one, the y-axis.
 		*/
-		void SetVelocity(std::pair<double, double> speed);
+		void SetVelocity(pair<double, double> speed);
+
+		/*
+		* GetVelocity() returns the object velocity.
+		*/
+		pair<double, double> GetVelocity();
+
+		/*
+		* GetVelocityModule() returns the module of the velocity.
+		*/
+		double GetVelocityModule();
+
+		/*
+		* IncreaseVelocity() increases the velocity of the object without changing its direction.
+		* Every time the loop iterates, it increases the velocity multiplying the factor.
+		*/
+		void IncreaseVelocity(double factor);
+
+		/*
+		* SetAcceleration() sets the object acceleration.
+		* The first element represents the x-axis and the second one, the y-axis.
+		*/
+		void SetAcceleration(pair<double, double> acceleration);
+
+		/*
+		* GetAcceleration() returns the object acceleration.
+		*/
+		pair<double, double> GetAcceleration();
+
+		/*
+		* GetAccelerationModule() returns the module of the acceleration.
+		*/
+		double GetAccelerationModule();
 
 		/*
 		* Move() moves the object position in the direction given.
 		* The first element represents the x-axis and the second one, the y-axis.
 		*/
-		void Move(std::pair<double, double> direction);
+		void Move(pair<double, double> direction);
 
 		/*
 		* MoveWithConstantVelocity() moves the object position to the direction given by the velocity.
+		* Every game loop updates the velocity.
+		* To control the velocity using time, we can use MoveWithULM() or MoveWithUALM()
 		*/
 		void MoveWithConstantVelocity();
 
 		/*
+		* MoveWithULM() moves the object position to the direction given by the velocity set.
+		* It receives the time as an argument.
+		* It follows the ULM formula: x=x0+v0*t, where
+		* x0 = the initial position
+		* v0 = the initial velocity
+		* t = the time given
+		*/
+		void MoveWithULM(double time);
+
+		/*
+		* MoveWithUALM() moves the object position to the direction given by the velocity set.
+		* It receives the time as an argument.
+		* It follows the UALM formula: x=x0+v0*t+0.5*a*t^2, where 
+		* x0 = the initial position
+		* v0 = the initial velocity
+		* a = the acceleration attribute
+		* t = the time given
+		*/
+		void MoveWithUALM(double time);
+
+		/*
 		* MoveUp() moves the object up.
-		* It will move one unit of mSpeed.
+		* It will move one unit of mVelocity.
 		*/
 		void MoveUp();
 
 		/*
 		* MoveDown() moves the object down.
-		* It will move an unit of mSpeed.
+		* It will move an unit of mVelocity.
 		*/
 		void MoveDown();
 
 		/*
 		* MoveLeft() moves the object left.
-		* It will move an unit of mSpeed.
+		* It will move an unit of mVelocity.
 		*/
 		void MoveLeft();
 
 		/*
 		* MoveRight() moves the object right.
-		* It will move an unit of mSpeed.
+		* It will move an unit of mVelocity.
 		*/
 		void MoveRight();
 
@@ -136,19 +226,25 @@ namespace Richard::Physics {
 		* Object position
 		* The first element represents the x-axis and the second one, the y-axis.
 		*/
-		std::pair<double, double> mPosition;
+		pair<double, double> mPosition, mInitialPosition;
 
 		/*
 		* Object size
 		* The first element represents the widht and the second one, the height.
 		*/
-		std::pair<double, double> mSize;
+		pair<double, double> mSize, mInitialSize;
 
 		/*
 		* Object speed.
 		* It has a module and a direction.
 		*/
-		std::pair<double, double> mSpeed;
+		pair<double, double> mVelocity;
+
+		/*
+		* Object acceleration
+		* It has a module and a direction.
+		*/
+		pair<double, double> mAcceleration;
 
 		/*
 		* Mesh. 

@@ -19,12 +19,11 @@ static uint32_t Indices[]{
 };
 
 Paddle::Paddle(std::pair<double, double> position, std::pair<double, double> size, int upKey, int downKey)
-	: GameObject(position, size, nullptr, nullptr) {
+	: GameObject(position, size, make_pair(0.f, 0.00099f), nullptr, nullptr) {
 	mMesh = make_shared<Graphics::Mesh>(&Vertices[0], 4, 3, &Indices[0], 6);
 	mShader = make_shared<Graphics::Shader>("resources/shaders/pong_vs.txt", "resources/shaders/pong_fs.txt");
 	mUpKey = upKey;
 	mDownKey = downKey;
-	mSpeed = make_pair(0.f, 0.00099f);
 }
 
 void Paddle::Render() {
