@@ -1,7 +1,8 @@
 ﻿  engine.cpp
-  renderer.cpp
   window.cpp
   keyboard.cpp
   mouse.cpp
+  gameobject.cpp
+  gameobjectmanager.cpp
   Generando código...
   engine.vcxproj -> C:\dev\Richard\solutions\bin\release\engine\engine.lib

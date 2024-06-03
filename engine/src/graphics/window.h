@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef WINDOW_H
+#define WINDOW_H
+
 struct GLFWwindow;
 
 /*
@@ -24,17 +27,19 @@ enum window_initialize_response {
 };
 
 /*
-* Constants realated to the window size
-*/
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 600;
-
-/*
 * Constants related to the glad version downloaded
 */
 const int OPENGL_MAJOR_VERSION = 4;
 const int OPENGL_MINOR_VERSION = 6;
 const int GLAD_DEPTH_SIZE = 24;
+
+/*
+* Struct that represents the window size
+*/
+typedef struct {
+	int width;
+	int height;
+} window_size_t;
 
 namespace Richard::Graphics {
 	class Window {
@@ -54,11 +59,23 @@ namespace Richard::Graphics {
 
 		/*
 		* Initialize() initializes all the Window member variables.
+		* If a size is not specified with SetSize(), it will create a window with the default size: 800x600
 		* It returns 0 in case of success or a non-zero value otherwise.
 		* * Error codes:
         * E_INTIALIZE_FAIL      In case that SDL Window creation fails.
 		*/
 		int Initialize();
+
+		/*
+		* SetSize() sets the window size.
+		* It needs to be called before starting the engine.
+		*/
+		void SetSize(int width, int height);
+
+		/*
+		* SetFullscreen() sets the fullscreen mode.
+		*/
+		void SetFullscreen();
 
 		/*
 		* Shutdown() cleans all the Window member variables 
@@ -103,6 +120,15 @@ namespace Richard::Graphics {
 		*/
 		GLFWwindow* pWindow;
 
+		/*
+		* Window size
+		*/
+		window_size_t mSize;
+
+		/*
+		* Booleans that indicates whether the window is in full screen or not
+		*/
+		bool mIsFullScreenOn;
 
 		/*Methods*/
 
@@ -112,3 +138,5 @@ namespace Richard::Graphics {
 		void Window::ProcessInput();
 	};
 }
+
+#endif

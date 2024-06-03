@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef MOUSE_H
+#define MOUSE_H
+
 #include <utility>
 
 namespace Richard::Input {
@@ -33,11 +36,11 @@ namespace Richard::Input {
 
 /*
 * Mouse buttons available.
-* SDL supports up to 5 mouse buttons.
-* Adapted from SDL - check SDL_MouseButtonEvent for more information.
 */
 const int MOUSE_BUTTON_LEFT = 1;
 const int MOUSE_BUTTON_MIDDLE = 2;
 const int MOUSE_BUTTON_RIGHT = 3;
 const int MOUSE_BUTTON_X1 = 4;
 const int MOUSE_BUTTON_X2 = 5;
+
+#endif

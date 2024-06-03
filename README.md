@@ -14,15 +14,24 @@ Richard Engine is a game engine designed to build 2D singleplayer games
         <a href="#getting-started">Getting started</a>
         <ul>
             <li><a href="#prerequisites">Prerequisites</a></li>
-            <li><a href="#installation">Installation</a></li>
         </ul>
     </li>
     <li>
         <a href="#usage">Usage</a>
         <ul>
-            <li><a href="#command-list">Command list</a></li>
+            <li><a href="#linking">Linking</a></li>
+        </ul>
+        <ul>
+            <li><a href="#start coding">Start coding</a></li>
+        </ul>
+        <ul>
+            <li><a href="#glm">GLM</a></li>
+        </ul>
+         <ul>
+            <li><a href="#examples">Examples</a></li>
         </ul>
     </li>
+    <li><a href="#User manual">User manual</a></li>
     <li><a href="#license">License</a></li>
 </ol>
 
@@ -35,8 +44,6 @@ This project is being supervised by the professor Diego P. Corsi and developed b
 ### Built With
 
 * C++
-* Python
-* Lua
 
 ## Getting started
 
@@ -54,58 +61,16 @@ Visual Studio is an integrated development environment (IDE) that is uses to wri
 
 Visual Studio Code is a code editor redefined and optimized for building and debugging modern web and cloud applications It can be downloaded in its [official website](https://code.visualstudio.com/)
 
-- **WSL**
+- **GLFW**
 
-WSL, which stands for Windows Subsystem for Linux, let developers run a GNU/Linux environment directly on Windows. To install it, just run:
+GLFW is is a library, written in C, specifically targeted at OpenGL. GLFW gives the bare necessities required for rendering images to the screen.
 
-```bash
-wsl --install
-```
+It can be obtained from the [official website](https://www.glfw.org/download.html)
 
-For more information, please refer to the [official website](https://learn.microsoft.com/en-us/windows/wsl/)
+- **GLAD**
+Because OpenGL is only really a standard/specification it is up to the driver manufacturer to implement the specification to a driver that the specific graphics card supports. Since there are many different versions of OpenGL drivers, the location of most of its functions is not known at compile-time and needs to be queried at run-time. GLAD is an open source library that manages the retrieval of the location of the functions the app needs and store them in function pointers for later use. 
 
-- **Premake**
-
- Premake is a self-contained, single file command line executable that can be downloaded from its [official website](https://premake.github.io/download) 
-
-- **Python**
-
-Python is a high level programming language that can be downloaded in its [official website](https://www.python.org/downloads/windows/)
-
-- **MinGW-w64**
-
-MinGW-64 will provide the necessary tools to compile the code. It can be installed via MSYS2 following [this tutorial](https://code.visualstudio.com/docs/cpp/config-mingw)
-
-- **Aliases**
-
-Executing the .exe *cli/cli.bat* will open a LINUX terminal. The file bash_aliases needs be edited to set the following aliases:
-
-```bash
-cli="./cli.sh" #To use *cli* as a command.
-```
-
-- **Environment variables**
-
-Executing the .exe *cli/cli.bat* will open a LINUX terminal. The file bash_env needs be edited to set the following environment variables:
-
-```bash
-export VS_PATH="\"/mnt/c/your_path_to_devenv.exe\"" #Here you need to set yout path to devenv.exe inside yout Visual Studio installation
-
-# MS build is what the Visual Studio compiler uses internally. This is what we what will be used to build this project. This executable is inside the IDE folder
-export VS_BUILD_PATH="\"/mnt/c/your_path_to_MSBuild.exe\"" #Here you need to set yout path to MSBuild.exe inside yout Visual Studio installation. This executable is inside the MSBuild folder
-
-
-export CODE_PATH="\"/mnt/c/your_path_to_Code.exe\"" #Here you need to set yout path to Code.exe inside yout VS Code installation. This executable is inside the Microsoft VS Code folder
-```
-
-- **Bashrc file**
-
-The .bashrc file is a script file that's executed when a user logs in and bash_env needs to be added:
-```bash
-if [ -f ~/.bash_env ]; then
-    . ~/.bash_env 
-fi
-```
+It can be obtained from the [official website](https://glad.dav1d.de//)
 
 
 ## Usage
@@ -116,49 +81,41 @@ To clone the project, open a terminal and run:
 git clone git@github.com:Mivircruz/RichardEngine.git
 ```
 
-### Command list
+### Linkig
 
-Executing the .exe *cli/cli.bat* will open a LINUX terminal where you can run the commands
+We need to include the directories in the engine and on the client that is going to use the engine.
 
-#### Version
+Let's start with the engine. In the include directories include:
 
-To check the command list version, just run: 
-
-```bash
-cli version
+```
+src
+..\dependencies\include
+..\dependencies\include\glad\include
 ```
 
-#### Generate VS Solutions
+On the client, we will add the engine code in the include directories:
 
-To generate a Visual Studio solution, set the details of the Visual Studio version in *cmd/project_settings* and in  *premake5.lua*. Then, run:
-
-```bash
-cli create
+```
+..\engine\src
 ```
 
-#### Build VS Solutions
+### Start coding
 
-To build a Visual Studio solution, set the details of the solution in *cmd/project_settings* such as the name of the project or the config level. Then, run: 
+The new VS solution that will use Richard Engine needs to implement the application.h interface. Once implemented, you can use it to create your game.
 
-```bash
-cli build
-```
+### GLM
 
-#### Run VS Solutions
+GLM (OpenGL Mathematics) is a C++ library designed for use with OpenGL (although it can be used independently of OpenGL as well) to provide various mathematical functionalities commonly needed in computer graphics programming.
 
-To run a Visual Studio solution, set the name of the project and the config level in *cmd/project_settings*. Then, run:
+It is inside the dependencies folder and it can be included in the client's proyect to manipulate matrices, make complex mathematical operations, etc.
 
-```bash
-cli run
-```
+### Examples
 
-#### Concatenate commands
+Some examples were provided. They are inside the examples.zip at the root of this proyect.
 
-To string commands, just run *cli* followed by all the commands you want. *cli* command will handle them separately. For example:
+## User manual
 
-```bash
-cli create build
-```
+[User manual](https://www.overleaf.com/project/664425fb0872afc4e79e2721)
 
 ## License
 

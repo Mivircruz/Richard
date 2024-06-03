@@ -24,6 +24,10 @@ namespace Richard {
         return &mRenderer;
     }
 
+    Physics::GameObjectManager* Engine::GetGameObjectManager() {
+        return &mGameObjectManager;
+    }
+
     Graphics::Window* Engine::GetWindow() {
         return mWindow;
     }
@@ -48,7 +52,7 @@ namespace Richard {
         pApp->Initialize();
 
         // Start game loop
-        while (!mWindow->WindowShouldClose()) {
+        while (!mWindow->WindowShouldClose() && !mQuitExecuted) {
             Update();
             Render();
         }
@@ -57,16 +61,21 @@ namespace Richard {
         Shutdown();
     }
 
+    void Engine::Quit() {
+        mQuitExecuted = true;
+    }
+
 
 
     /*Private methods and member variables*/
 
     // Initialize static pointers
     Engine* Engine::pInstance = nullptr;
-    Graphics::Window* Engine::mWindow = nullptr;
+    Graphics::Window* Engine::mWindow = new Graphics::Window();
 
     Engine::Engine() {
         pApp = nullptr;
+        mQuitExecuted = false;
     }
 
     int Engine::Initialize() {
@@ -74,10 +83,10 @@ namespace Richard {
         Tools::Logger::Initialize();
 
         // Window Initialization
-        mWindow = new Graphics::Window();
         if (mWindow->Initialize() < 0) {
             Tools::Logger::Error("Error initializing Window Manager. Shutting down engine.");
-            Shutdown(); // In case of an error, we need to clean up the SDL initialization
+            // In case of an error, we need to clean up the GLFW initialization
+            Shutdown();
             return E_INTIALIZE_WINDOW_FAIL;
         }
 
@@ -89,11 +98,13 @@ namespace Richard {
 
     void Engine::Update() {
         mWindow->HandleEvents();
+        mGameObjectManager.Update();
         pApp->Update();
     }
 
     void Engine::Render() {
         mWindow->BeginRender();
+        mGameObjectManager.Render();
         pApp->Render();
         mWindow->EndRender();
     }

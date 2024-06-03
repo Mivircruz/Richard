@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef KEYBOARD_H
+#define KEYBOARD_H
+
 namespace Richard::Input {
 	class Keyboard {
 	public:
@@ -266,3 +269,6 @@ namespace Richard::Input {
 #define 	KEY_RIGHT_SUPER   347
 
 #define 	KEY_MENU   348
+
+
+#endif

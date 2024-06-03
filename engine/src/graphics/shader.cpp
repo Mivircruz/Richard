@@ -1,21 +1,64 @@
 #include "Shader.h"
+
 #include "glad/glad.h"
+#include "glm/gtc/type_ptr.hpp"
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
 #include "tools/errorchecker.h"
 #include "tools/logger.h"
 
 namespace Richard::Graphics {
 	/*Public methods*/
 
-	Shader::Shader(const string& vertex, const string& fragment) {
+	Shader::Shader(const char* vertexPath, const char* fragmentPath) {
+		// Retrieve the vertex/fragment source code from filePath
+		std::string vertexCode;
+		std::string fragmentCode;
+		std::ifstream vShaderFile;
+		std::ifstream fShaderFile;
+
+		// Ensure ifstream objects can throw exceptions:
+		vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+		fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+		try {
+			// Open files
+			vShaderFile.open(vertexPath);
+			fShaderFile.open(fragmentPath);
+			std::stringstream vShaderStream, fShaderStream;
+
+			// Read file's buffer contents into streams
+			vShaderStream << vShaderFile.rdbuf();
+			fShaderStream << fShaderFile.rdbuf();
+
+			// Close file handlers
+			vShaderFile.close();
+			fShaderFile.close();
+
+			// Convert stream into string
+			vertexCode = vShaderStream.str();
+			fragmentCode = fShaderStream.str();
+		}
+		catch (std::ifstream::failure& e) {
+			(void)e;
+			string shaderMsg = "Shader could not read files. Error: ";
+			const char* errorMsg = e.what();
+			string logMsg = shaderMsg + errorMsg;
+			Tools::Logger::Error(logMsg);
+		}
+
 		// Create vertex shader
-		int vertexShaderId = CreateShader(vertex, "Vertex", GL_VERTEX_SHADER);
+		int vertexShaderId = CreateShader(vertexCode, "Vertex", GL_VERTEX_SHADER);
 		if (!vertexShaderId) {
 			Tools::Logger::Error("Shader creation failed. Error creating Vertex shader.");
 			return;
 		}
 
 		// Create fragment shader
-		int fragmentShaderId = CreateShader(fragment, "Fragment", GL_FRAGMENT_SHADER);
+		int fragmentShaderId = CreateShader(fragmentCode, "Fragment", GL_FRAGMENT_SHADER);
 		if (!fragmentShaderId) {
 			Tools::Logger::Error("Shader creation failed. Error creating Fragment shader");
 			return;
@@ -97,7 +140,27 @@ namespace Richard::Graphics {
 		glUniform4f(glGetUniformLocation(mShaderProgram, name.c_str()), value1, value2, value3, value4); RICHARD_CHECK_GL_ERROR;
 	}
 
+	void Shader::SetUniformFloat2(const string& name, const glm::vec2& values) {
+		SetUniformFloat2(name, values.x, values.y);
+	}
 
+	void Shader::SetUniformFloat3(const string& name, const glm::vec3& values) {
+		SetUniformFloat3(name, values.x, values.y, values.z);
+	}
+
+	void Shader::SetUniformFloat4(const string& name, const glm::vec4& values) {
+		SetUniformFloat4(name, values.x, values.y, values.z, values.w);
+	}
+
+	void Shader::SetUniformMat3(const string& name, const glm::mat3& matrix) {
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
+		glUniformMatrix3fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix)); RICHARD_CHECK_GL_ERROR
+	}
+
+	void Shader::SetUniformMat4(const string& name, const glm::mat4& matrix) {
+		glUseProgram(mShaderProgram); RICHARD_CHECK_GL_ERROR;
+		glUniformMatrix4fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix)); RICHARD_CHECK_GL_ERROR
+	}
 
 
 

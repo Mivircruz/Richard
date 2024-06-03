@@ -1,10 +1,21 @@
 #pragma once
 
+#ifndef RENDERER_H
+#define RENDERER_H
+
 #include "rendercommand.h"
 #include <memory>
 #include <queue>
 
 using namespace std;
+
+// Struct used to save background color
+typedef struct {
+	float r;
+	float g;
+	float b;
+	float a;
+} color_t;
 
 namespace Richard::Graphics {
 	class Renderer {
@@ -22,7 +33,7 @@ namespace Richard::Graphics {
 
 		/*
 		* Initialize() sets up the environment for the renderer to begin to receive and execute render commands.
-		* It also sets the window background color to the default color: violet.
+		* It also sets the window background color to the default color: black.
 		* It returns 0 in case of success or a non-zero value otherwise.
 		*/
 		int Initialize();
@@ -64,5 +75,12 @@ namespace Richard::Graphics {
 		* Queue with all the commands that will be executed in the rendering pipeline.
 		*/
 		queue<unique_ptr<Graphics::RenderCommand>> mRenderCommands;
+
+		/*
+		* Background color
+		*/
+		color_t mBackgroundColor;
 	};
 }
+
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef MAIN_H
+#define MAIN_H
+
 #include "core/engine.h"
 #include "application.h"
 
@@ -17,3 +20,5 @@ int main(void)
     delete app;
     return 0;
 }
+
+#endif

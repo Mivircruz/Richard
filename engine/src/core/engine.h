@@ -1,8 +1,12 @@
 #pragma once
 
+#ifndef ENGINE_H
+#define ENGINE_H
+
 #include "client/application.h"
 #include "graphics/window.h"
 #include "graphics/renderer.h"
+#include "physics/gameobjectmanager.h"
 #include "tools/logger.h"
 
 /*
@@ -35,6 +39,11 @@ namespace Richard {
         Graphics::Renderer* GetRenderer();
 
         /*
+        * GetGameObjectManager() returns the game object manager.
+        */
+        Physics::GameObjectManager* GetGameObjectManager();
+
+        /*
         * GetWindow() returns the window.
         */
         static Graphics::Window* GetWindow();
@@ -46,6 +55,11 @@ namespace Richard {
         * When this method returns, the game is over.
         */
         void Run(Application* app);
+
+        /*
+        * Quit() stops the game loop.
+        */
+        void Quit();
 
         /*
         * Methods deleted as this class is a Singleton
@@ -74,9 +88,19 @@ namespace Richard {
         Graphics::Renderer mRenderer;
 
         /*
+        * Manager that will update and render game objects.
+        */
+        Physics::GameObjectManager mGameObjectManager;
+
+        /*
         * Pointer to the client-defined application.
         */
         Application* pApp;
+
+        /*
+        * Indicates wether the execute methos was called or not.
+        */
+        bool mQuitExecuted;
 
         /*Methods*/
 
@@ -113,3 +137,5 @@ namespace Richard {
     };
 
 }
+
+#endif

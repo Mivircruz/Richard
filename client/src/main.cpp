@@ -1,95 +1,136 @@
 #include "client/main.h"
 
+#include <memory>
 #include <iostream>
+#include <vector>
 
 #include "client/application.h"
 #include "core/engine.h"
 #include "graphics/mesh.h"
-#include "graphics/rendertexture.h"
 #include "graphics/shader.h"
-#include "graphics/texture.h"
+#include "input/keyboard.h"
+#include "physics/gameobject.h"
+#include "tools/logger.h"
+
+#include "ball.h"
+#include "paddle.h"
 
 using namespace std;
 
-class ClientApp : public Richard::Application {
-    public:
-    
+class Pong : public Richard::Application {
+public:
+
+    Pong() {
+        Engine::GetInstance()->GetWindow()->SetSize(1000, 800);
+        mLeftPlayerPoints = 0;
+        mRightPlayerPoints = 0;
+        mPaddleTouches = 0;
+    }
+
     void Initialize() override {
-        std::cout << "ClientApp Initialize" << std::endl;
+        Tools::Logger::Info("Pong has started!");
 
-        //Define the shaders
-        const char *vertexShader = "#version 410 core\n"
-            "layout (location = 0) in vec3 aPos;\n"
-            "layout (location = 1) in vec3 aColor;\n"
-            "layout(location = 2) in vec2 aTexCoord;\n"
-            "out vec3 ourColor;\n"
-            "out vec2 TexCoord;\n"
-            "void main()\n"
-            "{\n"
-            "   gl_Position = vec4(aPos, 1.0);\n"
-            "   ourColor = aColor;\n"
-            "   TexCoord = aTexCoord;\n"
-            "}\0";
+        // Background color setup
+        Engine::GetInstance()->GetRenderer()->SetClearColor(2.0f / 255.0f, 97.0f / 255.0f, 53.0f / 255.0f, 1.0f);
 
-        const char* fragmentShader = "#version 410 core\n"
-            "out vec4 FragColor;\n"
-            "in vec3 ourColor;\n"
-            "in vec2 TexCoord;\n"
-            "uniform sampler2D ourTexture;\n"
-            "void main()\n"
-            "{\n"
-            "  FragColor = texture(ourTexture, TexCoord);\n"
-            "}\n\0";
+        // Paddle creation
+        pair <double, double> paddleSize(0.1, 0.3);
+        mLeftInitialPos = make_pair(-1.f, 0.f);
+        mRightInitialPos = make_pair(1.f, 0.f);
 
-        mShader = make_shared<Richard::Graphics::Shader>(vertexShader, fragmentShader);
+        mLeftPaddle = make_shared<Paddle>(mLeftInitialPos, paddleSize, KEY_W, KEY_S);
+        mRightPaddle = make_shared<Paddle>(mRightInitialPos, paddleSize, KEY_UP, KEY_DOWN);
 
-        // Define the square
-        float vertices[] = {
-            // positions          // colors           // texture coords
-             0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-             0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-            -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
-        };
+        // Ball creation
+        mBall = make_shared<Ball>(make_pair(0.f, 0.f), make_pair(0.075f, 0.1f));
 
-        uint32_t indices[]{
-            0, 1, 3, // first triangle
-            1, 2, 3  // second triangle
-        };
-
-        // Define the quad that will contain the image to load
-        float textureCoodinates[] = {
-            1.f, 1.f,
-            1.f, 0.f,
-            0.f, 0.f,
-            0.f, 1.f
-        };
-
-        mMesh = make_shared<Richard::Graphics::Mesh>(&vertices[0], 4, 3, 3, 2, &indices[0], 6);
-
-
-        // Define the texture
-        mTexture = make_shared<Richard::Graphics::Texture>("resources/poro.jpg");
+        Engine::GetInstance()->GetGameObjectManager()->Submit("leftPaddle", mLeftPaddle);
+        Engine::GetInstance()->GetGameObjectManager()->Submit("rightPaddle", mRightPaddle);
+        Engine::GetInstance()->GetGameObjectManager()->Submit("ball", mBall);
     }
 
     void Shutdown() override {
+        if (mLeftPlayerPoints == mRightPlayerPoints) {
+            Tools::Logger::Info("It was a tie!");
+        }
+        else {
+            std::string winner = (mLeftPlayerPoints < mRightPlayerPoints) ? "Right player" : "Left player";
+            Tools::Logger::Info("Game has finished! The winner is: " + winner);
+        }
     }
 
     void Update() override {
+        if (Input::Keyboard::IsKeyPressed(KEY_Q)) {
+            Engine::GetInstance()->Quit();
+            return;
+        }
+
+        HandlePaddleCollision();
+
+        HandleWallCollision();
+
+        // Every three ball touches, the ball accelerates a little bit
+        if(mPaddleTouches % 3 == 0 && mPaddleTouches != 0) {
+            mBall->IncreaseVelocity(1.00001);
+        }
     }
 
     void Render() override {
-        auto renderCommand = make_unique<Richard::Graphics::RenderTexture>(mMesh, mShader, mTexture);
-        Engine::GetInstance()->GetRenderer()->Submit(move(renderCommand));
-        Engine::GetInstance()->GetRenderer()->Execute();
     }
 
-    private:
-    shared_ptr<Richard::Graphics::Mesh> mMesh;
-    shared_ptr<Richard::Graphics::Shader> mShader;
-    shared_ptr < Richard::Graphics::Texture> mTexture;
+    void HandlePaddleCollision() {
+        bool isCollidingLeftPaddle = mLeftPaddle->IsCollidingWith(mBall);
+        bool isCollidingRightPaddle = mRightPaddle->IsCollidingWith(mBall);
+
+        if (!isCollidingLeftPaddle && !isCollidingRightPaddle) {
+            return;
+        }
+
+        pair<double, double> position;
+
+        if (isCollidingLeftPaddle) {
+            position = mLeftPaddle->GetPosition();
+        }
+        else if (isCollidingRightPaddle) {
+            position = mRightPaddle->GetPosition();
+        }
+
+        mBall->HandleCollision(position, mLeftPaddle->GetSize().second);
+        mPaddleTouches++;
+        return;
+    }
+
+    void HandleWallCollision() {
+        if (mBall->GetLeftEdge() <= -1.f || mBall->GetRightEdge() >= 1.f) {
+            AddPlayerPoints();
+            mPaddleTouches = 0;
+            mBall->Reset();
+            mLeftPaddle->SetPosition(mLeftInitialPos);
+            mRightPaddle->SetPosition(mRightInitialPos);
+        }
+    }
+
+    void AddPlayerPoints() {
+        if (mBall->GetLeftEdge() > 0) {
+            mLeftPlayerPoints++;
+        }
+        else {
+            mRightPlayerPoints++;
+        }
+        Tools::Logger::Info("Left player points: " + to_string(mLeftPlayerPoints));
+        Tools::Logger::Info("Right player points: " + to_string(mRightPlayerPoints));
+    }
+
+
+
+private:
+    shared_ptr<Ball> mBall;
+    shared_ptr<Paddle> mLeftPaddle, mRightPaddle;
+    pair <double, double> mLeftInitialPos, mRightInitialPos;
+    int mLeftPlayerPoints, mRightPlayerPoints;
+    int mPaddleTouches;
 };
 
 Richard::Application* CreateApplication() {
-    return new ClientApp();
+    return new Pong();
 }
