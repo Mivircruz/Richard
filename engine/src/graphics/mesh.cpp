@@ -13,12 +13,21 @@ namespace Richard::Graphics {
 
 		CreateVBO(vertexArray, vertexAmount * dimensions);
 
-		// Position attribute
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexAmount * dimensions * sizeof(float), (void*)0); RICHARD_CHECK_GL_ERROR;
+		// Map the VBO to an attribute for a shader to use
 		glEnableVertexAttribArray(0); RICHARD_CHECK_GL_ERROR;
 
-		// Once the buffers settings are done, unbind
+		// Specify how to interpret the VBO Data.
+		glVertexAttribPointer(0, (GLint)dimensions, GL_FLOAT, GL_FALSE, 0, 0); RICHARD_CHECK_GL_ERROR;
+
+		// Once the buffers settings are done, disable and unbind
+		glDisableVertexAttribArray(0); RICHARD_CHECK_GL_ERROR;
+		glBindBuffer(GL_ARRAY_BUFFER, 0); RICHARD_CHECK_GL_ERROR;
 		glBindVertexArray(0); RICHARD_CHECK_GL_ERROR;
+	}
+
+	Mesh::Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t dimensions, uint32_t* indexArray, uint32_t indexAmount)
+	: Mesh(vertexArray, vertexAmount, dimensions){
+		CreateEBO(indexArray, indexAmount);
 	}
 
 	Mesh::Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t posDimensions, uint32_t colorDimensions) {
@@ -28,23 +37,26 @@ namespace Richard::Graphics {
 
 		CreateVBO(vertexArray, vertexAmount * (posDimensions + colorDimensions));
 
+		uint32_t stride = (vertexAmount + colorDimensions) * sizeof(float);
+
 		// Position attribute
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexAmount * posDimensions * sizeof(float), (void*)0); RICHARD_CHECK_GL_ERROR;
+		glVertexAttribPointer(0, (GLint)posDimensions, GL_FLOAT, GL_FALSE, stride, 0); RICHARD_CHECK_GL_ERROR;
 		glEnableVertexAttribArray(0); RICHARD_CHECK_GL_ERROR;
 
 		// Color attribute
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertexAmount * colorDimensions * sizeof(float), (void*)(posDimensions * sizeof(float))); RICHARD_CHECK_GL_ERROR;
+		glVertexAttribPointer(1, (GLint)colorDimensions, GL_FLOAT, GL_FALSE, stride, (void*)(posDimensions * sizeof(float))); RICHARD_CHECK_GL_ERROR;
 		glEnableVertexAttribArray(1); RICHARD_CHECK_GL_ERROR;
-
+		
 		// Once the buffers settings are done, unbind
 		glBindVertexArray(0); RICHARD_CHECK_GL_ERROR;
 	}
 
-	/*
-	* RAI is used to set this up. RAI stands for Resource Acquisition Initialization.
-	* This means that the lifetime of this mesh object is going to define the data,
-	* so when this object dies, so does the data.
-	*/
+
+	Mesh::Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t posDimensions, uint32_t colorDimensions, uint32_t* indexArray, uint32_t indexAmount)
+	: Mesh(vertexArray, vertexAmount, posDimensions, colorDimensions) {
+		CreateEBO(indexArray, indexAmount);
+	}
+
 	Mesh::Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t posDimensions, uint32_t colorDimensions, uint32_t textureDimensions) {
 		mVertexAmount = vertexAmount;
 
@@ -52,17 +64,18 @@ namespace Richard::Graphics {
 
 		CreateVBO(vertexArray, vertexAmount * (posDimensions + colorDimensions + textureDimensions));
 
+		uint32_t stride = (posDimensions + colorDimensions + textureDimensions) * sizeof(float);
+
 		// Position attribute
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, (posDimensions + colorDimensions + textureDimensions) * sizeof(float), (void*)0); RICHARD_CHECK_GL_ERROR;
+		glVertexAttribPointer(0, posDimensions, GL_FLOAT, GL_FALSE, stride, (void*)0); RICHARD_CHECK_GL_ERROR;
 		glEnableVertexAttribArray(0); RICHARD_CHECK_GL_ERROR;
 
 		// Color attribute
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, (posDimensions + colorDimensions + textureDimensions) * sizeof(float), (void*)(posDimensions * sizeof(float))); RICHARD_CHECK_GL_ERROR;
+		glVertexAttribPointer(1, colorDimensions, GL_FLOAT, GL_FALSE, stride, (void*)(posDimensions * sizeof(float))); RICHARD_CHECK_GL_ERROR;
 		glEnableVertexAttribArray(1); RICHARD_CHECK_GL_ERROR;
 
-
 		// Texture coord attribute
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, (posDimensions + colorDimensions + textureDimensions) * sizeof(float), (void*)((posDimensions + colorDimensions) * sizeof(float)));
+		glVertexAttribPointer(2, textureDimensions, GL_FLOAT, GL_FALSE, stride, (void*)((posDimensions + colorDimensions) * sizeof(float)));
 		glEnableVertexAttribArray(2);
 
 		// Once the buffers settings are done, unbind
@@ -71,20 +84,7 @@ namespace Richard::Graphics {
 
 	Mesh::Mesh(float* vertexArray, uint32_t vertexAmount, uint32_t posDimensions, uint32_t colorDimensions, uint32_t textureDimensions, uint32_t* indexArray, uint32_t indexAmount)
 		: Mesh(vertexArray, vertexAmount, posDimensions, colorDimensions, textureDimensions) {
-		mIndexAmount = indexAmount;
-
-		// Bind the VAO so the EBO can be added to it
-		glBindVertexArray(mVAO); RICHARD_CHECK_GL_ERROR; RICHARD_CHECK_GL_ERROR;
-
-		// Generate the Element Bufffer Object and make it active
-		glGenBuffers(1, &mEBO); RICHARD_CHECK_GL_ERROR;
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO); RICHARD_CHECK_GL_ERROR;
-
-		// Upload the data from the CPU to the GPU so it can be used for rendering
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexAmount * sizeof(uint32_t), indexArray, GL_STATIC_DRAW); RICHARD_CHECK_GL_ERROR;
-
-		// Once the buffers settings are done, unbind
-		glBindVertexArray(0); RICHARD_CHECK_GL_ERROR;
+		CreateEBO(indexArray, indexAmount);
 	}
 
 	Mesh::~Mesh() {
@@ -97,6 +97,7 @@ namespace Richard::Graphics {
 
 	void Mesh::Bind() {
 		glBindVertexArray(mVAO); RICHARD_CHECK_GL_ERROR;
+		glEnableVertexAttribArray(0); RICHARD_CHECK_GL_ERROR;
 	}
 
 	void Mesh::Unbind() {
@@ -128,5 +129,21 @@ namespace Richard::Graphics {
 
 		// Upload the data from the CPU to the GPU so it can be used for rendering
 		glBufferData(GL_ARRAY_BUFFER, dimensions * sizeof(float), vertexArray, GL_STATIC_DRAW); RICHARD_CHECK_GL_ERROR;
+	}
+	void Mesh::CreateEBO(uint32_t* indexArray, uint32_t indexAmount) {
+		mIndexAmount = indexAmount;
+
+		// Bind the VAO so the EBO can be added to it
+		glBindVertexArray(mVAO); RICHARD_CHECK_GL_ERROR; RICHARD_CHECK_GL_ERROR;
+
+		// Generate the Element Bufffer Object and make it active
+		glGenBuffers(1, &mEBO); RICHARD_CHECK_GL_ERROR;
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO); RICHARD_CHECK_GL_ERROR;
+
+		// Upload the data from the CPU to the GPU so it can be used for rendering
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexAmount * sizeof(uint32_t), indexArray, GL_STATIC_DRAW); RICHARD_CHECK_GL_ERROR;
+
+		// Once the buffers settings are done, unbind
+		glBindVertexArray(0); RICHARD_CHECK_GL_ERROR;
 	}
 }

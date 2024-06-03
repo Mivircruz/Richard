@@ -27,9 +27,12 @@ namespace Richard::Graphics {
 	}
 
 	void Renderer::Clear() {
+		if (!mRenderCommands.empty()) {
+			Tools::Logger::Warning("Non-executed commands in queue. Clean will delete them.");
+		}
+
 		// Empty the command queue so the new frames can be fresh
 		while (!mRenderCommands.empty()) {
-			Tools::Logger::Warning("Non-executed commands in queue. Clean will delete them.");
 			mRenderCommands.pop();
 		}
 

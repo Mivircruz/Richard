@@ -4,6 +4,7 @@
 #define SHADER_H
 
 #include <string>
+#include "glm/glm.hpp"
 
 using namespace std;
 
@@ -59,6 +60,13 @@ namespace Richard::Graphics {
 		void SetUniformFloat2(const string& name, float value1, float value2);
 		void SetUniformFloat3(const string& name, float value1, float value2, float value3);
 		void SetUniformFloat4(const string& name, float value1, float value2, float value3, float value4);
+
+		void SetUniformFloat2(const string& name, const glm::vec2& values);
+		void SetUniformFloat3(const string& name, const glm::vec3& values);
+		void SetUniformFloat4(const string& name, const glm::vec4& values);
+
+		void SetUniformMat3(const string& name, const glm::mat3& matrix);
+		void SetUniformMat4(const string& name, const glm::mat4& matrix);
 
 
 

@@ -24,6 +24,10 @@ namespace Richard {
         return &mRenderer;
     }
 
+    Physics::GameObjectManager* Engine::GetGameObjectManager() {
+        return &mGameObjectManager;
+    }
+
     Graphics::Window* Engine::GetWindow() {
         return mWindow;
     }
@@ -48,13 +52,17 @@ namespace Richard {
         pApp->Initialize();
 
         // Start game loop
-        while (!mWindow->WindowShouldClose()) {
+        while (!mWindow->WindowShouldClose() && !mQuitExecuted) {
             Update();
             Render();
         }
         
         // Shutdown all the managers and quit SDL2
         Shutdown();
+    }
+
+    void Engine::Quit() {
+        mQuitExecuted = true;
     }
 
 
@@ -67,6 +75,7 @@ namespace Richard {
 
     Engine::Engine() {
         pApp = nullptr;
+        mQuitExecuted = false;
     }
 
     int Engine::Initialize() {
@@ -89,11 +98,13 @@ namespace Richard {
 
     void Engine::Update() {
         mWindow->HandleEvents();
+        mGameObjectManager.Update();
         pApp->Update();
     }
 
     void Engine::Render() {
         mWindow->BeginRender();
+        mGameObjectManager.Render();
         pApp->Render();
         mWindow->EndRender();
     }
