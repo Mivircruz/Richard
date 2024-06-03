@@ -14,15 +14,24 @@ Richard Engine is a game engine designed to build 2D singleplayer games
         <a href="#getting-started">Getting started</a>
         <ul>
             <li><a href="#prerequisites">Prerequisites</a></li>
-            <li><a href="#installation">Installation</a></li>
         </ul>
     </li>
     <li>
         <a href="#usage">Usage</a>
         <ul>
-            <li><a href="#command-list">Command list</a></li>
+            <li><a href="#linking">Linking</a></li>
+        </ul>
+        <ul>
+            <li><a href="#start coding">Start coding</a></li>
+        </ul>
+        <ul>
+            <li><a href="#glm">GLM</a></li>
+        </ul>
+         <ul>
+            <li><a href="#examples">Examples</a></li>
         </ul>
     </li>
+    <li><a href="#User manual">User manual</a></li>
     <li><a href="#license">License</a></li>
 </ol>
 
@@ -93,6 +102,20 @@ On the client, we will add the engine code in the include directories:
 ### Start coding
 
 The new VS solution that will use Richard Engine needs to implement the application.h interface. Once implemented, you can use it to create your game.
+
+### GLM
+
+GLM (OpenGL Mathematics) is a C++ library designed for use with OpenGL (although it can be used independently of OpenGL as well) to provide various mathematical functionalities commonly needed in computer graphics programming.
+
+It is inside the dependencies folder and it can be included in the client's proyect to manipulate matrices, make complex mathematical operations, etc.
+
+### Examples
+
+Some examples were provided. They are inside the examples.zip at the root of this proyect.
+
+## User manual
+
+[User manual](https://www.overleaf.com/project/664425fb0872afc4e79e2721)
 
 ## License
 
