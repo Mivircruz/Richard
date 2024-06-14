@@ -1,4 +1,9 @@
 ﻿  engine.cpp
+  mesh.cpp
+  renderer.cpp
+  rendermesh.cpp
+  rendertexture.cpp
+  shader.cpp
   window.cpp
   keyboard.cpp
   mouse.cpp

@@ -41,7 +41,7 @@ void Ball::Render() {
 
 void Ball::Update() {
 	if (Input::Keyboard::IsKeyPressed(KEY_C) && mVelocity.first == 0.f && mVelocity.second == 0.f) {
-		mVelocity = make_pair(0.00035f, 0.00035f);
+		mVelocity = make_pair(0.007f, 0.007f);
 		return;
 	}
 
